@@ -1,0 +1,55 @@
+# Discord settings
+discord:
+  # Discord webhook URL
+  # To create a webhook, see https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
+  # See https://discordapp.com/developers/docs/resources/webhook for more information.
+  webhook-url: ''
+
+  # This is an important field should you be using our built-in discord bot for two-way communication
+  # This isn't the focus
+  token: ''
+
+
+
+# Server-Specific Options
+server:
+
+  # Server name is used in the %server_name% placeholder.
+  server-name: 'HiberniaDiscord'
+
+  # Server prefix. Useful if you have multiple servers connected into the same channel.
+  # %server_name% is the only non-placeholderAPI optioon here. Leave this empty to disable it.
+  prefix: ''
+
+  # Avatar used for non-chat messages and warnings.
+  server-icon: 'https://paradaux.co/hiberniadiscord/default_servericon.png'
+
+# Avatar API, for changing the Discord avatar per player
+avatar:
+
+  # By default we use craftar but you can switch these options to use whichever you like. Ask in the discord for support with this.
+  url: 'https://crafatar.com/renders/head/'
+
+  # Url modifiers.
+  options: 'size=10&overlay'
+
+# When true, logs some extra output to the console so you can see if/why things might be failing
+debug: false
+
+# The following section toggles individual message updates when said events occur.
+events:
+
+  # We strongly suggest updating server-icon under the server section as this will be the avatar used for these events.
+  # If these sections are blank they will be considered disabled. %player% and %server_name% are the only valid placeholders without PlaceholderAPI
+  player-join: '%server_name% » %player% has joined the game.'
+  player-leave: 'Server Event » %player% has left the game.'
+  server-startup: '%server_name% has started.'
+
+update:
+  # Whether or not to automatically check for updates and notify the console if found
+  check: true
+  # Whether or not to notify players with the hdiscord.admin permission node
+  notify: true
+
+# Config version, no touchy plz
+version: 2.2

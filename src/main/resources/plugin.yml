@@ -1,0 +1,6 @@
+version: 2.1.0
+name: HiberniaDiscord
+main: co.paradaux.hdiscord.BukkitBootstrap
+author: Paradaux
+api-version: 1.13
+description: Minecraft Chat integration for Discord. Built for HiberniaMC.com
