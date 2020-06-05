@@ -1,4 +1,4 @@
-# HiberniaDiscord v2.2.0: Next Step.
+# io.paradaux.hiberniadiscord.HiberniaDiscord v2.2.0: Next Step.
 
 Currently preparing for v2.2.0 which will further improve on our dependency injection methods as well as fix any bugs present in 2.1.0
 
@@ -10,8 +10,8 @@ Installing and configuring the plugin was made as easy as possible. We are not D
 
 As of the time of writing this there are no current external libraries used.
 
-1.  :: Download the latest copy of HiberniaDiscord from the releases page.
-2.  :: Move HiberniaDiscord.jar into your plugins folder
+1.  :: Download the latest copy of io.paradaux.hiberniadiscord.HiberniaDiscord from the releases page.
+2.  :: Move io.paradaux.hiberniadiscord.HiberniaDiscord.jar into your plugins folder
 3.  :: Restart (Do *Not* Reload) your server to generate the necessary configuration files.
 4.  :: Configure the plugin to use your webhook. 
 

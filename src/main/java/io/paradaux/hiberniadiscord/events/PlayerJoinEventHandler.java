@@ -1,25 +1,22 @@
-package co.paradaux.hdiscord.events;
+package io.paradaux.hiberniadiscord.events;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
-import co.paradaux.hdiscord.core.CachedConfigValues;
-import co.paradaux.hdiscord.hooks.PlaceholderAPIHook;
-import java.util.Optional;
-import java.util.function.Consumer;
+import io.paradaux.hiberniadiscord.hooks.PlaceholderAPIHook;
 import ninja.egg82.service.ServiceLocator;
 import ninja.egg82.service.ServiceNotFoundException;
 import org.bukkit.ChatColor;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AsyncPlayerChatHandler implements Consumer<AsyncPlayerChatEvent> {
+import java.util.Optional;
+import java.util.function.Consumer;
+
+public class PlayerJoinEventHandler implements Consumer<PlayerJoinEvent> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public AsyncPlayerChatHandler() {}
-
-    public void accept(AsyncPlayerChatEvent event) {
+    public void accept(PlayerJoinEvent event) {
         Optional<PlaceholderAPIHook> placeholderapi;
         Optional<WebhookClient> discordClient;
         CachedConfigValues cachedConfig;
@@ -49,16 +46,19 @@ public class AsyncPlayerChatHandler implements Consumer<AsyncPlayerChatEvent> {
             return;
         }
 
-        String strippedDisplayName = ChatColor.stripColor(event.getPlayer().getDisplayName());
+        if(cachedConfig.getJoinEventMsg() == "") { return; }
+
+        String strippedDisplayName =  ChatColor.stripColor(cachedConfig.getJoinEventMsg().replace("%player%", event.getPlayer().getDisplayName()));
 
         WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
-        messageBuilder.setAvatarUrl(cachedConfig.getAvatarURL() + event.getPlayer().getUniqueId() + cachedConfig.getAvatarOptions());
-        messageBuilder.setUsername(strippedDisplayName);
+        messageBuilder.setAvatarUrl(cachedConfig.getServerIcon());
+        messageBuilder.setContent("\u200B");
 
         if (placeholderapi.isPresent()) {
-            messageBuilder.setContent(placeholderapi.get().withPlaceholders(event.getPlayer(), event.getMessage()));
+            String stipppedPlaceholderAPIName = ChatColor.stripColor(placeholderapi.get().withPlaceholders(event.getPlayer(), cachedConfig.getJoinEventMsg().replace("%player%", "%player_displayname%")));
+            messageBuilder.setUsername(stipppedPlaceholderAPIName);
         } else {
-            messageBuilder.setContent(event.getMessage());
+            messageBuilder.setUsername(strippedDisplayName);
         }
 
         if (cachedConfig.getDebug()) {
@@ -79,4 +79,12 @@ public class AsyncPlayerChatHandler implements Consumer<AsyncPlayerChatEvent> {
             }
         });
     }
+
+    private int addition(int a, int b) {
+        return a + b;
+    }
+
+    // Returns 15
+    int sum = addition(5, 10);
+
 }

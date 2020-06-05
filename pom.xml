@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>co.paradux</groupId>
-    <artifactId>HiberniaDiscord</artifactId>
+    <groupId>io.paradux</groupId>
+    <artifactId>hiberniadiscord</artifactId>
     <version>2.1.1</version>
 
     <build>
@@ -68,32 +68,14 @@
             <id>papermc</id>
             <url>https://papermc.io/repo/repository/maven-public/</url>
         </repository>
-        <!--<repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>-->
-
-        <repository>
-            <id>egg82-ninja</id>
-            <url>https://www.myget.org/F/egg82-java/maven/</url>
-        </repository>
         <repository>
             <id>aikar</id>
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
         <repository>
-            <id>sponge</id>
-            <url>https://repo.spongepowered.org/maven/</url>
-        </repository>
-        <repository>
             <id>bintray-jcenter</id>
             <url>https://jcenter.bintray.com</url>
         </repository>
-        <repository>
-            <id>github-rjenkinsjr</id>
-            <url>https://raw.github.com/rjenkinsjr/maven2/repo</url>
-        </repository>
-
         <repository>
             <id>placeholderapi</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
@@ -101,12 +83,6 @@
     </repositories>
 
     <dependencies>
-        <!--<dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
-            <version>1.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>-->
         <dependency>
             <groupId>com.destroystokyo.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -115,59 +91,10 @@
         </dependency>
 
         <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>service-locator</artifactId>
-            <version>1.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>co.aikar</groupId>
             <artifactId>taskchain-bukkit</artifactId>
             <version>3.7.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>co.aikar</groupId>
-            <artifactId>acf-paper</artifactId>
-            <version>0.5.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>event-chain-bukkit</artifactId>
-            <version>1.0.9</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>spigot-updater</artifactId>
-            <version>1.0.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>dep-downloader</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.spongepowered</groupId>
-            <artifactId>configurate-core</artifactId>
-            <version>3.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.spongepowered</groupId>
-            <artifactId>configurate-yaml</artifactId>
-            <version>3.6</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ninja.egg82</groupId>
-            <artifactId>abstract-configuration</artifactId>
-            <version>1.0.1</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -178,28 +105,10 @@
         </dependency>
 
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.26</version>
-        </dependency>
-        <dependency>
-            <groupId>info.ronjenkins</groupId>
-            <artifactId>slf4bukkit</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>club.minnced</groupId>
             <artifactId>discord-webhooks</artifactId>
-            <version>0.1.7</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.5.0-M1</version>
-            <scope>test</scope>
+            <version>0.3.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>

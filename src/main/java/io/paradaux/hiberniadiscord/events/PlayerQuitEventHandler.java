@@ -1,23 +1,22 @@
-package co.paradaux.hdiscord.events;
+package io.paradaux.hiberniadiscord.events;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
-import co.paradaux.hdiscord.core.CachedConfigValues;
-import co.paradaux.hdiscord.hooks.PlaceholderAPIHook;
+import io.paradaux.hiberniadiscord.hooks.PlaceholderAPIHook;
 import ninja.egg82.service.ServiceLocator;
 import ninja.egg82.service.ServiceNotFoundException;
 import org.bukkit.ChatColor;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 
-public class PlayerJoinEventHandler implements Consumer<PlayerJoinEvent> {
+public class PlayerQuitEventHandler implements Consumer<PlayerQuitEvent> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void accept(PlayerJoinEvent event) {
+    public void accept(PlayerQuitEvent event) {
         Optional<PlaceholderAPIHook> placeholderapi;
         Optional<WebhookClient> discordClient;
         CachedConfigValues cachedConfig;
@@ -28,6 +27,8 @@ public class PlayerJoinEventHandler implements Consumer<PlayerJoinEvent> {
             logger.error(ex.getMessage(), ex);
             return;
         }
+
+        if(cachedConfig.getLeaveEventMsg() == "") { return; }
 
         try {
             placeholderapi = ServiceLocator.getOptional(PlaceholderAPIHook.class);
@@ -47,16 +48,14 @@ public class PlayerJoinEventHandler implements Consumer<PlayerJoinEvent> {
             return;
         }
 
-        if(cachedConfig.getJoinEventMsg() == "") { return; }
-
-        String strippedDisplayName =  ChatColor.stripColor(cachedConfig.getJoinEventMsg().replace("%player%", event.getPlayer().getDisplayName()));
+        String strippedDisplayName =  ChatColor.stripColor(cachedConfig.getLeaveEventMsg().replace("%player%", event.getPlayer().getDisplayName()));
 
         WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
         messageBuilder.setAvatarUrl(cachedConfig.getServerIcon());
         messageBuilder.setContent("\u200B");
 
         if (placeholderapi.isPresent()) {
-            String stipppedPlaceholderAPIName = ChatColor.stripColor(placeholderapi.get().withPlaceholders(event.getPlayer(), cachedConfig.getJoinEventMsg().replace("%player%", "%player_displayname%")));
+            String stipppedPlaceholderAPIName = ChatColor.stripColor(placeholderapi.get().withPlaceholders(event.getPlayer(), cachedConfig.getLeaveEventMsg().replace("%player%", "%player_displayname%")));
             messageBuilder.setUsername(stipppedPlaceholderAPIName);
         } else {
             messageBuilder.setUsername(strippedDisplayName);
@@ -80,12 +79,4 @@ public class PlayerJoinEventHandler implements Consumer<PlayerJoinEvent> {
             }
         });
     }
-
-    private int addition(int a, int b) {
-        return a + b;
-    }
-
-    // Returns 15
-    int sum = addition(5, 10);
-
 }

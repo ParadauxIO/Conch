@@ -1,9 +1,9 @@
-package co.paradaux.hdiscord.events;
+package io.paradaux.hiberniadiscord.events;
 
-import co.paradaux.hdiscord.core.Configuration;
-import co.paradaux.hdiscord.utils.LogUtil;
+import io.paradaux.hiberniadiscord.utils.LogUtil;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
+
 import ninja.egg82.service.ServiceLocator;
 import ninja.egg82.service.ServiceNotFoundException;
 import ninja.egg82.updater.SpigotUpdater;

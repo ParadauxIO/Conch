@@ -1,19 +1,15 @@
-package co.paradaux.hdiscord;
+package io.paradaux.hiberniadiscord;
 
 import co.aikar.commands.PaperCommandManager;
 import co.aikar.commands.RegisteredCommand;
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
-import co.paradaux.hdiscord.commands.DiscordCommand;
-import co.paradaux.hdiscord.core.Configuration;
-import co.paradaux.hdiscord.events.PlayerJoinEventHandler;
-import co.paradaux.hdiscord.events.PlayerLoginUpdateNotifyHandler;
-import co.paradaux.hdiscord.events.PlayerQuitEventHandler;
-import co.paradaux.hdiscord.hooks.PlaceholderAPIHook;
-import co.paradaux.hdiscord.hooks.PluginHook;
+import io.paradaux.hiberniadiscord.events.PlayerJoinEventHandler;
+import io.paradaux.hiberniadiscord.events.PlayerLoginUpdateNotifyHandler;
+import io.paradaux.hiberniadiscord.events.PlayerQuitEventHandler;
+import io.paradaux.hiberniadiscord.hooks.PlaceholderAPIHook;
 import co.paradaux.hdiscord.utils.ConfigurationFileUtil;
-import co.paradaux.hdiscord.utils.LogUtil;
-import co.paradaux.hdiscord.utils.ServiceUtil;
+import io.paradaux.hiberniadiscord.utils.LogUtil;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.SetMultimap;
 
@@ -23,6 +19,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
+import io.paradaux.hiberniadiscord.events.AsyncPlayerChatHandler;
 import ninja.egg82.events.BukkitEventSubscriber;
 import ninja.egg82.events.BukkitEvents;
 import ninja.egg82.service.ServiceLocator;
@@ -38,14 +36,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
-import co.paradaux.hdiscord.events.AsyncPlayerChatHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Main {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    private ExecutorService workPool = Executors.newFixedThreadPool(1, new ThreadFactoryBuilder().setNameFormat("HiberniaDiscord-%d").build());
+    private ExecutorService workPool = Executors.newFixedThreadPool(1, new ThreadFactoryBuilder().setNameFormat("io.paradaux.hiberniadiscord.HiberniaDiscord-%d").build());
 
     private TaskChainFactory taskFactory;
     private PaperCommandManager commandManager;

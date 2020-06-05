@@ -1,23 +1,24 @@
-package co.paradaux.hdiscord.events;
+package io.paradaux.hiberniadiscord.events;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
-import co.paradaux.hdiscord.core.CachedConfigValues;
-import co.paradaux.hdiscord.hooks.PlaceholderAPIHook;
+import io.paradaux.hiberniadiscord.hooks.PlaceholderAPIHook;
+import java.util.Optional;
+import java.util.function.Consumer;
 import ninja.egg82.service.ServiceLocator;
 import ninja.egg82.service.ServiceNotFoundException;
 import org.bukkit.ChatColor;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Optional;
-import java.util.function.Consumer;
-
-public class PlayerQuitEventHandler implements Consumer<PlayerQuitEvent> {
+public class AsyncPlayerChatHandler implements Consumer<AsyncPlayerChatEvent> {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void accept(PlayerQuitEvent event) {
+    public AsyncPlayerChatHandler() {}
+
+    public void accept(AsyncPlayerChatEvent event) {
         Optional<PlaceholderAPIHook> placeholderapi;
         Optional<WebhookClient> discordClient;
         CachedConfigValues cachedConfig;
@@ -28,8 +29,6 @@ public class PlayerQuitEventHandler implements Consumer<PlayerQuitEvent> {
             logger.error(ex.getMessage(), ex);
             return;
         }
-
-        if(cachedConfig.getLeaveEventMsg() == "") { return; }
 
         try {
             placeholderapi = ServiceLocator.getOptional(PlaceholderAPIHook.class);
@@ -49,17 +48,16 @@ public class PlayerQuitEventHandler implements Consumer<PlayerQuitEvent> {
             return;
         }
 
-        String strippedDisplayName =  ChatColor.stripColor(cachedConfig.getLeaveEventMsg().replace("%player%", event.getPlayer().getDisplayName()));
+        String strippedDisplayName = ChatColor.stripColor(event.getPlayer().getDisplayName());
 
         WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
-        messageBuilder.setAvatarUrl(cachedConfig.getServerIcon());
-        messageBuilder.setContent("\u200B");
+        messageBuilder.setAvatarUrl(cachedConfig.getAvatarURL() + event.getPlayer().getUniqueId() + cachedConfig.getAvatarOptions());
+        messageBuilder.setUsername(strippedDisplayName);
 
         if (placeholderapi.isPresent()) {
-            String stipppedPlaceholderAPIName = ChatColor.stripColor(placeholderapi.get().withPlaceholders(event.getPlayer(), cachedConfig.getLeaveEventMsg().replace("%player%", "%player_displayname%")));
-            messageBuilder.setUsername(stipppedPlaceholderAPIName);
+            messageBuilder.setContent(placeholderapi.get().withPlaceholders(event.getPlayer(), event.getMessage()));
         } else {
-            messageBuilder.setUsername(strippedDisplayName);
+            messageBuilder.setContent(event.getMessage());
         }
 
         if (cachedConfig.getDebug()) {

@@ -1,4 +1,4 @@
-package co.paradaux.hdiscord.events;
+package io.paradaux.hiberniadiscord.events;
 
 import org.bukkit.event.server.ServerLoadEvent;
 
