@@ -33,6 +33,11 @@ events:
     enabled: true
     format: '%server_name% » %player% has left the game.'
 
+  # Advancement (Achievement) Completed event.
+  advancement-completed:
+    enabled: true
+    format: '%player% has completed %advancement_name%'
+
   # Occurs when the server loads the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-startup:
     enabled: true
