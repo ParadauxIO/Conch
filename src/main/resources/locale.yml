@@ -1,0 +1,5 @@
+# Thanks for using HiberniaDiscord. Here you will find the default (English_IE) locale for HiberniaDiscord
+# The Locale only concerns command feedback, such as /discord and /hiberniadiscord, allowing you to customize responses.
+
+severe-messages:
+  old-version-config: "You were running an old version. Large configuration changes occurred between v2.1.X and v2.2.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."

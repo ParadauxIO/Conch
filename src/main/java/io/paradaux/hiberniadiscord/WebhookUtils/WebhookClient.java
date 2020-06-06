@@ -10,6 +10,7 @@ import java.util.logging.Level;
 
 public class WebhookClient {
     WebhookClientBuilder builder;
+    club.minnced.discord.webhook.WebhookClient client;
     String webhookURL;
 
     public WebhookClient(String webhookURL) {
@@ -17,7 +18,18 @@ public class WebhookClient {
             builder = new WebhookClientBuilder(webhookURL);
         } else {
             HiberniaDiscord.getMainLogger().log(Level.SEVERE, "Invalid Webhook supplied. Please check the configuration file, is it valid? \n If this is the first time you're running the plugin please configure the webhook field.");
+            return;
         }
+
+        builder.setThreadFactory((job) -> {
+            Thread thread = new Thread(job);
+            thread.setName("Chat Webhook");
+            thread.setDaemon(true);
+            return thread;
+        });
+
+        builder.setWait(true);
+        client = builder.build();
     }
 
     public WebhookClientBuilder getBuilder() {

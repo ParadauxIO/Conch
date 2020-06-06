@@ -14,6 +14,14 @@ discord:
 # Server-Specific Options
 server:
 
+
+
+  # Response given in /discord. Use this to invite your users to your discord server.
+  # Each line represents a new line sent to the user. Colour codes are supported.
+  discord-message:
+    - "&7Feel free to &cjoin&7 our &9discord &7server!"
+    - "https://paradaux.io/discord"
+
   # Server name is used in the %server_name% placeholder.
   server-name: 'Server'
 

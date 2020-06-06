@@ -4,3 +4,12 @@ main: io.paradaux.hiberniadiscord
 author: Paradaux
 api-version: 1.13
 description: Minecraft Chat integration for Discord. Made in Ireland.
+commands:
+  discord:
+    description: Gives an invite to your discord server
+    aliases: []
+    usage: /discord
+  hiberniadiscord:
+    description: Plugin version / developer information. <reload> reloads plugin configuration.
+    aliases: [hdiscord]
+    usage: /hiberniadiscord <reload>
