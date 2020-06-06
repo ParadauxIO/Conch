@@ -4,6 +4,7 @@ main: io.paradaux.hiberniadiscord
 author: Paradaux
 api-version: 1.13
 description: Minecraft Chat integration for Discord. Made in Ireland.
+softdepend: [PlaceholderAPI]
 commands:
   discord:
     description: Gives an invite to your discord server

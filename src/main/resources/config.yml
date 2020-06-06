@@ -1,53 +1,51 @@
-# Discord settings
+# Thank you for using HiberniaDiscord by Paradaux.io
+# Should you run into issues, feel free to pop into my discord server @ https://paradaux.io/discord
+# Additional Configuration is available in locale.yml (be sure to change the response of /discord to that of your server)
+
 discord:
   # Discord webhook URL
   # To create a webhook, see https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-  # See https://discordapp.com/developers/docs/resources/webhook for more information.
   webhook-url: ''
 
-  # This is an important field should you be using our built-in discord bot for two-way communication
-  # This isn't the focus
-  token: ''
-
-
-
-# Server-Specific Options
-server:
-
-
-
-  # Response given in /discord. Use this to invite your users to your discord server.
-  # Each line represents a new line sent to the user. Colour codes are supported.
-  discord-message:
-    - "&7Feel free to &cjoin&7 our &9discord &7server!"
-    - "https://paradaux.io/discord"
-
-  # Server name is used in the %server_name% placeholder.
-  server-name: 'Server'
-
-  # Server prefix. Useful if you have multiple servers connected into the same channel.
-  # %server_name% is the only non-placeholderAPI option here. Leave this empty to disable it.
-  prefix: ''
-
-  # Avatar used for non-chat messages and warnings.
-  server-icon: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
+# Server name is used in the %server_name% placeholder. T
+server-name: 'Server'
 
 # Avatar API, for changing the Discord avatar per player
-avatar:
-
-  # By default we use crafatar but you can switch these options to use whichever you like. Ask in the discord for support with this.
-  # %uuid% will be replaced with the user's uuid.
-  url: 'https://crafatar.com/renders/head/%uuid%size=10&overlay'
+# By default we use crafatar but you can switch these options to use whichever you like. Ask in the discord for support with this.
+# %uuid% will be replaced with the user's uuid.
+avatar-api: 'https://crafatar.com/renders/head/%uuid%size=10&overlay'
 
 # The following section toggles individual message updates when said events occur.
 events:
 
-  # We strongly suggest updating server-icon under the server section as this will be the avatar used for these events.
-  # If these sections are blank they will be considered disabled. %player% and %server_name% are the only valid placeholders without PlaceholderAPI
-  player-join: '%server_name% » %player% has joined the game.'
-  player-leave: '%server_name% » %player% has left the game.'
-  server-startup: '%server_name% has started.'
-  server-shutdown: '%sever_name% has stopped.'
+  # Occurs when a message is sent in chat.
+  chat-message:
+    enabled: true
+    format: ''
+
+  # Occurs when a player joins the server. Player-specific Placeholders from PlaceholderAPI are supported here.
+  player-join:
+    enabled: true
+    format: '%server_name% » %player% has joined the game.'
+
+  # Occurs when a player leaves the server. Player-specific Placeholders from PlaceholderAPI are supported here.
+  player-leave:
+    enabled: true
+    format: '%server_name% » %player% has left the game.'
+
+  # Occurs when the server loads the plugin. Placeholders from PlaceholderAPI are NOT supported here.
+  server-startup:
+    enabled: true
+    avatar-icon: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
+    format: '%server_name% has started.'
+
+  # Occurs when the server disables the plugin. Placeholders from PlaceholderAPI are NOT supported here.
+  server-shutdown:
+    enabled: true
+    avatar-icon: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
+    format: '%sever_name% has stopped.'
+
+
 
 update:
   # Whether or not to automatically check for updates and notify the console if found

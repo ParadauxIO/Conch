@@ -1,5 +1,39 @@
 # Thanks for using HiberniaDiscord. Here you will find the default (English_IE) locale for HiberniaDiscord
 # The Locale only concerns command feedback, such as /discord and /hiberniadiscord, allowing you to customize responses.
+# If you would like to create an official language translation which would be shipped with the plugin please contact me. rian@paradaux.io
+
+# Changing this could result in "unintended" consequences. You have been warned.
+locale-version: 1.0
+prefix: "&7[&cHibernia&9Discord&7]&r"
+
+loading-message:
+  - ""
+  - ""
+  - ""
+  - ""
+
+shutdown-message:
+  - ""
+  - ""
+  - ""
+  - ""
 
 severe-messages:
   old-version-config: "You were running an old version. Large configuration changes occurred between v2.1.X and v2.2.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
+  config-not-exist: "Your configuration file doesn't seem to exist, is it invalid? a new version has been deployed. If this is your first run, this isn't cause for concern."
+
+hiberniadiscord:
+  reload-success: "%prefix% Configuration has been reloaded."
+  default:
+    - "%prefix% Developed and Maintained by Paradaux"
+    - "This is open source software, please leave this attribution."
+    - "For support: https://paradaux.io/discord"
+
+discord:
+
+  # The message inside the brackets will be replaced with the text inside, with a clickable link to your discord server.
+  # Check out our discord server HERE
+  # Where clicking on "HERE" prompts the user to navigate to the link specified in discord.link
+  default:
+    - "Check out our discord server (HERE)"
+  link: "https://paradaux.io/discord"

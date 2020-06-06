@@ -8,5 +8,5 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerQuitEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void PlayerQuitEventListener(PlayerQuitEvent event) {}
+    public void Listener(PlayerQuitEvent event) {}
 }

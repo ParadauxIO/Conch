@@ -3,13 +3,11 @@ package io.paradaux.hiberniadiscord.EventListeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
-public class AsyncPlayerChatEventListener implements Listener {
+public class PlayerAdvancementDoneEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void Listener(AsyncPlayerChatEvent event) {
-
-    }
+    public void Listener(PlayerAdvancementDoneEvent event) {}
 
 }

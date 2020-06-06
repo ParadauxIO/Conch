@@ -17,7 +17,7 @@ public class ConfigurationUtils {
         double configVersion = config.getDouble("config-version");
 
         if (configVersion <= 2.1d) {
-            HiberniaDiscord.getMainLogger().log(Level.SEVERE, "");
+            HiberniaDiscord.getMainLogger().log(Level.SEVERE, "old-version-config");
             backupOldConfig(config);
             deployNewConfig(HiberniaDiscord.getPlugin());
         } else if (configVersion == 2.2d) {
@@ -28,7 +28,7 @@ public class ConfigurationUtils {
             backupOldConfig(config);
         }
 
-        HiberniaDiscord.getMainLogger().log(Level.SEVERE, "Your configuration file seems not to exist, is it invalid? a new version has been deployed.");
+        HiberniaDiscord.getMainLogger().log(Level.SEVERE, "config-not-exist");
         deployNewConfig(HiberniaDiscord.getPlugin());
 
     }
@@ -41,4 +41,6 @@ public class ConfigurationUtils {
     public static void deployNewConfig(Plugin p) {
         p.saveResource("config.yml", true);
     }
+
+    public static void reloadConfig() {}
 }
