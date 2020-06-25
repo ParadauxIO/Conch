@@ -19,8 +19,9 @@ shutdown-message:
   - ""
 
 severe-messages:
-  old-version-config: "You were running an old version. Large configuration changes occurred between v2.1.X and v2.2.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
+  old-version-config: "You were running an old version. Large configuration changes occurred between v2.1.X and v3.0.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
   config-not-exist: "Your configuration file doesn't seem to exist, is it invalid? a new version has been deployed. If this is your first run, this isn't cause for concern."
+  bad-backup: "An issue occured whilst backing up your configuration file."
 
 hiberniadiscord:
   reload-success: "%prefix% Configuration has been reloaded."

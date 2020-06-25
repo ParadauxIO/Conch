@@ -5,7 +5,7 @@
 discord:
   # Discord webhook URL
   # To create a webhook, see https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-  webhook-url: ''
+  webhook-url: 'https://discordapp.com/api/webhooks/713452488342372462/1t7c4DY5c7IFZp_jgXMGyRjKHY4A3EN4kIG4Uz5IfUVOGyrIyn5K6138i0hkY3UbGf-K'
 
 # Server name is used in the %server_name% placeholder. T
 server-name: 'Server'
@@ -13,7 +13,7 @@ server-name: 'Server'
 # Avatar API, for changing the Discord avatar per player
 # By default we use crafatar but you can switch these options to use whichever you like. Ask in the discord for support with this.
 # %uuid% will be replaced with the user's uuid.
-avatar-api: 'https://crafatar.com/renders/head/%uuid%size=10&overlay'
+avatar-api: 'https://crafatar.com/renders/head/%uuid%?size=10&overlay'
 
 # The following section toggles individual message updates when said events occur.
 events:
@@ -21,7 +21,7 @@ events:
   # Occurs when a message is sent in chat.
   chat-message:
     enabled: true
-    format: ''
+    message-format: '%messageContent%'
 
   # Occurs when a player joins the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-join:
@@ -41,13 +41,13 @@ events:
   # Occurs when the server loads the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-startup:
     enabled: true
-    avatar-icon: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
+    avatar-url: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
     format: '%server_name% has started.'
 
   # Occurs when the server disables the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-shutdown:
     enabled: true
-    avatar-icon: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
+    avatar-url: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
     format: '%sever_name% has stopped.'
 
 
@@ -59,4 +59,4 @@ update:
   notify: true
 
 # Config version, no touchy plz
-version: 2.3
+config-version: 2.3

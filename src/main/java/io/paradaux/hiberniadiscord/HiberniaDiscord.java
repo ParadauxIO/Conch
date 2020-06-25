@@ -30,14 +30,10 @@ public class HiberniaDiscord extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        plugin = this;
 
         ConfigurationUtils.checkIfOutOfDate(this.getConfig());
-
-
-        if (this.getConfig().getDouble("config-version") == 2.1d) {
-        }
-
-        plugin = this;
+        webhookClient = new WebhookClient();
         configurationCache = new ConfigurationCache(this.getConfig());
 
         registerCommands();

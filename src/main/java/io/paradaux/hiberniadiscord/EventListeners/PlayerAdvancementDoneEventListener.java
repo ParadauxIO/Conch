@@ -8,6 +8,6 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 public class PlayerAdvancementDoneEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    public void Listener(PlayerAdvancementDoneEvent event) {}
+    public void Listener (PlayerAdvancementDoneEvent event) {}
 
 }

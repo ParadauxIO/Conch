@@ -14,7 +14,9 @@ public class ConfigurationUtils {
     static File configurationFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "config.yml");
 
     public static void checkIfOutOfDate(FileConfiguration config) {
-        double configVersion = config.getDouble("config-version");
+        if (!configurationFile.exists()) { deployNewConfig(HiberniaDiscord.getPlugin()); return;}
+
+        double configVersion = config.getDouble("version");
 
         if (configVersion <= 2.1d) {
             HiberniaDiscord.getMainLogger().log(Level.SEVERE, "old-version-config");
@@ -34,12 +36,21 @@ public class ConfigurationUtils {
     }
 
     public static void backupOldConfig(FileConfiguration config) {
-        configurationFile.renameTo(new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(), "config.yml.bak"));
-        configurationFile.delete();
+        boolean renameResult = configurationFile.renameTo(new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(), "config.yml.bak"));
+        boolean deleteResult = configurationFile.delete();
+
+        if (!renameResult || !deleteResult) {
+
+        }
+
     }
 
     public static void deployNewConfig(Plugin p) {
-        p.saveResource("config.yml", true);
+        if (p==null) {
+            HiberniaDiscord.getMainLogger().log(Level.SEVERE, "plugin is nulll");
+        } else {
+            p.saveDefaultConfig();
+        }
     }
 
     public static void reloadConfig() {}

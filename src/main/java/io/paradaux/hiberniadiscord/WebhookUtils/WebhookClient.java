@@ -13,7 +13,10 @@ public class WebhookClient {
     club.minnced.discord.webhook.WebhookClient client;
     String webhookURL;
 
-    public WebhookClient(String webhookURL) {
+    public WebhookClient() {
+
+        String webhookURL = "https://discordapp.com/api/webhooks/713452488342372462/1t7c4DY5c7IFZp_jgXMGyRjKHY4A3EN4kIG4Uz5IfUVOGyrIyn5K6138i0hkY3UbGf-K";
+
         if (isValidURL(webhookURL)) {
             builder = new WebhookClientBuilder(webhookURL);
         } else {
@@ -55,5 +58,9 @@ public class WebhookClient {
         } catch (URISyntaxException e) {
             return false;
         }
+    }
+
+    public club.minnced.discord.webhook.WebhookClient getWebhookClient() {
+        return client;
     }
 }

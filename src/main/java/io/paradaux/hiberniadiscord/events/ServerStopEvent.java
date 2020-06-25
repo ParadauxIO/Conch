@@ -31,11 +31,5 @@ public class ServerStopEvent extends Event implements Cancellable {
         return HANDLERS_LIST;
     }
 
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

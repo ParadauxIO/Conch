@@ -8,7 +8,7 @@ import org.bukkit.event.server.ServerLoadEvent;
 public class ServerLoadEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
-    public void ServerLoadEventListener(ServerLoadEvent event) {
+    public void Listener (ServerLoadEvent event) {
 
     }
 }

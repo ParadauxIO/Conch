@@ -1,6 +1,6 @@
-version: 2.2.0
-name: io.paradaux.hiberniadiscord.HiberniaDiscord
-main: io.paradaux.hiberniadiscord
+version: 3.0.0
+name: HiberniaDiscord
+main: io.paradaux.hiberniadiscord.HiberniaDiscord
 author: Paradaux
 api-version: 1.13
 description: Minecraft Chat integration for Discord. Made in Ireland.
