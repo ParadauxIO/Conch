@@ -40,7 +40,7 @@ public class ConfigurationUtils {
         boolean deleteResult = configurationFile.delete();
 
         if (!renameResult || !deleteResult) {
-
+            HiberniaDiscord.getMainLogger().log(Level.SEVERE, "config-not-exist");
         }
 
     }

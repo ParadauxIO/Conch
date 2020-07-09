@@ -8,8 +8,6 @@ import java.util.UUID;
 
 public class EventUtils {
 
-
-
     public static String getColourlessName(Player p) {
         return ChatColor.stripColor(p.getDisplayName());
     }
@@ -20,7 +18,6 @@ public class EventUtils {
 
     public static String createAvatarUrl(UUID uuid) {
         String res = HiberniaDiscord.getConfigurationCache().getAvatarAPI().replace("%uuid%", uuid.toString());
-        System.out.println(res);
         return res;
     }
 }

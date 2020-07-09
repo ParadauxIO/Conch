@@ -1,6 +1,7 @@
 # Thank you for using HiberniaDiscord by Paradaux.io
 # Should you run into issues, feel free to pop into my discord server @ https://paradaux.io/discord
 # Additional Configuration is available in locale.yml (be sure to change the response of /discord to that of your server)
+# Buy me a beer: https://paypal.me/Paradaux
 
 discord:
   # Discord webhook URL

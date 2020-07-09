@@ -1,6 +1,6 @@
 package io.paradaux.hiberniadiscord.WebhookUtils;
 
-public class ServerWebhook {
+public class ServerWebhook extends GenericWebhook {
 
 
 

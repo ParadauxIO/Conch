@@ -1,10 +1,8 @@
 package io.paradaux.hiberniadiscord;
 
 import io.paradaux.hiberniadiscord.EventListeners.*;
-import io.paradaux.hiberniadiscord.WebhookUtils.WebhookClient;
 import io.paradaux.hiberniadiscord.api.ConfigurationCache;
 import io.paradaux.hiberniadiscord.api.ConfigurationUtils;
-import io.paradaux.hiberniadiscord.commands.discordCMD;
 import io.paradaux.hiberniadiscord.commands.hiberniadiscordCMD;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
 import org.bukkit.Bukkit;
@@ -16,7 +14,7 @@ import java.util.logging.Logger;
 
 public class HiberniaDiscord extends JavaPlugin {
 
-    private static Logger logger = Logger.getLogger("io.paradaux.hiberniadiscord");
+    final private static Logger logger = Logger.getLogger("io.paradaux.hiberniadiscord");
     public static Logger getMainLogger() { return logger; }
 
     private static WebhookClient webhookClient;
@@ -33,6 +31,7 @@ public class HiberniaDiscord extends JavaPlugin {
         plugin = this;
 
         ConfigurationUtils.checkIfOutOfDate(this.getConfig());
+
         webhookClient = new WebhookClient();
         configurationCache = new ConfigurationCache(this.getConfig());
 
@@ -47,7 +46,6 @@ public class HiberniaDiscord extends JavaPlugin {
     }
 
     public void registerCommands() {
-        this.getCommand("discord").setExecutor(new discordCMD());
         this.getCommand("hiberniadiscord").setExecutor(new hiberniadiscordCMD());
     }
     public void registerEvents(PluginManager pm) {
@@ -57,7 +55,6 @@ public class HiberniaDiscord extends JavaPlugin {
         pm.registerEvents(new PlayerQuitEventListener(), this);
         pm.registerEvents(new ServerLoadEventListener(), this);
         pm.registerEvents(new ServerStopEventListener(), this);
-
     }
 
 

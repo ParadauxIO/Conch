@@ -2,16 +2,18 @@ package io.paradaux.hiberniadiscord.WebhookUtils;
 
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
+import io.paradaux.hiberniadiscord.HiberniaDiscord;
 
-public class ChatWebhook {
+public class ChatWebhook extends GenericWebhook {
 
     WebhookMessage chatWebhook;
     String userName;
     String avatarUrl;
     String messageContent;
 
-
     public ChatWebhook(String userName, String avatarUrl, String messageContent) {
+        super(HiberniaDiscord.getConfigurationCache().getDiscord_webhookURL(), avatarUrl, userName);
+
         this.userName = userName;
         this.avatarUrl = avatarUrl;
         this.messageContent = messageContent;
