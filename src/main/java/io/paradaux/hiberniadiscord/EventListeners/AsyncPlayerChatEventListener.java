@@ -1,6 +1,5 @@
 package io.paradaux.hiberniadiscord.EventListeners;
 
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
 import io.paradaux.hiberniadiscord.WebhookUtils.ChatWebhook;
 import io.paradaux.hiberniadiscord.api.EventUtils;
 import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
@@ -17,7 +16,6 @@ public class AsyncPlayerChatEventListener implements Listener {
 
         PlaceholderAPIWrapper placeholderapi = new PlaceholderAPIWrapper();
 
-        club.minnced.discord.webhook.WebhookClient webhookClient = HiberniaDiscord.getWebhookClient().getWebhookClient();
         Player player = event.getPlayer();
 
         String userName = EventUtils.getColourlessName(player);
@@ -29,9 +27,8 @@ public class AsyncPlayerChatEventListener implements Listener {
             messageContent = placeholderapi.withPlaceholders(player, messageContent);
         }
 
-        ChatWebhook webhook = new ChatWebhook(userName, avatarUrl, messageContent);
+        new ChatWebhook(userName, avatarUrl, messageContent).sendWebhook();
 
-        webhookClient.send(webhook.getWebhookMessage());
     }
 
 }

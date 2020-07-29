@@ -1,11 +1,11 @@
 # HiberniaDiscord v2.2.0: Next Step.
 
-## Installation
+## Introduction
 
-I have tried to make installing and configuring the plugin be as easy as possible. We are not DiscordSRV, nor are we trying to be. 
+HiberniaDiscord is a lightweight Minecraft -> Discord Bridge allowing you to syncronise messages with a channel on your discord via discord-webhooks. Users will appear as "bots" with their player head as the avatar. This can be fully configured.
 
 
-### Prerequisites
+### Installation
 
 As of the time of writing this there are no current external libraries used.
 
@@ -15,6 +15,7 @@ As of the time of writing this there are no current external libraries used.
 4.  :: Configure the plugin to use your webhook. 
 
 Learn more about creating webhooks  [Here](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhook)
+
 ## Deployment
 
 in project root:
@@ -22,22 +23,19 @@ in project root:
 
 ## Contributing
 
-Feel free to submit a pull request, I'll get to it when I can.
+HiberniaDiscord is FOSS, if you would like a feature, simply fork the respository, add the requested functionality and open a pull request. I review them as they come in, and will aid you in merging it ino production in due course.
 
-## Versioning
 
-We're following a very weak versioning system whereby
-
-- 3.0.0: Latest.
-- 2.1.0: Adds Join/Leave webhook events as well as switches to dependency injection
-- 2.0.0: Rewrite and Overhaul of the entire plugin. Brings maven support.
-- 1.0.0: is the initial release switching to semantic versioning 
 
 ## v3.0 Authors
 
-* **Rían Errity** - *concept and development - [ParadauxDev](https://paradaux.co)
+* **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
 
+## V2.0 Authors
 
+* **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
+* **egg82** - refactoring, development, expertise - [egg82](https://github.com/egg82)
+d
 All those who contribute in any form will be acknowledged.
 
 ## License

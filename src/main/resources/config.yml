@@ -6,7 +6,7 @@
 discord:
   # Discord webhook URL
   # To create a webhook, see https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
-  webhook-url: 'https://discordapp.com/api/webhooks/713452488342372462/1t7c4DY5c7IFZp_jgXMGyRjKHY4A3EN4kIG4Uz5IfUVOGyrIyn5K6138i0hkY3UbGf-K'
+  webhook-url: ''
 
 # Server name is used in the %server_name% placeholder. T
 server-name: 'Server'

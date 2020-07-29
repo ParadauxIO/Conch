@@ -42,9 +42,9 @@
                                         <exclude>LICENSE*</exclude>
                                         <exclude>com/google/common/**</exclude>
                                         <exclude>javax/annotation/**</exclude>
-                                        <exclude>junit/**</exclude>
+<!--                                        <exclude>junit/**</exclude>-->
                                         <exclude>org/intellij/**</exclude>
-                                        <exclude>org/junit/**</exclude>
+<!--                                        <exclude>org/junit/**</exclude>-->
                                         <exclude>org/json/simple/**</exclude>
                                         <exclude>org/yaml/snakeyaml/**</exclude>
                                     </excludes>
@@ -107,8 +107,15 @@
         <dependency>
             <groupId>club.minnced</groupId>
             <artifactId>discord-webhooks</artifactId>
-            <version>0.3.1</version>
+            <version>0.3.2</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

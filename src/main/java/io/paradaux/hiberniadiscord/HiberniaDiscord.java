@@ -6,10 +6,12 @@ import io.paradaux.hiberniadiscord.api.ConfigurationUtils;
 import io.paradaux.hiberniadiscord.commands.hiberniadiscordCMD;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 public class HiberniaDiscord extends JavaPlugin {
@@ -17,10 +19,7 @@ public class HiberniaDiscord extends JavaPlugin {
     final private static Logger logger = Logger.getLogger("io.paradaux.hiberniadiscord");
     public static Logger getMainLogger() { return logger; }
 
-    private static WebhookClient webhookClient;
-    public static WebhookClient getWebhookClient() { return webhookClient; }
-
-    private static io.paradaux.hiberniadiscord.api.ConfigurationCache configurationCache;
+    private static ConfigurationCache configurationCache;
     public static ConfigurationCache getConfigurationCache() { return configurationCache; }
 
     private static Plugin plugin;
@@ -30,9 +29,8 @@ public class HiberniaDiscord extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        ConfigurationUtils.checkIfOutOfDate(this.getConfig());
+        ConfigurationUtils.updateConfigurationFile(this.getConfig());
 
-        webhookClient = new WebhookClient();
         configurationCache = new ConfigurationCache(this.getConfig());
 
         registerCommands();
@@ -57,6 +55,13 @@ public class HiberniaDiscord extends JavaPlugin {
         pm.registerEvents(new ServerStopEventListener(), this);
     }
 
+    public static void log(String error) {
+        Bukkit.getLogger().warning(error);
+    }
 
+    public static void updateConfigurationCache() {
+        File configurationFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "config.yml");
+        configurationCache = new ConfigurationCache(YamlConfiguration.loadConfiguration(configurationFile));
+    }
 
 }

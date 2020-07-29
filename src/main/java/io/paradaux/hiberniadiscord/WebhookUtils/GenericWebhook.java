@@ -2,8 +2,6 @@ package io.paradaux.hiberniadiscord.WebhookUtils;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
-import club.minnced.discord.webhook.send.WebhookEmbed;
-import club.minnced.discord.webhook.send.WebhookEmbedBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
@@ -15,69 +13,83 @@ import java.util.logging.Level;
 public class GenericWebhook {
 
     WebhookClient client;
-    WebhookClientBuilder builder;
+    WebhookClientBuilder clientBuilder;
     WebhookMessageBuilder messageBuilder;
 
-    final private String userName;
-    final private String avatarUrl;
+    String webhookUrl;
+    String webhookUserName;
+    String webhookAvatarUrl;
+    String webhookMessageContent;
 
-    public GenericWebhook(String webhookUrl, String avatarUrl, String userName) {
-        this.userName = userName;
-        this.avatarUrl = avatarUrl;
+    public GenericWebhook(String webhookUrl, String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
+        this.webhookUrl = webhookUrl;
+        this.webhookUserName = webhookUserName;
+        this.webhookAvatarUrl = webhookAvatarUrl;
+        this.webhookMessageContent = webhookMessageContent;
 
         client = createClient(webhookUrl);
         messageBuilder = new WebhookMessageBuilder();
     }
 
+    public GenericWebhook(String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
+        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscord_webhookURL();
+        this.webhookUserName = webhookUserName;
+        this.webhookAvatarUrl = webhookAvatarUrl;
+        this.webhookMessageContent = webhookMessageContent;
+
+        client = createClient(webhookUrl);
+        messageBuilder = new WebhookMessageBuilder();
+    }
+
+
     public WebhookClient createClient(String webhookUrl) {
 
         if (isValidURL(webhookUrl)) {
-            builder = new WebhookClientBuilder(webhookUrl);
+            System.out.println(webhookUrl);
+            clientBuilder = new WebhookClientBuilder(webhookUrl);
         } else {
             HiberniaDiscord.getMainLogger().log(Level.SEVERE, "Invalid Webhook supplied. Please check the configuration file, is it valid? \n If this is the first time you're running the plugin please configure the webhook field.");
             return null;
         }
 
-        builder.setThreadFactory((job) -> {
+        clientBuilder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
-            thread.setName("hiberniareport");
+            thread.setName("hiberniadiscord");
             thread.setDaemon(true);
             return thread;
         });
 
-        builder.setWait(true);
-        return builder.build();
+        clientBuilder.setWait(true);
+        return clientBuilder.build();
+
     }
 
     private boolean isValidURL(String url) {
         try {
             new URI(url).parseServerAuthority();
-            return true;
         } catch (URISyntaxException e) {
             return false;
         }
+        return true;
     }
 
     public WebhookClient getClient() {
         return client;
     }
 
-    public WebhookEmbed createEmbed() {
-        return new WebhookEmbedBuilder().build();
-    }
-
-    public void sendWebhook(WebhookMessage message) {
+    public void sendWebhook() {
         try {
-            getClient().send(message).get();
+            getClient().send(createMessage()).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public WebhookMessage newMessage(WebhookEmbed embed) {
-        return messageBuilder.setUsername(userName).setAvatarUrl(avatarUrl).addEmbeds(embed).build();
+    public WebhookMessage createMessage() {
+        return messageBuilder.setUsername(webhookUserName)
+                .setAvatarUrl(webhookAvatarUrl)
+                .setContent(webhookMessageContent)
+                .build();
     }
-
-    public void execute() {}
 
 }
