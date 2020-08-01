@@ -32,7 +32,7 @@ public class GenericWebhook {
     }
 
     public GenericWebhook(String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
-        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscord_webhookURL();
+        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscordWebhookURL();
         this.webhookUserName = webhookUserName;
         this.webhookAvatarUrl = webhookAvatarUrl;
         this.webhookMessageContent = webhookMessageContent;
@@ -78,6 +78,13 @@ public class GenericWebhook {
     }
 
     public void sendWebhook() {
+
+        // Prevent empty messages being passed to the discord API
+        if (webhookMessageContent.equals("")) {
+            // Zero Width space in double quotes.
+            webhookMessageContent = "\u200B";
+        }
+
         try {
             getClient().send(createMessage()).get();
         } catch (Exception e) {
@@ -92,4 +99,15 @@ public class GenericWebhook {
                 .build();
     }
 
+    public void setWebhookUrl(String webhookUrl) {
+        this.webhookUrl = webhookUrl;
+    }
+
+    public void setWebhookAvatarUrl(String webhookAvatarUrl) {
+        this.webhookAvatarUrl = webhookAvatarUrl;
+    }
+
+    public void setWebhookUserName(String webhookUserName) {
+        this.webhookUserName = webhookUserName;
+    }
 }

@@ -6,17 +6,23 @@
 locale-version: 1.0
 prefix: "&7[&cHibernia&9Discord&7]&r"
 
+
 loading-message:
-  - ""
-  - ""
-  - ""
-  - ""
+  - "+ ------------------------------------ +"
+  - "|   Running HiberniaDiscord v3.0.0     |"
+  - "|       © Rían Errity (Paradaux)       |"
+  - "|         https://paradaux.io          |"
+  - "+ ------------------------------------ +"
+  - "LICENSED UNDER GNU General Public License v3.0"
 
 shutdown-message:
-  - ""
-  - ""
-  - ""
-  - ""
+  - "+ ------------------------------------ +"
+  - "|   Unloaded HiberniaDiscord v3.0.0    |"
+  - "|       © Rían Errity (Paradaux)       |"
+  - "|         https://paradaux.io          |"
+  - "+ ------------------------------------ +"
+  - "LICENSED UNDER GNU General Public License v3.0"
+
 
 severe-messages:
   old-version-config: "You were running an old version. Large configuration changes occurred between v2.1.X and v3.0.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
@@ -34,7 +40,7 @@ discord:
 
   # The message inside the brackets will be replaced with the text inside, with a clickable link to your discord server.
   # Check out our discord server HERE
-  # Where clicking on "HERE" prompts the user to navigate to the link specified in discord.link
+  # Where clicking on "HERE" prompts the user to navigate to the link specified in discord link
   default:
-    - "Check out our discord server (HERE)"
+    - "Check out our discord server %HERE%"
   link: "https://paradaux.io/discord"

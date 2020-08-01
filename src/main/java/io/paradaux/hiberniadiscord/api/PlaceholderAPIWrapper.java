@@ -12,7 +12,7 @@ public class PlaceholderAPIWrapper {
     public void cancel() {}
 
     public boolean isPresent() {
-        return getServer().getPluginManager().getPlugin("MyPlugin") != null;
+        return getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
 
     public String withPlaceholders(Player player, String input) { return PlaceholderAPI.setPlaceholders(player, input); }

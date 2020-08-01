@@ -4,54 +4,76 @@
 # Buy me a beer: https://paypal.me/Paradaux
 
 discord:
+  # disable this if you do not wish to have HiberniaDiscord register /discord. Change the invite link in locale.yml
+  discord-command: true
   # Discord webhook URL
   # To create a webhook, see https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks
   webhook-url: ''
 
-# Server name is used in the %server_name% placeholder. T
+# Server name is used in the %server_name% placeholder.
 server-name: 'Server'
 
 # Avatar API, for changing the Discord avatar per player
 # By default we use crafatar but you can switch these options to use whichever you like. Ask in the discord for support with this.
-# %uuid% will be replaced with the user's uuid.
-avatar-api: 'https://crafatar.com/renders/head/%uuid%?size=10&overlay'
+# %playeruuid% will be replaced with the user's uuid.
+avatar-api: 'https://crafatar.com/renders/head/%playeruuid%?size=10&overlay'
 
 # The following section toggles individual message updates when said events occur.
 events:
 
+  # Placeholders: (Placeholder API support is baked in, if you have it installed.)
+  #    * %playername% - The Player's Username
+  #    * %playeruuid% - The Player's UUID
+  #    * %servername% - The Server's name you specified above
+  #    * %avatarapi% - The Avatar API you specified above.
+  # There may be other placeholders, that are section specific such as %messageContent% referred to the content of the Message Event.
+  # Empty messages will be replaced with a zero-width space so they appear as empty messages on discord.
+
   # Occurs when a message is sent in chat.
   chat-message:
     enabled: true
+    avatar-url: '%avatarapi%'
+    username-format: '%playername%'
     message-format: '%messageContent%'
 
   # Occurs when a player joins the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-join:
     enabled: true
-    format: '%server_name% » %player% has joined the game.'
+    avatar-url: '%server_name% » %player% has joined the game.'
+    username-format: '%avatarapi%'
+    message-format: ''
 
   # Occurs when a player leaves the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-leave:
     enabled: true
-    format: '%server_name% » %player% has left the game.'
+    avatar-url: '%avatarapi%'
+    username-format: '%servername% » %player% has left the game.'
+    message-format: ''
 
-  # Advancement (Achievement) Completed event.
+  # Advancement (Achievement) Completed event. 1.16.X only.
   advancement-completed:
     enabled: true
-    format: '%player% has completed %advancement_name%'
+    avatar-url: '%avatarapi%'
+    username-format: '%player% has completed %advancement_name%'
+    message-format: ''
 
   # Occurs when the server loads the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-startup:
     enabled: true
     avatar-url: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
-    format: '%server_name% has started.'
+    username-format: '%servername% »'
+    message-format: '%servername% has started.'
 
   # Occurs when the server disables the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-shutdown:
     enabled: true
     avatar-url: 'https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png'
-    format: '%sever_name% has stopped.'
+    username-format: '%servername% »'
+    message-format: '%servername% has stopped.'
 
-
+settings:
+  discord-command-permission: "hiberniadiscord.discord"
+  reload-command-permission: "hiberniadiscord.reload"
 
 update:
   # Whether or not to automatically check for updates and notify the console if found

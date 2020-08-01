@@ -3,6 +3,7 @@ package io.paradaux.hiberniadiscord.api;
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -12,6 +13,11 @@ public class ConfigurationUtils {
 
     // Static reference to the location of the configuration file.
     static File configurationFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "config.yml");
+
+    // Static reference to the location of the locale file.
+    static File localeFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "locale.yml");
+
+
 
     // Returns whether or not the configuration file exists in the filesystem.
     public static boolean doesConfigurationExist() {
@@ -28,7 +34,10 @@ public class ConfigurationUtils {
     }
 
     public static void updateConfigurationFile(FileConfiguration config) {
-        if (!doesConfigurationExist()) return;
+        if (!doesConfigurationExist()) {
+            deployNewConfig(HiberniaDiscord.getPlugin());
+            return;
+        };
 
         double configVersion = config.getDouble("config-version");
         System.out.println("config-version: " +  configVersion);
@@ -49,4 +58,11 @@ public class ConfigurationUtils {
         }
     }
 
+    public static void deployLocale(Plugin p) {
+        p.saveResource("locale.yml", false);
+    }
+
+    public static YamlConfiguration getLocale() {
+        return YamlConfiguration.loadConfiguration(localeFile);
+    }
 }
