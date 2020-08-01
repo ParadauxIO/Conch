@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ */
+
 package io.paradaux.hiberniadiscord.api;
 
 import org.bukkit.ChatColor;
@@ -50,5 +54,8 @@ public class EventUtils {
         return str.replace("%servername%", config.getServerName());
     }
 
+    public static String parsePlaceholders(LocaleCache locale, String str) {
+        return str.replace("%prefix%", locale.getPrefix());
+    }
 
 }

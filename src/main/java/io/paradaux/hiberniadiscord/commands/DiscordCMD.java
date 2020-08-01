@@ -1,15 +1,39 @@
+/*
+ * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ */
+
 package io.paradaux.hiberniadiscord.commands;
 
+import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.api.EventUtils;
+import io.paradaux.hiberniadiscord.api.LocaleCache;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 public class DiscordCMD implements CommandExecutor {
 
-    // Need LocaleCache to be done
+    LocaleCache locale = HiberniaDiscord.getLocaleCache();
+    Player player;
+
+    public String colorise(String str) {
+        return ChatColor.translateAlternateColorCodes('&', str);
+    }
+
     @Override
-    public boolean onCommand(@org.jetbrains.annotations.NotNull CommandSender commandSender, @org.jetbrains.annotations.NotNull Command command, @org.jetbrains.annotations.NotNull String s,  @org.jetbrains.annotations.NotNull String[] strings) {
-        return false;
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if (!(sender instanceof Player)) return false;
+        player = (Player) sender;
+
+        TextComponent message = new TextComponent(TextComponent.fromLegacyText(colorise(EventUtils.parsePlaceholders(locale, locale.getDiscordDefault()))));
+        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, locale.getDiscordLink()));
+
+        player.spigot().sendMessage(message);
+        return true;
     }
 
 }

@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ */
+
 package io.paradaux.hiberniadiscord;
 
 import io.paradaux.hiberniadiscord.EventListeners.*;
@@ -5,6 +9,7 @@ import io.paradaux.hiberniadiscord.api.ConfigurationCache;
 import io.paradaux.hiberniadiscord.api.ConfigurationUtils;
 import io.paradaux.hiberniadiscord.api.LocaleCache;
 import io.paradaux.hiberniadiscord.api.VersionChecker;
+import io.paradaux.hiberniadiscord.commands.DiscordCMD;
 import io.paradaux.hiberniadiscord.commands.HiberniaDiscordCMD;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
 import org.bukkit.Bukkit;
@@ -33,7 +38,6 @@ public class HiberniaDiscord extends JavaPlugin {
     private static boolean upgradeRequired;
     public static boolean getUpgradeRequired() { return upgradeRequired; }
 
-
     @Override
     public void onEnable() {
         plugin = this;
@@ -61,10 +65,12 @@ public class HiberniaDiscord extends JavaPlugin {
 
     public void registerCommands() {
         this.getCommand("hiberniadiscord").setExecutor(new HiberniaDiscordCMD());
+        this.getCommand("hdiscord").setExecutor(new HiberniaDiscordCMD());
+        this.getCommand("discord").setExecutor(new DiscordCMD());
     }
     public void registerEvents(PluginManager pm) {
         pm.registerEvents(new AsyncPlayerChatEventListener(), this);
-        pm.registerEvents(new PlayerAdvancementDoneEventListener(), this);
+        pm.registerEvents(new PlayerAchievementAwardedEventListener(), this);
         pm.registerEvents(new PlayerJoinEventListener(), this);
         pm.registerEvents(new PlayerQuitEventListener(), this);
         pm.registerEvents(new ServerLoadEventListener(), this);
@@ -78,6 +84,11 @@ public class HiberniaDiscord extends JavaPlugin {
     public static void updateConfigurationCache() {
         File configurationFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "config.yml");
         configurationCache = new ConfigurationCache(YamlConfiguration.loadConfiguration(configurationFile));
+    }
+
+    public static void updateLocaleCache() {
+        File localeFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "locale.yml");
+        localeCache = new LocaleCache(YamlConfiguration.loadConfiguration(localeFile));
     }
 
     public void versionChecker() {

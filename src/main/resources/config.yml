@@ -1,3 +1,4 @@
+# Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
 # Thank you for using HiberniaDiscord by Paradaux.io
 # Should you run into issues, feel free to pop into my discord server @ https://paradaux.io/discord
 # Additional Configuration is available in locale.yml (be sure to change the response of /discord to that of your server)
@@ -39,23 +40,23 @@ events:
   # Occurs when a player joins the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-join:
     enabled: true
-    avatar-url: '%server_name% » %player% has joined the game.'
-    username-format: '%avatarapi%'
-    message-format: ''
+    avatar-url: '%avatarapi%'
+    username-format: '%servername% »'
+    message-format: '%playername% has joined the game.'
 
   # Occurs when a player leaves the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-leave:
     enabled: true
     avatar-url: '%avatarapi%'
-    username-format: '%servername% » %player% has left the game.'
-    message-format: ''
+    username-format: '%servername% »'
+    message-format: '%playername% has left the game'
 
   # Advancement (Achievement) Completed event. 1.16.X only.
   advancement-completed:
     enabled: true
     avatar-url: '%avatarapi%'
-    username-format: '%player% has completed %advancement_name%'
-    message-format: ''
+    username-format: '%servername% »'
+    message-format: '%player% has completed %achievementName%'
 
   # Occurs when the server loads the plugin. Placeholders from PlaceholderAPI are NOT supported here.
   server-startup:
@@ -72,6 +73,10 @@ events:
     message-format: '%servername% has stopped.'
 
 settings:
+  # Provides Additional information for debug purposes.
+  debug: false
+
+  # Configure the permissions HiberniaDiscord listens to.
   discord-command-permission: "hiberniadiscord.discord"
   reload-command-permission: "hiberniadiscord.reload"
 

@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ */
+
 package io.paradaux.hiberniadiscord.EventListeners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
@@ -19,6 +23,9 @@ public class AsyncPlayerChatEventListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void Listener(AsyncPlayerChatEvent event) {
+
+        // Stop if disabled
+        if (!config.isChatMessageEnabled()) return;
 
         player = event.getPlayer();
 

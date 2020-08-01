@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ */
+
 package io.paradaux.hiberniadiscord.api;
 
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +15,8 @@ public class LocaleCache {
 
     String severeOldConfigVersion, severeConfigNotExist, severeBadBackup;
 
-    String hiberniaDiscordReloadSuccess, hiberniaDiscordDefault;
+    String hiberniaDiscordReloadSuccess;
+    List<String> hiberniaDiscordDefault;
 
     String discordDefault;
     String discordLink;
@@ -26,7 +31,7 @@ public class LocaleCache {
         this.severeConfigNotExist = locale.getString("severe-messages.config-not-exist");
         this.severeBadBackup = locale.getString("severe-messages.bad-backup");
         this.hiberniaDiscordReloadSuccess = locale.getString("hiberniadiscord.reload-success");
-        this.hiberniaDiscordDefault = locale.getString("hiberniadiscord.default");
+        this.hiberniaDiscordDefault = locale.getStringList("hiberniadiscord.default");
         this.discordDefault = locale.getString("discord.default");
         this.discordLink = locale.getString("discord.link");
         this.localeVersion = locale.getDouble("discord.link");
@@ -61,7 +66,7 @@ public class LocaleCache {
     }
 
     public String getHiberniaDiscordDefault() {
-        return hiberniaDiscordDefault;
+        return "\n" + String.join("\n", hiberniaDiscordDefault);
     }
 
     public String getDiscordDefault() {
@@ -75,4 +80,5 @@ public class LocaleCache {
     public double getLocaleVersion() {
         return localeVersion;
     }
+
 }
