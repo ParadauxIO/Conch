@@ -49,7 +49,6 @@ public class GenericWebhook {
     public WebhookClient createClient(String webhookUrl) {
 
         if (isValidURL(webhookUrl)) {
-            System.out.println(webhookUrl);
             clientBuilder = new WebhookClientBuilder(webhookUrl);
         } else {
             HiberniaDiscord.getMainLogger().log(Level.SEVERE, "Invalid Webhook supplied. Please check the configuration file, is it valid? \n If this is the first time you're running the plugin please configure the webhook field.");

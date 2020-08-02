@@ -18,7 +18,7 @@ public class LocaleCache {
     String hiberniaDiscordReloadSuccess;
     List<String> hiberniaDiscordDefault;
 
-    String discordDefault;
+    List<String> discordDefault;
     String discordLink;
 
     double localeVersion;
@@ -32,7 +32,7 @@ public class LocaleCache {
         this.severeBadBackup = locale.getString("severe-messages.bad-backup");
         this.hiberniaDiscordReloadSuccess = locale.getString("hiberniadiscord.reload-success");
         this.hiberniaDiscordDefault = locale.getStringList("hiberniadiscord.default");
-        this.discordDefault = locale.getString("discord.default");
+        this.discordDefault = locale.getStringList("discord.default");
         this.discordLink = locale.getString("discord.link");
         this.localeVersion = locale.getDouble("discord.link");
     }
@@ -66,11 +66,11 @@ public class LocaleCache {
     }
 
     public String getHiberniaDiscordDefault() {
-        return "\n" + String.join("\n", hiberniaDiscordDefault);
+        return String.join("\n", hiberniaDiscordDefault);
     }
 
     public String getDiscordDefault() {
-        return discordDefault;
+        return String.join("\n", discordDefault);
     }
 
     public String getDiscordLink() {

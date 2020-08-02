@@ -32,7 +32,6 @@ public class ServerLoadEventListener implements Listener {
 
         String avatarUrl = config.getServerStartupAvatarUrl();
 
-        System.out.println(avatarUrl);
         // Sanitise Message, remove @everyone, @here and replace empty messages with a zero-width space.
         messageContent = EventUtils.sanistiseMessage(messageContent);
 

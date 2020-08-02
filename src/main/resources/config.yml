@@ -76,6 +76,14 @@ settings:
   # Provides Additional information for debug purposes.
   debug: false
 
+  # Provide anonymized usage stats so that I create features oriented towards my user-base
+  # I won't hurt your family if you disable this, but I would appreciate you leaving it enabled.
+  # It gives me information such as server versions, player counts, Java versions etcetera. Nothing identifiable.
+  # You can find more information at the bottom of this configuration file.
+  # https://bstats.org/plugin/bukkit/HiberniaDiscord/8386
+
+  bstats: enabled
+
   # Configure the permissions HiberniaDiscord listens to.
   discord-command-permission: "hiberniadiscord.discord"
   reload-command-permission: "hiberniadiscord.reload"
@@ -88,3 +96,21 @@ update:
 
 # Config version, no touchy plz
 config-version: 2.3
+
+# BStats.org Notice.
+
+# bStats does not collect any personal data. Most of the collected data is information about the plugin's server like player count, online mode,
+#  Minecraft version, Java version, and more. All data gets sent and stored completely anonymously. Server IPs are only stored for ratelimiting
+# and not linked to the data. All data that is collected is publicly visible. If you are interested in what data is collected for your Minecraft
+# server, take a look at the pages for the plugins on your server. Please note that plugin authors can also send data that is customized for their plugin.
+# https://bstats.org/plugin/bukkit/HiberniaDiscord/8386
+
+# Force-disabling bStats
+
+# If you don't trust me, and my settings bstats has its own system to disable plugins' bstats.
+
+# Disabling bStats
+
+# If you don't want bStats to collect data from your server, you can disable it in the bStats config file. This file can be found in the /plugins/bStats/ folder.
+# bStats has nearly no effect on your server's performance and the sent data is completely anonymous. The collected data is important information for plugin authors
+# to improve their plugins and keep motivated. To value their work and effort, please keep bStats enabled.

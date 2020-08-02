@@ -12,6 +12,7 @@ import io.paradaux.hiberniadiscord.api.VersionChecker;
 import io.paradaux.hiberniadiscord.commands.DiscordCMD;
 import io.paradaux.hiberniadiscord.commands.HiberniaDiscordCMD;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -54,6 +55,11 @@ public class HiberniaDiscord extends JavaPlugin {
         registerEvents(getServer().getPluginManager());
 
         versionChecker();
+
+        // bStats: I respect your decision to disable this!
+        // See config.yml for my statement.
+        if (!getConfig().getBoolean("settings.bstats")) return;
+        Metrics metrics = new Metrics(this, 8386);
 
     }
 

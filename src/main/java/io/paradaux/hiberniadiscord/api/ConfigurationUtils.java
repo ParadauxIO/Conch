@@ -44,7 +44,6 @@ public class ConfigurationUtils {
         };
 
         double configVersion = config.getDouble("config-version");
-        System.out.println("config-version: " +  configVersion);
 
         if (configVersion == 2.3d) return;
 
