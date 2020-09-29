@@ -22,16 +22,37 @@ public class HiberniaDiscordCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(args.length == 0)) {
-            if ("reload".equals(args[0])) {
+
+        if (!sender.hasPermission("hiberniadiscord.admin")) {
+            sender.sendMessage(LocaleCache.colorise(locale.getSevereNoPermission()));
+            return true;
+        }
+
+        if (args.length <= 0) {
+            sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordDefault())));
+            return true;
+        }
+
+        switch (args[0].toLowerCase()) {
+            case "reload": {
                 HiberniaDiscord.updateConfigurationCache();
                 HiberniaDiscord.updateLocaleCache();
                 sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordReloadSuccess())));
                 return true;
             }
+
+            // TODO: implement
+            case "discord2mc": {
+                sender.sendMessage(ChatColor.RED + "Unimplemented.");
+            }
+
+            default: {
+                sender.sendMessage(ChatColor.RED + "/hdiscord <reload/discord2mc>");
+                return true;
+            }
         }
-        sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordDefault())));
-        return true;
+
+
     }
 
 }

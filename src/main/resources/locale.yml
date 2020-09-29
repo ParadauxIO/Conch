@@ -29,7 +29,7 @@ severe-messages:
   old-version-config: "HiberniaDiscord » &7You were running an old version. Large configuration changes occurred between v2.1.X and v3.0.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
   config-not-exist: "HiberniaDiscord » Your configuration file doesn't seem to exist, is it invalid? a new version has been deployed. If this is your first run, this isn't cause for concern."
   bad-backup: "HiberniaDiscord » An issue occurred whilst backing up your configuration file."
-
+  no-permission: "&c%prefix% &cYou do not have permission."
 hiberniadiscord:
   reload-success: "%prefix% &cconfig.yml &7& &clocale.yml &c have been &creloaded&7."
   default:

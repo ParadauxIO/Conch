@@ -11,6 +11,7 @@ import io.paradaux.hiberniadiscord.api.LocaleCache;
 import io.paradaux.hiberniadiscord.api.VersionChecker;
 import io.paradaux.hiberniadiscord.commands.DiscordCMD;
 import io.paradaux.hiberniadiscord.commands.HiberniaDiscordCMD;
+import io.paradaux.hiberniadiscord.discord2mc.Discord2Mc;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
@@ -39,6 +40,9 @@ public class HiberniaDiscord extends JavaPlugin {
     private static boolean upgradeRequired;
     public static boolean getUpgradeRequired() { return upgradeRequired; }
 
+    private static Discord2Mc discord2Mc;
+    public static Discord2Mc getDiscord2Mc() { return discord2Mc; }
+
     @Override
     public void onEnable() {
         plugin = this;
@@ -48,6 +52,8 @@ public class HiberniaDiscord extends JavaPlugin {
 
         ConfigurationUtils.deployLocale(this);
         localeCache = new LocaleCache(ConfigurationUtils.getLocale());
+
+        discord2Mc = new Discord2Mc(ConfigurationUtils.getDiscord2McConfigurationFile());
 
         getLogger().info(localeCache.getLoadingMessage());
 

@@ -21,7 +21,8 @@ public class ConfigurationUtils {
     // Static reference to the location of the locale file.
     static File localeFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "locale.yml");
 
-
+    // Static reference to the location of the discord2mc file.
+    static File discord2mcFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "discord2mc.yml");
 
     // Returns whether or not the configuration file exists in the filesystem.
     public static boolean doesConfigurationExist() {
@@ -65,7 +66,13 @@ public class ConfigurationUtils {
         p.saveResource("locale.yml", false);
     }
 
+    public static void deployDiscord2McConfiguration(Plugin p) {
+        p.saveResource("discord2mc.yml", false);
+    }
+
     public static YamlConfiguration getLocale() {
         return YamlConfiguration.loadConfiguration(localeFile);
     }
+
+    public static YamlConfiguration getDiscord2McConfigurationFile() { return YamlConfiguration.loadConfiguration(discord2mcFile); }
 }

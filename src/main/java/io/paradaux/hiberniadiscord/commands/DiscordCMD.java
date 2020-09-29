@@ -37,6 +37,7 @@ public class DiscordCMD implements CommandExecutor {
 
         player.sendMessage(message);
         return true;
+
     }
 
 }

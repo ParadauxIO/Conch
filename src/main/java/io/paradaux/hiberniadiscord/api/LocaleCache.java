@@ -4,6 +4,7 @@
 
 package io.paradaux.hiberniadiscord.api;
 
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class LocaleCache {
     String prefix;
     List<String> loadingMessage, shutdownMessage;
 
-    String severeOldConfigVersion, severeConfigNotExist, severeBadBackup;
+    String severeOldConfigVersion, severeConfigNotExist, severeBadBackup, severeNoPermission;
 
     String hiberniaDiscordReloadSuccess;
     List<String> hiberniaDiscordDefault;
@@ -30,12 +31,15 @@ public class LocaleCache {
         this.severeOldConfigVersion = locale.getString("severe-messages.old-version-config");
         this.severeConfigNotExist = locale.getString("severe-messages.config-not-exist");
         this.severeBadBackup = locale.getString("severe-messages.bad-backup");
+        this.severeNoPermission = locale.getString("severe-messages.no-permission");
         this.hiberniaDiscordReloadSuccess = locale.getString("hiberniadiscord.reload-success");
         this.hiberniaDiscordDefault = locale.getStringList("hiberniadiscord.default");
         this.discordDefault = locale.getStringList("discord.default");
         this.discordLink = locale.getString("discord.link");
         this.localeVersion = locale.getDouble("discord.link");
     }
+
+    public static String colorise(String str) { return ChatColor.translateAlternateColorCodes('&', str); }
 
     public String getPrefix() {
         return prefix;
@@ -81,4 +85,5 @@ public class LocaleCache {
         return localeVersion;
     }
 
+    public String getSevereNoPermission() { return severeNoPermission; }
 }
