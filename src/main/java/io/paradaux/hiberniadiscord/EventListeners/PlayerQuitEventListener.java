@@ -30,10 +30,10 @@ public class PlayerQuitEventListener implements Listener {
         player = event.getPlayer();
 
         // Parse Username Placeholders
-        String userName = EventUtils.parsePlaceholders(config, player, config.getPlayerJoinUsernameFormat());
+        String userName = EventUtils.parsePlaceholders(config, player, config.getPlayerLeaveUsernameFormat());
 
         // Parse Message Placeholders
-        String messageContent = EventUtils.parsePlaceholders(config, player, config.getPlayerJoinMessageFormat());
+        String messageContent = EventUtils.parsePlaceholders(config, player, config.getPlayerLeaveMessageFormat());
 
         // Parse Avatar Url Placeholders
         String avatarUrl = EventUtils.parsePlaceholders(config, player, config.getPlayerLeaveAvatarUrl());
