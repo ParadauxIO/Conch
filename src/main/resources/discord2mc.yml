@@ -7,7 +7,14 @@ enabled: false
 
 # This is the API token for your discord bot please see https://www.writebots.com/discord-bot-token/ for more information.
 # Do NOT share this.
+
+# In order for your bot to see the messages in your server, you will need to invite it to your server
+# as if you would with any other discord bot. Use the base link below, replacing the client id of your bot
+# https://discord.com/oauth2/authorize?client_id=CLIENTID&scope=bot
 token: ''
+
+# For discord commands. ; by default.
+command-prefix: ';'
 
 # Whether or not messages from bots are sent in-game.
 send-messages-from-bots: false
