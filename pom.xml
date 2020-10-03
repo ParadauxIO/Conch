@@ -48,6 +48,13 @@
                                     </excludes>
                                 </filter>
                             </filters>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>co.aikar.taskchain</pattern>
+                                    <shadedPattern>io.paradaux.hiberniadiscord.taskchain</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
