@@ -14,6 +14,8 @@ public class Discord2McConfigurationCache {
 
     String token;
 
+    String commandPrefix;
+
     boolean doSendBotMessages;
 
     List<String> monitoredChannels;
@@ -25,6 +27,7 @@ public class Discord2McConfigurationCache {
     public Discord2McConfigurationCache(FileConfiguration config) {
         this.isEnabled = config.getBoolean("enabled");
         this.token = config.getString("token");
+        this.commandPrefix = config.getString("command-prefix");
         this.doSendBotMessages = config.getBoolean("send-messages-from-bots");
         this.monitoredChannels = config.getStringList("monitored-channels");
         this.messageFormat = config.getString("message-format");

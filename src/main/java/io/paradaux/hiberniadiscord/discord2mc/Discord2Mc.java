@@ -15,6 +15,7 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.utils.Compression;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
@@ -24,6 +25,8 @@ public class Discord2Mc {
 
     private static Discord2McConfigurationCache configurationCache;
     public static Discord2McConfigurationCache getConfigurationCache() { return configurationCache; };
+
+    Logger logger = LoggerFactory.getLogger(getClass());
 
     String token;
 
@@ -45,6 +48,17 @@ public class Discord2Mc {
         builder.setCompression(Compression.NONE);
 
         builder.addEventListeners(new MessageListener(configurationCache));
+
+        if (token == null) {
+            logger.warn("You have not set the token for your discord bot for discord2mc functionality. This has been disabled.");
+            return;
+        }
+
+        if (!configurationCache.isEnabled()) {
+            logger.warn("Discord2mc functionality has been disabled, if this is intentional no further action is required.");
+            return;
+        }
+
 
         try {
             client = builder.build();
