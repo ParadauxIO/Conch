@@ -1,5 +1,6 @@
 package io.paradaux.hiberniadiscord.discord2mc.listeners;
 
+import io.paradaux.hiberniadiscord.HiberniaDiscord;
 import io.paradaux.hiberniadiscord.discord2mc.api.Discord2McConfigurationCache;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -18,7 +19,6 @@ public class MessageListener extends ListenerAdapter {
 
     List<String> monitoredChannels;
 
-
     public MessageListener(Discord2McConfigurationCache configurationCache) {
         this.configurationCache = configurationCache;
         monitoredChannels = configurationCache.getMonitoredChannels();
@@ -26,20 +26,23 @@ public class MessageListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!monitoredChannels.contains(event.getChannel().getId())) return;
 
-        String username = event.getAuthor().getName(); // Username
-        String discriminator = event.getAuthor().getDiscriminator();
-        String guildname = event.getGuild().getName(); // Guildname
-        String message = event.getMessage().getContentDisplay(); // message
+        HiberniaDiscord.ne
+        Member member = event.getMember();
+
+        if (!monitoredChannels.contains(event.getChannel().getId())) return; // If the message wasn't in a monitored channel, ignore it.
+        if (event.getAuthor().isBot() && !configurationCache.isDoSendBotMessages()) return; // If ignore bots is enabled, respect it.
+        if (member == null) return; // The message received event is triggered by the webhook, and thus has to ignore webhooks.
+
+
+        String username = event.getAuthor().getName();
+        String discriminator = event.getAuthor().getDiscriminator(); // The numbers after a user's username (after the #)
+        String guildname = event.getGuild().getName();
+        String message = event.getMessage().getContentDisplay();
         String channel = event.getMessage().getChannel().getName();
+        String nickname = member.getNickname() != null ? member.getNickname() : ""; // If the user doesn't have a username, let it be empty string.
 
-        String nickname = event.getMember().getNickname(); // Nickname
-        if (nickname == null) {
-            nickname = "";
-        }
-
-        Role mainRole = getHighestFrom(event.getMember());
+        Role mainRole = getHighestFrom(member);
         String role = mainRole != null ? mainRole.getName() : "";
 
         String chatMessage = configurationCache.getMessageFormat();
@@ -64,12 +67,12 @@ public class MessageListener extends ListenerAdapter {
             return null;
         }
 
-        return roles.stream().sorted((first, second) -> {
+        return roles.stream().min((first, second) -> {
             if (first.getPosition() == second.getPosition()) {
                 return 0;
             }
             return first.getPosition() > second.getPosition() ? -1 : 1;
-        }).findFirst().get();
+        }).get();
     }
 
 
