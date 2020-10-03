@@ -53,6 +53,7 @@ public class HiberniaDiscord extends JavaPlugin {
         ConfigurationUtils.deployLocale(this);
         localeCache = new LocaleCache(ConfigurationUtils.getLocale());
 
+        ConfigurationUtils.deployDiscord2McConfiguration(this);
         discord2Mc = new Discord2Mc(ConfigurationUtils.getDiscord2McConfigurationFile());
 
         getLogger().info(localeCache.getLoadingMessage());
