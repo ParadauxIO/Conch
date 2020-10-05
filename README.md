@@ -1,9 +1,12 @@
-# HiberniaDiscord v2.2.0: Next Step.
+# HiberniaDiscord v3.0.0
 
 ## Introduction
 
-HiberniaDiscord is a lightweight Minecraft -> Discord Bridge allowing you to syncronise messages with a channel on your discord via discord-webhooks. Users will appear as "bots" with their player head as the avatar. This can be fully configured.
+HiberniaDiscord is a lightweight Minecraft <-> Discord Bridge allowing you to syncronise messages with a channel on your discord via discord-webhooks. Users will appear as "bots" with their player head as the avatar. Using the built in discord2mc functionality you can now also perform the reverse, having discord messages be sent in-game. (*NEW in 3.0)
 
+## Planned Features
+- Discord commands
+Suggest more by creating an issue
 
 ### Installation
 
@@ -25,13 +28,11 @@ in project root:
 
 HiberniaDiscord is FOSS, if you would like a feature, simply fork the respository, add the requested functionality and open a pull request. I review them as they come in, and will aid you in merging it ino production in due course.
 
-
-
 ## v3.0 Authors
 
 * **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
 
-## V2.0 Authors
+## V2.X Authors
 
 * **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
 * **egg82** - refactoring, development, expertise - [egg82](https://github.com/egg82)
