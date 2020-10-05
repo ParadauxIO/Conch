@@ -1,6 +1,6 @@
 <metadata modelVersion="1.1.0">
 <groupId>co.paradaux</groupId>
-<artifactId>HiberniaDiscord</artifactId>
+<artifactId>io.paradaux.hiberniadiscord.HiberniaDiscord</artifactId>
 <versioning>
 <latest>2.1.1</latest>
 <release>2.1.1</release>

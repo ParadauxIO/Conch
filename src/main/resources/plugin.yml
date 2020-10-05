@@ -1,6 +1,18 @@
-version: 2.1.0
+# Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+
+version: 3.0.0
 name: HiberniaDiscord
-main: co.paradaux.hdiscord.BukkitBootstrap
+main: io.paradaux.hiberniadiscord.HiberniaDiscord
 author: Paradaux
 api-version: 1.13
-description: Minecraft Chat integration for Discord. Built for HiberniaMC.com
+description: Minecraft Chat integration for Discord. Made in Ireland.
+softdepend: [PlaceholderAPI]
+commands:
+  discord:
+    description: Gives an invite to your discord server
+    aliases: []
+    usage: /discord
+  hiberniadiscord:
+    description: Plugin version / developer information. <reload> reloads plugin configuration.
+    aliases: [hdiscord]
+    usage: /hiberniadiscord <reload>

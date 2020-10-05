@@ -1,0 +1,48 @@
+# Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+# Thanks for using HiberniaDiscord. Here you will find the default (English_IE) locale for HiberniaDiscord
+# The Locale only concerns command feedback, such as /discord and /hiberniadiscord, allowing you to customize responses.
+# If you would like to create an official language translation which would be shipped with the plugin please contact me. rian@paradaux.io
+
+# Changing this could result in "unintended" consequences. You have been warned.
+locale-version: 1.0
+prefix: "&cHibernia&3Discord &7» "
+
+
+loading-message:
+  - "+ ------------------------------------ +"
+  - "|   Running HiberniaDiscord v3.0.0     |"
+  - "|       © Rían Errity (Paradaux)       |"
+  - "|         https://paradaux.io          |"
+  - "+ ------------------------------------ +"
+  - "LICENSED UNDER GNU General Public License v3.0"
+
+shutdown-message:
+  - "+ ------------------------------------ +"
+  - "|   Unloaded HiberniaDiscord v3.0.0    |"
+  - "|       © Rían Errity (Paradaux)       |"
+  - "|         https://paradaux.io          |"
+  - "+ ------------------------------------ +"
+  - "LICENSED UNDER GNU General Public License v3.0"
+
+
+severe-messages:
+  old-version-config: "HiberniaDiscord » &7You were running an old version. Large configuration changes occurred between v2.1.X and v3.0.0 requiring your configuration to be overwritten. Apologies for any inconvenience caused."
+  config-not-exist: "HiberniaDiscord » Your configuration file doesn't seem to exist, is it invalid? a new version has been deployed. If this is your first run, this isn't cause for concern."
+  bad-backup: "HiberniaDiscord » An issue occurred whilst backing up your configuration file."
+  no-permission: "&c%prefix% &cYou do not have permission."
+hiberniadiscord:
+  reload-success: "%prefix% &cconfig.yml &7& &clocale.yml &c have been &creloaded&7."
+  default:
+    - "%prefix% &cDeveloped &7and &cMaintained&7 by &cParadaux"
+    - "&7This is &copen source &7software, please leave this &cattribution&7."
+    - "&7For support: &chttps://paradaux.io/discord"
+
+discord:
+
+  # This message is sent when /discord is used. The permission for this command is in config.yml
+  # You can add additional lines if you wish to create a more complex message.
+  default:
+    - "&7Check out our &3discord &7server (&cClick me!&7)"
+
+  # The clickable link
+  link: "https://paradaux.io/discord"

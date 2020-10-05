@@ -1,0 +1,44 @@
+# This is optional functionality which will allow you to have discord messages me sent to minecraft. This is fully customizable.
+
+# This functionality is in an alpha state. use at your own risk.
+
+# Switch this to true to use the discord2mc functionality
+enabled: false
+
+# This is the API token for your discord bot please see https://www.writebots.com/discord-bot-token/ for more information.
+# Do NOT share this.
+
+# In order for your bot to see the messages in your server, you will need to invite it to your server
+# as if you would with any other discord bot. Use the base link below, replacing the client id of your bot
+# https://discord.com/oauth2/authorize?client_id=CLIENTID&scope=bot
+token: ''
+
+# For discord commands. ; by default.
+# Set it to 'disabled' to disable discord commands.
+# Commands are coming in 3.1.0, please suggest commands you'd like to see!
+command-prefix: ';'
+
+# Whether or not messages from bots are sent in-game.
+send-messages-from-bots: false
+
+# This list is for the channel IDs of the channels you want the bot to listen to messages in.
+# See https://kb.statbot.net/faq/how-do-i-find-my-server-user-channel-id/ for information on how to get channel IDs
+monitored-channels:
+  - 'channelID'
+  - 'anotherChannelID'
+
+
+# This is where you'll control how your discord messages appear in-game.
+# There's a number of placeholders you can use.
+# %username% - Their discord username
+# %discriminator% - The four digits following their username#
+# %nickname% - Their nickname on the guild the message was sent.
+# %guildname% - The name of the guild (server) the message was sent
+# %message% - The message itself
+# %mainrole% - The highest role they have.
+# Request more placeholders on the support discord.
+
+message-format: "&7D: &7#%channel%: <&c%mainrole%&7> <&c%username%#%discriminator%&7>: &7%message%"
+
+# No touchy
+version: 1.0

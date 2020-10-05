@@ -1,12 +1,11 @@
 # HiberniaDiscord v2.2.0: Next Step.
 
-Currently preparing for v2.2.0 which will further improve on our dependency injection methods as well as fix any bugs present in 2.1.0
+## Introduction
 
-## Installation
+HiberniaDiscord is a lightweight Minecraft -> Discord Bridge allowing you to syncronise messages with a channel on your discord via discord-webhooks. Users will appear as "bots" with their player head as the avatar. This can be fully configured.
 
-Installing and configuring the plugin was made as easy as possible. We are not DiscordSRV. We're aiming to be a more lightweight alternative more aimed at aiding moderation and administration rather than providing two-way communication.
 
-### Prerequisites
+### Installation
 
 As of the time of writing this there are no current external libraries used.
 
@@ -16,35 +15,29 @@ As of the time of writing this there are no current external libraries used.
 4.  :: Configure the plugin to use your webhook. 
 
 Learn more about creating webhooks  [Here](https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhook)
+
 ## Deployment
 
-We're currently shipping w/ Maven. Feel free to build the source yourself, should you know how. (Cannot Guarentee what's here is ready to be built. Master branch should be fine.)
+in project root:
+`mvn clean package`
 
 ## Contributing
 
-Feel free to create a fork and submit a pull request, I'll get to it when I can (Which shouldn't be too long, I have nothing better to do with my time.)
+HiberniaDiscord is FOSS, if you would like a feature, simply fork the respository, add the requested functionality and open a pull request. I review them as they come in, and will aid you in merging it ino production in due course.
 
-## Versioning
 
-We're following a very weak versioning system whereby
 
-- 2.2.0: Latest.
-- 2.1.0: Adds Join/Leave webhook events as well as switches to dependency injection
-- 2.0.0: Rewrite and Overhaul of the entire plugin. Brings maven support.
-- 1.0.0: is the initial release switching to semantic versioning 
+## v3.0 Authors
 
-## Authors
+* **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
 
-* **Rían Errity** - *Initial concept and development - [ParadauxDev](https://paradaux.co)
-* **egg82** - *Guidance, Programming and expertise. - [Website](https://egg82.ninja)
+## V2.0 Authors
 
+* **Rían Errity** - concept and development - [Paradaux.io](https://paradaux.io)
+* **egg82** - refactoring, development, expertise - [egg82](https://github.com/egg82)
+d
 All those who contribute in any form will be acknowledged.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hats off to the entire Plugin Development Course on Udemy which got me interested in plugin development again.
-* Huge thanks to the very welcoming r/admincraft community who gave me a large amount of help following the initial release of the plugin
+This project is licensed under GPL - see the [LICENSE.md](LICENSE.md) file for details
