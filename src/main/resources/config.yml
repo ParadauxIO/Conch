@@ -82,7 +82,7 @@ settings:
   # You can find more information at the bottom of this configuration file.
   # https://bstats.org/plugin/bukkit/HiberniaDiscord/8386
 
-  bstats: enabled
+  bstats: true
 
   # Configure the permissions HiberniaDiscord listens to.
   discord-command-permission: "hiberniadiscord.discord"

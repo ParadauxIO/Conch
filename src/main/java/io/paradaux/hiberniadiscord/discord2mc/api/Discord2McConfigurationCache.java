@@ -57,4 +57,8 @@ public class Discord2McConfigurationCache {
     public double getVersion() {
         return version;
     }
+
+    public String getCommandPrefix() {
+        return commandPrefix;
+    }
 }

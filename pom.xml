@@ -38,7 +38,6 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <!-- included or useless -->
                                         <exclude>LICENSE*</exclude>
                                         <exclude>com/google/common/**</exclude>
                                         <exclude>javax/annotation/**</exclude>
@@ -53,6 +52,10 @@
                                 <relocation>
                                     <pattern>co.aikar.taskchain</pattern>
                                     <shadedPattern>io.paradaux.hiberniadiscord.taskchain</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>io.paradaux.hiberniadiscord</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -134,12 +137,6 @@
         </dependency>
 
         <dependency>
-            <groupId>net.kyori</groupId>
-            <artifactId>adventure-text-minimessage</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>1.7</version>
@@ -157,7 +154,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
 
     </dependencies>
 </project>

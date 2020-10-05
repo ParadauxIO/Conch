@@ -4,6 +4,9 @@
 
 package io.paradaux.hiberniadiscord;
 
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChain;
+import co.aikar.taskchain.TaskChainFactory;
 import io.paradaux.hiberniadiscord.EventListeners.*;
 import io.paradaux.hiberniadiscord.api.ConfigurationCache;
 import io.paradaux.hiberniadiscord.api.ConfigurationUtils;
@@ -43,8 +46,15 @@ public class HiberniaDiscord extends JavaPlugin {
     private static Discord2Mc discord2Mc;
     public static Discord2Mc getDiscord2Mc() { return discord2Mc; }
 
+    private static TaskChainFactory taskChainFactory;
+    public static <T> TaskChain<T> newChain() { return taskChainFactory.newChain(); }
+    public static <T> TaskChain<T> newSharedChain(String name) { return taskChainFactory.newSharedChain(name); }
+
+
+
     @Override
     public void onEnable() {
+        taskChainFactory = BukkitTaskChainFactory.create(this);
         plugin = this;
 
         ConfigurationUtils.updateConfigurationFile(this.getConfig());
