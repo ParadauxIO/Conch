@@ -7,7 +7,7 @@ public class GenericWebhookTest {
 
     GenericWebhook webhook;
 
-    String webhookUrl = "";
+    String webhookUrl = "https://discordapp.com/api/webhooks/763065395833602048/xUUX016wrPYPGWRJyfsGaDtwtxHJFrbWHrEfj4XMa5PvFT0jSc-kgcA9qF3ZP9cpH5Mv";
     String webhookUserName = "HiberniaDiscord Unit Test";
     String webhookAvatarUrl = "https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png";
     String webhookMessageContent = "This is a test";
