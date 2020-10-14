@@ -16,6 +16,10 @@ public class ConfigurationCache {
     boolean chatMessageEnabled;
     String chatMessageUsernameFormat, chatMessageMessageFormat,chatMessageAvatarUrl;
 
+    // Part of the new globalised-messages support in 3.0.1
+    boolean messagePrefixDisabled;
+    String messagePrefix;
+
     boolean playerJoinEnabled;
     String playerJoinUsernameFormat, playerJoinMessageFormat, playerJoinAvatarUrl;
 
@@ -36,7 +40,8 @@ public class ConfigurationCache {
     boolean updateCheck, updateNotify;
     double configVersion;
 
-    public ConfigurationCache(boolean discordCommand, String discordWebhookURL, String serverName, String avatarAPI, boolean chatMessageEnabled, String chatMessageUsernameFormat, String chatMessageMessageFormat, String chatMessageAvatarUrl, boolean playerJoinEnabled, String playerJoinUsernameFormat, String playerJoinMessageFormat, String playerJoinAvatarUrl, boolean playerLeaveEnabled, String playerLeaveUsernameFormat, String playerLeaveMessageFormat, String playerLeaveAvatarUrl, boolean advancementCompletedEnabled, String advancementCompletedUsernameFormat, String advancementCompletedMessageFormat, String advancementCompletedAvatarUrl, boolean serverStartupEnabled, String serverStartupUsernameFormat, String serverStartupMessageFormat, String serverStartupAvatarUrl, boolean serverShutdownEnabled, String serverShutdownEnabledUsernameFormat, String serverShutdownEnabledMessageFormat, String serverShutdownEnabledAvatarUrl, String discordCommandPermission, String reloadCommandPermission, boolean updateCheck, boolean updateNotify, double configVersion) {
+    public ConfigurationCache(boolean discordCommand, String discordWebhookURL, String serverName, String avatarAPI, boolean chatMessageEnabled, String chatMessageUsernameFormat, String chatMessageMessageFormat, String chatMessageAvatarUrl, boolean messagePrefixDisabled, String messagePrefix, boolean playerJoinEnabled, String playerJoinUsernameFormat, String playerJoinMessageFormat, String playerJoinAvatarUrl, boolean playerLeaveEnabled, String playerLeaveUsernameFormat, String playerLeaveMessageFormat, String playerLeaveAvatarUrl, boolean advancementCompletedEnabled, String advancementCompletedUsernameFormat, String advancementCompletedMessageFormat, String advancementCompletedAvatarUrl, boolean serverStartupEnabled, String serverStartupUsernameFormat, String serverStartupMessageFormat, String serverStartupAvatarUrl, boolean serverShutdownEnabled, String serverShutdownUsernameFormat, String serverShutdownMessageFormat, String serverShutdownAvatarUrl, String discordCommandPermission, String reloadCommandPermission, boolean updateCheck, boolean updateNotify, double configVersion) {
+
         this.discordCommand = discordCommand;
         this.discordWebhookURL = discordWebhookURL;
 
@@ -47,6 +52,9 @@ public class ConfigurationCache {
         this.chatMessageUsernameFormat = chatMessageUsernameFormat;
         this.chatMessageMessageFormat = chatMessageMessageFormat;
         this.chatMessageAvatarUrl = chatMessageAvatarUrl;
+
+        this.messagePrefixDisabled = messagePrefixDisabled;
+        this.messagePrefix = messagePrefix;
 
         this.playerJoinEnabled = playerJoinEnabled;
         this.playerJoinUsernameFormat = playerJoinUsernameFormat;
@@ -69,9 +77,9 @@ public class ConfigurationCache {
         this.serverStartupAvatarUrl = serverStartupAvatarUrl;
 
         this.serverShutdownEnabled = serverShutdownEnabled;
-        this.serverShutdownUsernameFormat = serverShutdownEnabledUsernameFormat;
-        this.serverShutdownMessageFormat = serverShutdownEnabledMessageFormat;
-        this.serverShutdownAvatarUrl = serverShutdownEnabledAvatarUrl;
+        this.serverShutdownUsernameFormat = serverShutdownUsernameFormat;
+        this.serverShutdownMessageFormat = serverShutdownMessageFormat;
+        this.serverShutdownAvatarUrl = serverShutdownAvatarUrl;
 
         this.discordCommandPermission = discordCommandPermission;
         this.reloadCommandPermission = reloadCommandPermission;
@@ -93,6 +101,9 @@ public class ConfigurationCache {
         this.chatMessageUsernameFormat = config.getString("events.chat-message.username-format");
         this.chatMessageMessageFormat = config.getString("events.chat-message.message-format");
         this.chatMessageAvatarUrl = config.getString("events.chat-message.avatar-url");
+
+        this.messagePrefixDisabled = config.getBoolean("events.chat-message.message-prefix-disabled");
+        this.messagePrefix = config.getString("events.chat-message.message-prefix");
 
         this.playerJoinEnabled = config.getBoolean("events.player-join.enabled");
         this.playerJoinUsernameFormat = config.getString("events.player-join.username-format");
@@ -258,5 +269,13 @@ public class ConfigurationCache {
 
     public double getConfigVersion() {
         return configVersion;
+    }
+
+    public boolean isMessagePrefixDisabled() {
+        return messagePrefixDisabled;
+    }
+
+    public String getMessagePrefix() {
+        return messagePrefix;
     }
 }

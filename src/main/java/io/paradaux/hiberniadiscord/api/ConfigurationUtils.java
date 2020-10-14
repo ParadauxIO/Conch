@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class ConfigurationUtils {
@@ -46,7 +47,12 @@ public class ConfigurationUtils {
 
         double configVersion = config.getDouble("config-version");
 
-        if (configVersion == 2.3d) return;
+        if (configVersion == 2.3d) {
+            config.set("config-version", "2.4");
+            config.set("events.chat-message.message-prefix-disabled", "!");
+            config.set("events.chat-message.message-prefix-disabled", true);
+            saveChangedConfigurationFile(config);
+        }
 
         HiberniaDiscord.log("Your configuration is too old to convert. Generating new configuration files. Please see config.yml.bak as this is your old configuration file.");
         backupConfig(config);
@@ -73,6 +79,15 @@ public class ConfigurationUtils {
     public static YamlConfiguration getLocale() {
         return YamlConfiguration.loadConfiguration(localeFile);
     }
+
+    public static void saveChangedConfigurationFile(FileConfiguration config) {
+        try {
+            config.save(configurationFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static YamlConfiguration getDiscord2McConfigurationFile() { return YamlConfiguration.loadConfiguration(discord2mcFile); }
 }
