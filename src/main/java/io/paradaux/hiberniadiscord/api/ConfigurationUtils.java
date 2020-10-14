@@ -31,7 +31,7 @@ public class ConfigurationUtils {
     }
 
     public static boolean outdatedCheck(FileConfiguration config) {
-        return config.getDouble("config-version") == 2.3d;
+        return config.getDouble("config-version") != 2.4d;
     }
 
     public static void backupConfig(FileConfiguration config) {
