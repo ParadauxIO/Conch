@@ -21,7 +21,7 @@ public class ServerStopEventListener implements Listener {
     public void Listener (ServerLoadEvent event) {
 
         // Stop if disabled
-        if (config.isServerShutdownEnabled()) return;
+        if (!config.isServerShutdownEnabled()) return;
 
         // Parse Username Placeholders
         String userName = EventUtils.parsePlaceholders(config, config.getServerShutdownUsernameFormat());
