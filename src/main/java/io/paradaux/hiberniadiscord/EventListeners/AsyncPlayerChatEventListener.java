@@ -48,6 +48,11 @@ public class AsyncPlayerChatEventListener implements Listener {
         // Sanitise Message, remove @everyone, @here and replace empty messages with a zero-width space.
         messageContent = EventUtils.sanistiseMessage(messageContent);
 
+        // Global Message-only support in 3.0.1
+        if (!config.isMessagePrefixDisabled()) {
+            if (!messageContent.startsWith(config.getMessagePrefix())) return;
+        }
+
         // Send the webhook
         new ChatWebhook(userName, avatarUrl, messageContent).sendWebhook();
 
