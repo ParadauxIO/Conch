@@ -37,6 +37,11 @@ events:
     username-format: '%playername%'
     message-format: '%messageContent%'
 
+    # New Feature in 3.0.1! Allows server who use localised/global channels to only send messages to disocrd when
+    # prefixed by some string, specified below. Disabled by default.
+    message-prefix: '!'
+    message-prefix-disabled: true
+
   # Occurs when a player joins the server. Player-specific Placeholders from PlaceholderAPI are supported here.
   player-join:
     enabled: true
@@ -95,7 +100,7 @@ update:
   notify: true
 
 # Config version, no touchy plz
-config-version: 2.3
+config-version: 2.4
 
 # BStats.org Notice.
 

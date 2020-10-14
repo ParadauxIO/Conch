@@ -21,7 +21,7 @@ public class ServerLoadEventListener implements Listener {
     @EventHandler(priority = EventPriority.LOW)
     public void Listener (ServerLoadEvent event) {
 
-        // Stop if diabled
+        // Stop if disabled
         if (!config.isServerStartupEnabled()) return;
 
         // Parse Username Placeholders
