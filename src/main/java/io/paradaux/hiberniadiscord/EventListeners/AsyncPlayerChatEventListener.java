@@ -50,6 +50,8 @@ public class AsyncPlayerChatEventListener implements Listener {
 
         // Global Message-only support in 3.0.1
         if (!config.isMessagePrefixDisabled()) {
+            messageContent = messageContent.replace(config.getMessagePrefix(), "");
+
             if (!messageContent.startsWith(config.getMessagePrefix())) return;
         }
 

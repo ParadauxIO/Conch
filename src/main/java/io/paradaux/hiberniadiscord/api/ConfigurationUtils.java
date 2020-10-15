@@ -52,7 +52,10 @@ public class ConfigurationUtils {
             config.set("events.chat-message.message-prefix-disabled", "!");
             config.set("events.chat-message.message-prefix-disabled", true);
             saveChangedConfigurationFile(config);
+            return;
         }
+
+        if (configVersion == 2.4d) { return; }
 
         HiberniaDiscord.log("Your configuration is too old to convert. Generating new configuration files. Please see config.yml.bak as this is your old configuration file.");
         backupConfig(config);
