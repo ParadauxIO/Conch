@@ -1,5 +1,24 @@
 /*
- * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 3 only, as
+ * published by the Free Software Foundation.
+ *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 3 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
+ *
+ * You should have received a copy of the GNU General Public License version
+ * 3 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ * Please contact Rían Errity <rian@paradaux.io> or visit https://paradaux.io
+ * if you need additional information or have any questions.
+ * See LICENSE.md for more details.
  */
 
 package io.paradaux.hiberniadiscord.api;
@@ -9,100 +28,67 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class ConfigurationCache {
 
     boolean discordCommand;
-    String discordWebhookURL;
+    String discordWebhookUrl;
 
-    String serverName, avatarAPI;
+    String serverName;
+    String avatarApi;
 
     boolean chatMessageEnabled;
-    String chatMessageUsernameFormat, chatMessageMessageFormat,chatMessageAvatarUrl;
+    String chatMessageUsernameFormat;
+    String chatMessageMessageFormat;
+    String chatMessageAvatarUrl;
 
     // Part of the new globalised-messages support in 3.0.1
     boolean messagePrefixDisabled;
     String messagePrefix;
 
     boolean playerJoinEnabled;
-    String playerJoinUsernameFormat, playerJoinMessageFormat, playerJoinAvatarUrl;
+    String playerJoinUsernameFormat;
+    String playerJoinMessageFormat;
+    String playerJoinAvatarUrl;
 
     boolean playerLeaveEnabled;
-    String playerLeaveUsernameFormat, playerLeaveMessageFormat, playerLeaveAvatarUrl;
+    String playerLeaveUsernameFormat;
+    String playerLeaveMessageFormat;
+    String playerLeaveAvatarUrl;
 
     boolean advancementCompletedEnabled;
-    String advancementCompletedUsernameFormat, advancementCompletedMessageFormat, advancementCompletedAvatarUrl;
+    String advancementCompletedUsernameFormat;
+    String advancementCompletedMessageFormat;
+    String advancementCompletedAvatarUrl;
 
     boolean serverStartupEnabled;
-    String serverStartupUsernameFormat, serverStartupMessageFormat, serverStartupAvatarUrl;
+    String serverStartupUsernameFormat;
+    String serverStartupMessageFormat;
+    String serverStartupAvatarUrl;
 
     boolean serverShutdownEnabled;
-    String serverShutdownUsernameFormat, serverShutdownMessageFormat, serverShutdownAvatarUrl;
+    String serverShutdownUsernameFormat;
+    String serverShutdownMessageFormat;
+    String serverShutdownAvatarUrl;
 
-    String discordCommandPermission, reloadCommandPermission;
+    String discordCommandPermission;
+    String reloadCommandPermission;
 
-    boolean updateCheck, updateNotify;
+    boolean updateCheck;
+    boolean updateNotify;
     double configVersion;
-
-    public ConfigurationCache(boolean discordCommand, String discordWebhookURL, String serverName, String avatarAPI, boolean chatMessageEnabled, String chatMessageUsernameFormat, String chatMessageMessageFormat, String chatMessageAvatarUrl, boolean messagePrefixDisabled, String messagePrefix, boolean playerJoinEnabled, String playerJoinUsernameFormat, String playerJoinMessageFormat, String playerJoinAvatarUrl, boolean playerLeaveEnabled, String playerLeaveUsernameFormat, String playerLeaveMessageFormat, String playerLeaveAvatarUrl, boolean advancementCompletedEnabled, String advancementCompletedUsernameFormat, String advancementCompletedMessageFormat, String advancementCompletedAvatarUrl, boolean serverStartupEnabled, String serverStartupUsernameFormat, String serverStartupMessageFormat, String serverStartupAvatarUrl, boolean serverShutdownEnabled, String serverShutdownUsernameFormat, String serverShutdownMessageFormat, String serverShutdownAvatarUrl, String discordCommandPermission, String reloadCommandPermission, boolean updateCheck, boolean updateNotify, double configVersion) {
-
-        this.discordCommand = discordCommand;
-        this.discordWebhookURL = discordWebhookURL;
-
-        this.serverName = serverName;
-        this.avatarAPI = avatarAPI;
-
-        this.chatMessageEnabled = chatMessageEnabled;
-        this.chatMessageUsernameFormat = chatMessageUsernameFormat;
-        this.chatMessageMessageFormat = chatMessageMessageFormat;
-        this.chatMessageAvatarUrl = chatMessageAvatarUrl;
-
-        this.messagePrefixDisabled = messagePrefixDisabled;
-        this.messagePrefix = messagePrefix;
-
-        this.playerJoinEnabled = playerJoinEnabled;
-        this.playerJoinUsernameFormat = playerJoinUsernameFormat;
-        this.playerJoinMessageFormat = playerJoinMessageFormat;
-        this.playerJoinAvatarUrl = playerJoinAvatarUrl;
-
-        this.playerLeaveEnabled = playerLeaveEnabled;
-        this.playerLeaveUsernameFormat = playerLeaveUsernameFormat;
-        this.playerLeaveMessageFormat = playerLeaveMessageFormat;
-        this.playerLeaveAvatarUrl = playerLeaveAvatarUrl;
-
-        this.advancementCompletedEnabled = advancementCompletedEnabled;
-        this.advancementCompletedUsernameFormat = advancementCompletedUsernameFormat;
-        this.advancementCompletedMessageFormat = advancementCompletedMessageFormat;
-        this.advancementCompletedAvatarUrl = advancementCompletedAvatarUrl;
-
-        this.serverStartupEnabled = serverStartupEnabled;
-        this.serverStartupUsernameFormat = serverStartupUsernameFormat;
-        this.serverStartupMessageFormat = serverStartupMessageFormat;
-        this.serverStartupAvatarUrl = serverStartupAvatarUrl;
-
-        this.serverShutdownEnabled = serverShutdownEnabled;
-        this.serverShutdownUsernameFormat = serverShutdownUsernameFormat;
-        this.serverShutdownMessageFormat = serverShutdownMessageFormat;
-        this.serverShutdownAvatarUrl = serverShutdownAvatarUrl;
-
-        this.discordCommandPermission = discordCommandPermission;
-        this.reloadCommandPermission = reloadCommandPermission;
-
-        this.updateCheck = updateCheck;
-        this.updateNotify = updateNotify;
-
-        this.configVersion = configVersion;
-    }
 
     public ConfigurationCache(FileConfiguration config) {
         this.discordCommand = config.getBoolean("discord.discord-command");
-        this.discordWebhookURL = config.getString("discord.webhook-url");
+        this.discordWebhookUrl = config.getString("discord.webhook-url");
 
         this.serverName = config.getString("server-name");
-        this.avatarAPI = config.getString("avatar-api");
+        this.avatarApi = config.getString("avatar-api");
 
         this.chatMessageEnabled = config.getBoolean("events.chat-message.enabled");
-        this.chatMessageUsernameFormat = config.getString("events.chat-message.username-format");
+        this.chatMessageUsernameFormat = config
+                .getString("events.chat-message.username-format");
         this.chatMessageMessageFormat = config.getString("events.chat-message.message-format");
         this.chatMessageAvatarUrl = config.getString("events.chat-message.avatar-url");
 
-        this.messagePrefixDisabled = config.getBoolean("events.chat-message.message-prefix-disabled");
+        this.messagePrefixDisabled = config
+                .getBoolean("events.chat-message.message-prefix-disabled");
         this.messagePrefix = config.getString("events.chat-message.message-prefix");
 
         this.playerJoinEnabled = config.getBoolean("events.player-join.enabled");
@@ -115,19 +101,27 @@ public class ConfigurationCache {
         this.playerLeaveMessageFormat = config.getString("events.player-leave.message-format");
         this.playerLeaveAvatarUrl = config.getString("events.player-leave.avatar-url");
 
-        this.advancementCompletedEnabled = config.getBoolean("events.advancement-completed.enabled");
-        this.advancementCompletedUsernameFormat = config.getString("events.advancement-completed.username-format");
-        this.advancementCompletedMessageFormat = config.getString("events.advancement-completed.message-format");
-        this.advancementCompletedAvatarUrl = config.getString("events.advancement-completed.avatar-url");
+        this.advancementCompletedEnabled = config
+                .getBoolean("events.advancement-completed.enabled");
+        this.advancementCompletedUsernameFormat = config
+                .getString("events.advancement-completed.username-format");
+        this.advancementCompletedMessageFormat = config
+                .getString("events.advancement-completed.message-format");
+        this.advancementCompletedAvatarUrl = config
+                .getString("events.advancement-completed.avatar-url");
 
         this.serverStartupEnabled = config.getBoolean("events.server-startup.enabled");
-        this.serverStartupUsernameFormat = config.getString("events.server-startup.username-format");
-        this.serverStartupMessageFormat = config.getString("events.server-startup.message-format");
+        this.serverStartupUsernameFormat = config
+                .getString("events.server-startup.username-format");
+        this.serverStartupMessageFormat = config
+                .getString("events.server-startup.message-format");
         this.serverStartupAvatarUrl = config.getString("events.server-startup.avatar-url");
 
         this.serverShutdownEnabled = config.getBoolean("events.server-shutdown.enabled");
-        this.serverShutdownUsernameFormat = config.getString("events.server-shutdown.username-format");
-        this.serverShutdownMessageFormat = config.getString("events.server-shutdown.message-format");
+        this.serverShutdownUsernameFormat = config
+                .getString("events.server-shutdown.username-format");
+        this.serverShutdownMessageFormat = config
+                .getString("events.server-shutdown.message-format");
         this.serverShutdownAvatarUrl = config.getString("events.server-shutdown.avatar-url");
 
         this.discordCommandPermission = config.getString("settings.discord-command-permission");
@@ -139,20 +133,16 @@ public class ConfigurationCache {
         this.configVersion = config.getDouble("config-version");
     }
 
-    public boolean isDiscordCommand() {
-        return discordCommand;
-    }
-
-    public String getDiscordWebhookURL() {
-        return discordWebhookURL;
+    public String getDiscordWebhookUrl() {
+        return discordWebhookUrl;
     }
 
     public String getServerName() {
         return serverName;
     }
 
-    public String getAvatarAPI() {
-        return avatarAPI;
+    public String getAvatarApi() {
+        return avatarApi;
     }
 
     public boolean isChatMessageEnabled() {
@@ -249,26 +239,6 @@ public class ConfigurationCache {
 
     public String getServerShutdownAvatarUrl() {
         return serverShutdownAvatarUrl;
-    }
-
-    public String getDiscordCommandPermission() {
-        return discordCommandPermission;
-    }
-
-    public String getReloadCommandPermission() {
-        return reloadCommandPermission;
-    }
-
-    public boolean isUpdateCheck() {
-        return updateCheck;
-    }
-
-    public boolean isUpdateNotify() {
-        return updateNotify;
-    }
-
-    public double getConfigVersion() {
-        return configVersion;
     }
 
     public boolean isMessagePrefixDisabled() {

@@ -1,4 +1,4 @@
-package io.paradaux.hiberniadiscord.WebhookUtils;
+package io.paradaux.hiberniadiscord.webhookutils;
 
 import org.junit.Before;
 import org.junit.Test;

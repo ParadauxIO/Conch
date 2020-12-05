@@ -1,5 +1,24 @@
 /*
- * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 3 only, as
+ * published by the Free Software Foundation.
+ *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 3 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
+ *
+ * You should have received a copy of the GNU General Public License version
+ * 3 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ * Please contact Rían Errity <rian@paradaux.io> or visit https://paradaux.io
+ * if you need additional information or have any questions.
+ * See LICENSE.md for more details.
  */
 
 package io.paradaux.hiberniadiscord.api;
@@ -17,33 +36,36 @@ import java.util.Objects;
 public class ConfigurationUtils {
 
     // Static reference to the location of the configuration file.
-    static File configurationFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "config.yml");
+    static File configurationFile = new File(Objects.requireNonNull(Bukkit.getServer()
+            .getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(), "config.yml");
 
     // Static reference to the location of the locale file.
-    static File localeFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "locale.yml");
+    static File localeFile = new File(Objects.requireNonNull(Bukkit.getServer()
+            .getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(), "locale.yml");
 
     // Static reference to the location of the discord2mc file.
-    static File discord2mcFile = new File(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord").getDataFolder(), "discord2mc.yml");
+    static File discord2mcFile = new File(Objects.requireNonNull(Bukkit.getServer()
+            .getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(),
+            "discord2mc.yml");
 
     // Returns whether or not the configuration file exists in the filesystem.
     public static boolean doesConfigurationExist() {
         return configurationFile.exists();
     }
 
-    public static boolean outdatedCheck(FileConfiguration config) {
-        return config.getDouble("config-version") != 2.4d;
-    }
-
-    public static void backupConfig(FileConfiguration config) {
-        configurationFile.renameTo(new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(), "config.yml.bak"));
-        configurationFile.delete();
+    public static void backupConfig() {
+        if (configurationFile.renameTo(new File(Objects.requireNonNull(Bukkit.getServer()
+                .getPluginManager().getPlugin("HiberniaDiscord")).getDataFolder(),
+                "config.yml.bak")) || configurationFile.delete()) {
+            HiberniaDiscord.getMainLogger().warn("Error backing up configuration file.");
+        }
     }
 
     public static void updateConfigurationFile(FileConfiguration config) {
         if (!doesConfigurationExist()) {
             deployNewConfig(HiberniaDiscord.getPlugin());
             return;
-        };
+        }
 
         double configVersion = config.getDouble("config-version");
 
@@ -55,18 +77,22 @@ public class ConfigurationUtils {
             return;
         }
 
-        if (configVersion == 2.4d) { return; }
+        if (configVersion == 2.4d) {
+            return;
+        }
 
-        HiberniaDiscord.log("Your configuration is too old to convert. Generating new configuration files. Please see config.yml.bak as this is your old configuration file.");
-        backupConfig(config);
+        HiberniaDiscord.log("Your configuration is too old to convert. Generating new "
+                + "configuration files. Please see config.yml.bak as this is your old "
+                + "configuration file.");
+        backupConfig();
         deployNewConfig(HiberniaDiscord.getPlugin());
 
     }
 
-    public static void deployNewConfig(Plugin p) {
+    private static void deployNewConfig(Plugin p) {
         try {
             p.saveDefaultConfig();
-        } catch(Exception e) {
+        } catch (NullPointerException exception) {
             HiberniaDiscord.log("Plugin is null.");
         }
     }
@@ -83,7 +109,7 @@ public class ConfigurationUtils {
         return YamlConfiguration.loadConfiguration(localeFile);
     }
 
-    public static void saveChangedConfigurationFile(FileConfiguration config) {
+    private static void saveChangedConfigurationFile(FileConfiguration config) {
         try {
             config.save(configurationFile);
         } catch (IOException e) {
@@ -91,6 +117,7 @@ public class ConfigurationUtils {
         }
     }
 
-
-    public static YamlConfiguration getDiscord2McConfigurationFile() { return YamlConfiguration.loadConfiguration(discord2mcFile); }
+    public static YamlConfiguration getDiscord2McConfigurationFile() {
+        return YamlConfiguration.loadConfiguration(discord2mcFile);
+    }
 }

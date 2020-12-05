@@ -1,5 +1,24 @@
 /*
- * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
+ * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This code is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License version 3 only, as
+ * published by the Free Software Foundation.
+ *
+ * This code is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+ * version 3 for more details (a copy is included in the LICENSE file that
+ * accompanied this code).
+ *
+ * You should have received a copy of the GNU General Public License version
+ * 3 along with this work; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ * Please contact Rían Errity <rian@paradaux.io> or visit https://paradaux.io
+ * if you need additional information or have any questions.
+ * See LICENSE.md for more details.
  */
 
 package io.paradaux.hiberniadiscord.api;
@@ -12,9 +31,13 @@ import java.util.List;
 public class LocaleCache {
 
     String prefix;
-    List<String> loadingMessage, shutdownMessage;
+    List<String> loadingMessage;
+    List<String> shutdownMessage;
 
-    String severeOldConfigVersion, severeConfigNotExist, severeBadBackup, severeNoPermission;
+    String severeOldConfigVersion;
+    String severeConfigNotExist;
+    String severeBadBackup;
+    String severeNoPermission;
 
     String hiberniaDiscordReloadSuccess;
     List<String> hiberniaDiscordDefault;
@@ -39,7 +62,9 @@ public class LocaleCache {
         this.localeVersion = locale.getDouble("discord.link");
     }
 
-    public static String colorise(String str) { return ChatColor.translateAlternateColorCodes('&', str); }
+    public static String colorise(String str) {
+        return ChatColor.translateAlternateColorCodes('&', str);
+    }
 
     public String getPrefix() {
         return prefix;
@@ -51,18 +76,6 @@ public class LocaleCache {
 
     public String getShutdownMessage() {
         return "\n" + String.join("\n", shutdownMessage);
-    }
-
-    public String getSevereOldConfigVersion() {
-        return severeOldConfigVersion;
-    }
-
-    public String getSevereConfigNotExist() {
-        return severeConfigNotExist;
-    }
-
-    public String getSevereBadBackup() {
-        return severeBadBackup;
     }
 
     public String getHiberniaDiscordReloadSuccess() {
@@ -81,9 +94,7 @@ public class LocaleCache {
         return discordLink;
     }
 
-    public double getLocaleVersion() {
-        return localeVersion;
+    public String getSevereNoPermission() {
+        return severeNoPermission;
     }
-
-    public String getSevereNoPermission() { return severeNoPermission; }
 }

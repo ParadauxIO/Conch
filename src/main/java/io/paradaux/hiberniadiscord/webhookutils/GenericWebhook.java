@@ -2,17 +2,13 @@
  * Copyright © 2020 Property of Rían Errity Licensed under GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007. See <LICENSE.md>
  */
 
-package io.paradaux.hiberniadiscord.WebhookUtils;
+package io.paradaux.hiberniadiscord.webhookutils;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
 
 public class GenericWebhook {
 
@@ -36,7 +32,7 @@ public class GenericWebhook {
     }
 
     public GenericWebhook(String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
-        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscordWebhookURL();
+        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscordWebhookUrl();
         this.webhookUserName = webhookUserName;
         this.webhookAvatarUrl = webhookAvatarUrl;
         this.webhookMessageContent = webhookMessageContent;
@@ -47,13 +43,7 @@ public class GenericWebhook {
 
 
     public WebhookClient createClient(String webhookUrl) {
-
-        if (isValidURL(webhookUrl)) {
-            clientBuilder = new WebhookClientBuilder(webhookUrl);
-        } else {
-            HiberniaDiscord.getMainLogger().log(Level.SEVERE, "Invalid Webhook supplied. Please check the configuration file, is it valid? \n If this is the first time you're running the plugin please configure the webhook field.");
-            return null;
-        }
+        clientBuilder = new WebhookClientBuilder(webhookUrl);
 
         clientBuilder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
@@ -65,15 +55,6 @@ public class GenericWebhook {
         clientBuilder.setWait(true);
         return clientBuilder.build();
 
-    }
-
-    private boolean isValidURL(String url) {
-        try {
-            new URI(url).parseServerAuthority();
-        } catch (URISyntaxException e) {
-            return false;
-        }
-        return true;
     }
 
     public WebhookClient getClient() {
@@ -102,15 +83,4 @@ public class GenericWebhook {
                 .build();
     }
 
-    public void setWebhookUrl(String webhookUrl) {
-        this.webhookUrl = webhookUrl;
-    }
-
-    public void setWebhookAvatarUrl(String webhookAvatarUrl) {
-        this.webhookAvatarUrl = webhookAvatarUrl;
-    }
-
-    public void setWebhookUserName(String webhookUserName) {
-        this.webhookUserName = webhookUserName;
-    }
 }
