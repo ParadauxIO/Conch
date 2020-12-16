@@ -21,34 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.api;
+package io.paradaux.hiberniadiscord.controllers;
 
-import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-
-public class EventUtils {
-
-    public static String getColourlessName(Player p) {
-        return ChatColor.stripColor(p.getDisplayName());
-    }
-
-    public static String removeColor(String s) {
-        return ChatColor.stripColor(s);
-    }
-
-
-
-
-
-
-
-    public static String parsePlaceholders(ConfigurationCache config, String str) {
-        return str.replace("%servername%", config.getServerName());
-    }
-
-    public static String parsePlaceholders(LocaleCache locale, String str) {
-        return str.replace("%prefix%", locale.getPrefix());
-    }
-
+public class VersionNotificationController {
 }

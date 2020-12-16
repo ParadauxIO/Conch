@@ -24,17 +24,14 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.ConfigurationCache;
-import io.paradaux.hiberniadiscord.api.EventUtils;
 import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-public class PlayerJoinEventListener implements Listener {
+public class PlayerJoinEventListener extends WebhookListener {
 
     ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
     PlaceholderAPIWrapper papi = new PlaceholderAPIWrapper();
@@ -52,15 +49,15 @@ public class PlayerJoinEventListener implements Listener {
             player = event.getPlayer();
 
             // Parse Username Placeholders
-            String userName = EventUtils.parsePlaceholders(config, player, config
+            String userName = this.parsePlaceholders(config, player, config
                     .getPlayerJoinUsernameFormat());
 
             // Parse Message Placeholders
-            String messageContent = EventUtils.parsePlaceholders(config, player, config
+            String messageContent = this.parsePlaceholders(config, player, config
                     .getPlayerJoinMessageFormat());
 
             // Parse Avatar Url Placeholders
-            String avatarUrl = EventUtils.parsePlaceholders(config, player, config
+            String avatarUrl = this.parsePlaceholders(config, player, config
                     .getPlayerJoinAvatarUrl());
 
             // If placeholder api is installed, parse papi placeholders.
@@ -71,7 +68,7 @@ public class PlayerJoinEventListener implements Listener {
 
             // Sanitise Message, remove @everyone, @here and replace empty messages with a
             // zero-width space.
-            messageContent = EventUtils.sanistiseMessage(messageContent);
+            messageContent = this.sanistiseMessage(messageContent);
 
             // Send the webhook
             new ChatWebhook(userName, avatarUrl, messageContent).sendWebhook();

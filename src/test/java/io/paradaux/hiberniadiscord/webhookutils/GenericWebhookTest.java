@@ -14,7 +14,11 @@ public class GenericWebhookTest {
 
     @Before
     public void setUp() {
-        webhook = new GenericWebhook(webhookUrl, webhookUserName, webhookAvatarUrl, webhookMessageContent);
+        GenericWebhook.setWebhookUrl(webhookUrl);
+        GenericWebhook.createClient();
+
+        webhook = new GenericWebhook(webhookUserName, webhookAvatarUrl, webhookMessageContent);
+        webhook.sendWebhook();
     }
 
     @Test

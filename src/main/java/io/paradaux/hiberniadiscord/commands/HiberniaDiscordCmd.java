@@ -24,8 +24,7 @@
 package io.paradaux.hiberniadiscord.commands;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.EventUtils;
-import io.paradaux.hiberniadiscord.api.LocaleCache;
+import io.paradaux.hiberniadiscord.models.Locale;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -33,7 +32,7 @@ import org.bukkit.command.CommandSender;
 
 public class HiberniaDiscordCmd implements CommandExecutor {
 
-    LocaleCache locale = HiberniaDiscord.getLocaleCache();
+    Locale locale = HiberniaDiscord.getLocaleCache();
 
     public String colorise(String str) {
         return ChatColor.translateAlternateColorCodes('&', str);
@@ -43,7 +42,7 @@ public class HiberniaDiscordCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (!sender.hasPermission("hiberniadiscord.admin")) {
-            sender.sendMessage(LocaleCache.colorise(locale.getSevereNoPermission()));
+            sender.sendMessage(Locale.colorise(locale.getSevereNoPermission()));
             return true;
         }
 
@@ -63,6 +62,7 @@ public class HiberniaDiscordCmd implements CommandExecutor {
             // TODO: implement
             case "discord2mc": {
                 sender.sendMessage(ChatColor.RED + "Unimplemented.");
+                break;
             }
 
             default: {

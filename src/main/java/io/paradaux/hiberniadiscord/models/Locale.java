@@ -21,14 +21,14 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.api;
+package io.paradaux.hiberniadiscord.models;
 
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
 
-public class LocaleCache {
+public class Locale {
 
     String prefix;
     List<String> loadingMessage;
@@ -47,7 +47,7 @@ public class LocaleCache {
 
     double localeVersion;
 
-    public LocaleCache(FileConfiguration locale) {
+    public Locale(FileConfiguration locale) {
         this.prefix = locale.getString("prefix");
         this.loadingMessage = locale.getStringList("loading-message");
         this.shutdownMessage = locale.getStringList("shutdown-message");

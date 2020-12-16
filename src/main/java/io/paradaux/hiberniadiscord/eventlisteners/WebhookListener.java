@@ -28,7 +28,6 @@ import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.ConfigurationCache;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;

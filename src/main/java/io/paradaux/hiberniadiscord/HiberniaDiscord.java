@@ -5,18 +5,18 @@
 package io.paradaux.hiberniadiscord;
 
 import club.minnced.discord.webhook.WebhookClient;
-import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
-import io.paradaux.hiberniadiscord.eventlisteners.*;
-import io.paradaux.hiberniadiscord.api.ConfigurationCache;
-import io.paradaux.hiberniadiscord.api.ConfigurationUtils;
-import io.paradaux.hiberniadiscord.api.LocaleCache;
+import io.paradaux.hiberniadiscord.models.Locale;
 import io.paradaux.hiberniadiscord.api.VersionChecker;
 import io.paradaux.hiberniadiscord.commands.DiscordCmd;
 import io.paradaux.hiberniadiscord.commands.HiberniaDiscordCmd;
+import io.paradaux.hiberniadiscord.controllers.*;
 import io.paradaux.hiberniadiscord.discord2mc.Discord2Mc;
+import io.paradaux.hiberniadiscord.eventlisteners.*;
 import io.paradaux.hiberniadiscord.events.ServerStopEvent;
+import io.paradaux.hiberniadiscord.models.PluginConfiguration;
+import io.paradaux.hiberniadiscord.webhookutils.GenericWebhook;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,7 +24,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.CheckReturnValue;
 import java.io.File;
@@ -32,31 +31,31 @@ import java.util.Objects;
 
 public class HiberniaDiscord extends JavaPlugin {
 
-    final private static Logger logger = LoggerFactory.getLogger("io.paradaux.hibernia"
-            + "discord");
-    public static Logger getMainLogger() { return logger; }
-
-    private static ConfigurationCache configurationCache;
-    public static ConfigurationCache getConfigurationCache() { return configurationCache; }
-
-    private static LocaleCache localeCache;
-    public static LocaleCache getLocaleCache() { return localeCache; }
-
-    private static Plugin plugin;
-    public static Plugin getPlugin() { return plugin; }
-
-    private static Discord2Mc discord2Mc;
-
+    private static PluginConfiguration pluginConfiguration;
     private static TaskChainFactory taskChainFactory;
-    public static <T> TaskChain<T> newChain() { return taskChainFactory.newChain(); }
+    private static Locale localeCache;
+    private static Discord2Mc discord2Mc;
+    private static Plugin plugin;
 
     @Override
     public void onEnable() {
-        taskChainFactory = BukkitTaskChainFactory.create(this);
+        LogController.createLogger(getConfig().getBoolean("settings.debug"));
+        Logger logger = LogController.getLogger();
+
+        new ConfigurationController();
+        new MetricsController();
+        new TaskController();
+        new VersionNotificationController();
+
+        GenericWebhook.setWebhookUrl(ConfigurationController.getPluginConfiguration()
+                .getDiscordWebhookUrl());
+
+        GenericWebhook.createClient();
+
         plugin = this;
 
-        ConfigurationUtils.updateConfigurationFile(this.getConfig());
-        configurationCache = new ConfigurationCache(this.getConfig());
+
+
 
         // Test validity of webhook, if invalid; disable the plugin.
         if (!testWebhookURL()) {
@@ -71,7 +70,7 @@ public class HiberniaDiscord extends JavaPlugin {
         WebhookListener.createClient();
 
         ConfigurationUtils.deployLocale(this);
-        localeCache = new LocaleCache(ConfigurationUtils.getLocale());
+        localeCache = new Locale(ConfigurationUtils.getLocale());
 
         ConfigurationUtils.deployDiscord2McConfiguration(this);
         discord2Mc = new Discord2Mc(ConfigurationUtils.getDiscord2McConfigurationFile());
@@ -80,11 +79,6 @@ public class HiberniaDiscord extends JavaPlugin {
 
         registerCommands();
         registerEvents(getServer().getPluginManager());
-
-        // bStats: I respect your decision to disable this!
-        // See config.yml for my statement.
-        if (!getConfig().getBoolean("settings.bstats")) return;
-        Metrics metrics = new Metrics(this, 8386);
 
         new VersionChecker(this, 67795).getVersion(version -> {
             if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
@@ -95,6 +89,22 @@ public class HiberniaDiscord extends JavaPlugin {
             }
             logger.info("There are no new updates available");
         });
+
+
+        // bStats: I respect your decision to disable this!
+        if (getConfig().getBoolean("settings.bstats")) {
+            Metrics metrics = new Metrics(this, 8386);
+            metrics.addCustomChart(new Metrics.SimplePie("using_discord2mc",
+                    () -> getConfig().getString("language", "en")));
+            metrics.addCustomChart(new Metrics.SimplePie("using_discord_commands",
+                    () -> getConfig().getString("language", "en")));
+
+        }
+
+
+
+
+
 
     }
 
@@ -133,7 +143,7 @@ public class HiberniaDiscord extends JavaPlugin {
     public static void updateLocaleCache() {
         File localeFile = new File(Objects.requireNonNull(Bukkit.getServer().getPluginManager()
                 .getPlugin("HiberniaDiscord")).getDataFolder(), "locale.yml");
-        localeCache = new LocaleCache(YamlConfiguration.loadConfiguration(localeFile));
+        localeCache = new Locale(YamlConfiguration.loadConfiguration(localeFile));
     }
 
     @CheckReturnValue
@@ -146,6 +156,22 @@ public class HiberniaDiscord extends JavaPlugin {
             logger.warn("You have not setup your webhook in the configuration file!");
             return false;
         }
+    }
+
+    public static ConfigurationCache getConfigurationCache() {
+        return configurationCache;
+    }
+
+    public static Locale getLocaleCache() {
+        return localeCache;
+    }
+
+    public static Plugin getPlugin() {
+        return plugin;
+    }
+
+    public static <T> TaskChain<T> newChain() {
+        return taskChainFactory.newChain();
     }
 
 

@@ -21,11 +21,11 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.api;
+package io.paradaux.hiberniadiscord.models;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-public class ConfigurationCache {
+public class PluginConfiguration {
 
     boolean discordCommand;
     String discordWebhookUrl;
@@ -74,7 +74,7 @@ public class ConfigurationCache {
     boolean updateNotify;
     double configVersion;
 
-    public ConfigurationCache(FileConfiguration config) {
+    public PluginConfiguration(FileConfiguration config) {
         this.discordCommand = config.getBoolean("discord.discord-command");
         this.discordWebhookUrl = config.getString("discord.webhook-url");
 

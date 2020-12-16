@@ -8,42 +8,38 @@ import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.controllers.LogController;
 
 public class GenericWebhook {
 
-    WebhookClient client;
-    WebhookClientBuilder clientBuilder;
-    WebhookMessageBuilder messageBuilder;
+    private static WebhookClient client;
+    private static String webhookUrl;
 
-    String webhookUrl;
+    WebhookMessageBuilder messageBuilder = new WebhookMessageBuilder();
+
     String webhookUserName;
     String webhookAvatarUrl;
     String webhookMessageContent;
 
-    public GenericWebhook(String webhookUrl, String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
-        this.webhookUrl = webhookUrl;
-        this.webhookUserName = webhookUserName;
-        this.webhookAvatarUrl = webhookAvatarUrl;
-        this.webhookMessageContent = webhookMessageContent;
-
-        client = createClient(webhookUrl);
-        messageBuilder = new WebhookMessageBuilder();
-    }
-
+    /**
+     * Creates an instance of GenericWebhook assuming the client has already been created.
+     * */
     public GenericWebhook(String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
-        this.webhookUrl = HiberniaDiscord.getConfigurationCache().getDiscordWebhookUrl();
+        if (client == null) {
+            LogController.getLogger().error("Failed to send a discord message.");
+            return;
+        }
+
         this.webhookUserName = webhookUserName;
         this.webhookAvatarUrl = webhookAvatarUrl;
         this.webhookMessageContent = webhookMessageContent;
-
-        client = createClient(webhookUrl);
-        messageBuilder = new WebhookMessageBuilder();
     }
 
-
-    public WebhookClient createClient(String webhookUrl) {
-        clientBuilder = new WebhookClientBuilder(webhookUrl);
+    /**
+     * Factory for creating the discord connection.
+     */
+    public static void createClient() {
+        WebhookClientBuilder clientBuilder = new WebhookClientBuilder(webhookUrl);
 
         clientBuilder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
@@ -53,14 +49,16 @@ public class GenericWebhook {
         });
 
         clientBuilder.setWait(true);
-        return clientBuilder.build();
-
+        client = clientBuilder.build();
     }
 
     public WebhookClient getClient() {
         return client;
     }
 
+    /**
+     * Sends the webhook to discord.
+     */
     public void sendWebhook() {
 
         // Prevent empty messages being passed to the discord API
@@ -76,11 +74,19 @@ public class GenericWebhook {
         }
     }
 
+    /**
+     * Creates a webhook message from the set parameters.
+     * @return WebhookMessage Object which represents the chat message.
+     * */
     public WebhookMessage createMessage() {
         return messageBuilder.setUsername(webhookUserName)
                 .setAvatarUrl(webhookAvatarUrl)
                 .setContent(webhookMessageContent)
                 .build();
+    }
+
+    public static void setWebhookUrl(String newWebhookUrl) {
+        webhookUrl = newWebhookUrl;
     }
 
 }

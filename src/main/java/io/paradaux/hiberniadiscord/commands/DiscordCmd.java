@@ -24,8 +24,7 @@
 package io.paradaux.hiberniadiscord.commands;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.EventUtils;
-import io.paradaux.hiberniadiscord.api.LocaleCache;
+import io.paradaux.hiberniadiscord.models.Locale;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -38,7 +37,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class DiscordCmd implements CommandExecutor {
 
-    LocaleCache locale = HiberniaDiscord.getLocaleCache();
+    Locale locale = HiberniaDiscord.getLocaleCache();
     Player player;
 
     public String colorise(String str) {

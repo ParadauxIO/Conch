@@ -24,14 +24,11 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
-import io.paradaux.hiberniadiscord.api.ConfigurationCache;
-import io.paradaux.hiberniadiscord.api.EventUtils;
 import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class AsyncPlayerChatEventListener extends WebhookListener {
@@ -52,7 +49,7 @@ public class AsyncPlayerChatEventListener extends WebhookListener {
         }
 
         // Send the webhook
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             player = event.getPlayer();
 
             // Parse Username Placeholders

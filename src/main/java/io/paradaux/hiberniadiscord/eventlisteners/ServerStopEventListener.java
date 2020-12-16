@@ -25,14 +25,11 @@ package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
-import io.paradaux.hiberniadiscord.api.ConfigurationCache;
-import io.paradaux.hiberniadiscord.api.EventUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerLoadEvent;
 
-public class ServerStopEventListener implements Listener {
+public class ServerStopEventListener extends WebhookListener {
 
     ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
 
@@ -57,7 +54,7 @@ public class ServerStopEventListener implements Listener {
 
             // Sanitise Message, remove @everyone, @here and replace empty messages with
             // a zero-width space.
-            messageContent = EventUtils.sanistiseMessage(messageContent);
+            messageContent = this.sanistiseMessage(messageContent);
 
             // Send the webhook
             new ChatWebhook(userName, avatarUrl, messageContent).sendWebhook();
