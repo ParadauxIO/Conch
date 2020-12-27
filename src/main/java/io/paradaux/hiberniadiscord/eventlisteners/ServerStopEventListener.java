@@ -24,6 +24,7 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -31,26 +32,22 @@ import org.bukkit.event.server.ServerLoadEvent;
 
 public class ServerStopEventListener extends WebhookListener {
 
-    ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
-
     @EventHandler(priority = EventPriority.LOW)
     public void listener(ServerLoadEvent event) {
 
         // Stop if disabled
-        if (!config.isServerShutdownEnabled()) {
+        if (!configuration.isServerShutdownEnabled()) {
             return;
         }
 
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             // Parse Username Placeholders
-            String userName = EventUtils.parsePlaceholders(config,
-                    config.getServerShutdownUsernameFormat());
+            String userName = configuration.getServerShutdownUsernameFormat();
 
             // Parse Message Placeholders
-            String messageContent = EventUtils.parsePlaceholders(config,
-                    config.getServerShutdownMessageFormat());
+            String messageContent = configuration.getServerShutdownMessageFormat();
 
-            String avatarUrl = config.getServerShutdownAvatarUrl();
+            String avatarUrl = configuration.getServerShutdownAvatarUrl();
 
             // Sanitise Message, remove @everyone, @here and replace empty messages with
             // a zero-width space.

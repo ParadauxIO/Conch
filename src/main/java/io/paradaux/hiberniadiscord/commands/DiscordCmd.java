@@ -24,7 +24,6 @@
 package io.paradaux.hiberniadiscord.commands;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.models.Locale;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -37,7 +36,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class DiscordCmd implements CommandExecutor {
 
-    Locale locale = HiberniaDiscord.getLocaleCache();
     Player player;
 
     public String colorise(String str) {
@@ -45,20 +43,19 @@ public class DiscordCmd implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd,
-                             @NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
         if (!(sender instanceof Player)) {
             return false;
         }
 
         player = (Player) sender;
 
-        BaseComponent[] messageText = TextComponent.fromLegacyText(colorise(EventUtils
-                .parsePlaceholders(locale, locale.getDiscordDefault())));
-        TextComponent message = new TextComponent(messageText);
-        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, locale.getDiscordLink()));
+//        BaseComponent[] messageText = TextComponent.fromLegacyText(colorise(EventUtils
+//                .parsePlaceholders(locale, locale.getDiscordDefault())));
+//        TextComponent message = new TextComponent(messageText);
+//        message.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, locale.getDiscordLink()));
 
-        player.sendMessage(message);
+//        player.sendMessage(message);
         return true;
 
     }

@@ -23,8 +23,8 @@
 
 package io.paradaux.hiberniadiscord.api;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+import io.paradaux.hiberniadiscord.controllers.LogController;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import org.bukkit.util.Consumer;
 
 import java.io.IOException;
@@ -34,41 +34,36 @@ import java.util.Scanner;
 
 public class VersionChecker {
 
-    Plugin plugin;
     int resourceId;
 
-    public VersionChecker(Plugin plugin, int resourceId) {
-        this.plugin = plugin;
+    public VersionChecker(int resourceId) {
         this.resourceId = resourceId;
     }
 
+
+    /**
+     * Returns the .
+     * */
     public void getVersion(final Consumer<String> consumer) {
-        if (plugin != null) {
-            Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
-                try (InputStream inputStream
-                             = new URL("https://api.spigotmc.org/legacy/update.php?resource="
-                        + this.resourceId).openStream();
-                     Scanner scanner = new Scanner(inputStream)) {
-                    if (scanner.hasNext()) {
-                        consumer.accept(scanner.next());
-                    }
-                } catch (IOException exception) {
-                    this.plugin.getLogger().info("Cannot look for updates: "
-                            + exception.getMessage());
-                }
-            });
-        } else {
-            try (InputStream inputStream
-                         = new URL("https://api.spigotmc.org/legacy/update.php?resource="
-                    + this.resourceId).openStream();
-                 Scanner scanner = new Scanner(inputStream)) {
+
+        TaskController.newChain().async(() -> {
+            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource="
+                    + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
+
                 if (scanner.hasNext()) {
                     consumer.accept(scanner.next());
                 }
+
             } catch (IOException exception) {
-                System.out.println("Cannot look for updates: " + exception.getMessage());
+                LogController.getLogger().info("Cannot look for updates: " + exception.getMessage());
+
             }
-        }
+        }).execute();
+
     }
+
+
+
+
 
 }

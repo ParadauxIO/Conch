@@ -24,7 +24,8 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
+import io.paradaux.hiberniadiscord.api.PlaceholderWrapper;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,31 +34,30 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerJoinEventListener extends WebhookListener {
 
-    ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
-    PlaceholderAPIWrapper papi = new PlaceholderAPIWrapper();
+    PlaceholderWrapper papi = new PlaceholderWrapper();
     Player player;
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void listener(PlayerJoinEvent event) {
 
         // Stop if disabled
-        if (!config.isPlayerJoinEnabled()) {
+        if (!configuration.isPlayerJoinEnabled()) {
             return;
         }
 
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             player = event.getPlayer();
 
             // Parse Username Placeholders
-            String userName = this.parsePlaceholders(config, player, config
+            String userName = this.parsePlaceholders(player, configuration
                     .getPlayerJoinUsernameFormat());
 
             // Parse Message Placeholders
-            String messageContent = this.parsePlaceholders(config, player, config
+            String messageContent = this.parsePlaceholders(player, configuration
                     .getPlayerJoinMessageFormat());
 
             // Parse Avatar Url Placeholders
-            String avatarUrl = this.parsePlaceholders(config, player, config
+            String avatarUrl = this.parsePlaceholders(player, configuration
                     .getPlayerJoinAvatarUrl());
 
             // If placeholder api is installed, parse papi placeholders.

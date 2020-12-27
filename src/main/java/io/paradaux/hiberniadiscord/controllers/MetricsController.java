@@ -23,14 +23,44 @@
 
 package io.paradaux.hiberniadiscord.controllers;
 
+import io.paradaux.hiberniadiscord.models.BotConfiguration;
+import io.paradaux.hiberniadiscord.models.PluginConfiguration;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.plugin.Plugin;
+import org.slf4j.Logger;
+
 
 public class MetricsController {
 
-    public static MetricsController INSTANCE;
-    private static Metrics metrics;
+    private static final int PLUGIN_ID = 8386;
 
-    public MetricsController() {
+    public static MetricsController INSTANCE;
+
+    PluginConfiguration configuration = ConfigurationController.getPluginConfiguration();
+    BotConfiguration botConfiguration = ConfigurationController.getBotConfiguration();
+    Logger logger = LogController.getLogger();
+    Metrics metrics;
+
+    /**
+     * Creates the Metrics Instance which relays to BStats various things about the host server.
+     * */
+    public MetricsController(Plugin plugin) {
+        if (!configuration.isBstatsEnabled()) {
+            return;
+        }
+
+        metrics = new Metrics(plugin, PLUGIN_ID);
+
+        metrics.addCustomChart(new Metrics.SimplePie("using_discord2mc", () -> parseBoolean(botConfiguration.isEnabled())));
+        metrics.addCustomChart(new Metrics.SimplePie("using_discord_commands", () -> parseBoolean(botConfiguration.isCommandsEnabled())));
+
         INSTANCE = this;
+    }
+
+    /**
+     * Turns a boolean TRUE into "Yes" and FALSE into "No".
+     * */
+    private String parseBoolean(boolean b) {
+        return b ? "Yes" : "No";
     }
 }

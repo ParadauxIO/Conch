@@ -24,6 +24,7 @@
 package io.paradaux.hiberniadiscord.controllers;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.models.BotConfiguration;
 import io.paradaux.hiberniadiscord.models.PluginConfiguration;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -39,6 +40,8 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 public class ConfigurationController {
 
     private static PluginConfiguration pluginConfiguration;
+    private static BotConfiguration botConfiguration;
+
     public static ConfigurationController INSTANCE;
     private static Logger logger;
 
@@ -107,6 +110,12 @@ public class ConfigurationController {
         return pluginConfiguration;
     }
 
+    /**
+     * Returns the active instance of the discord2mc configuration.
+     * */
+    public static BotConfiguration getBotConfiguration() {
+        return botConfiguration;
+    }
 
     /**
      * Takes the three configuration files and puts them into the data folder for the plugin.
@@ -154,6 +163,7 @@ public class ConfigurationController {
         if (configVersion == 2.4d) {
             config.set("config-version", "2.5");
             // TODO: Rest of the configuration updates in 3.1
+            return;
         }
 
         HiberniaDiscord.log("Your configuration is too old to convert. Generating new "
@@ -182,5 +192,6 @@ public class ConfigurationController {
     public static YamlConfiguration getLocale() {
         return locale;
     }
+
 
 }

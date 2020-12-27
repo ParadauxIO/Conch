@@ -27,7 +27,7 @@ import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
 import club.minnced.discord.webhook.send.WebhookMessage;
 import club.minnced.discord.webhook.send.WebhookMessageBuilder;
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.models.PluginConfiguration;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -37,8 +37,7 @@ import java.util.concurrent.ExecutionException;
 
 public abstract class WebhookListener implements Listener {
 
-    protected static final ConfigurationCache configurationCache = HiberniaDiscord
-            .getConfigurationCache();
+    protected static PluginConfiguration configuration;
 
     private static WebhookClient client;
 
@@ -47,22 +46,20 @@ public abstract class WebhookListener implements Listener {
     String webhookMessageContent;
 
     @Nullable
-    protected String parsePlaceholders(ConfigurationCache config, Player player,
-                                              String str) {
-        return parsePlaceholders(config, (OfflinePlayer) player, str);
+    protected String parsePlaceholders(Player player, String str) {
+        return parsePlaceholders((OfflinePlayer) player, str);
     }
 
     @Nullable
-    protected String parsePlaceholders(ConfigurationCache config, OfflinePlayer player,
-                                              String str) {
+    protected String parsePlaceholders(OfflinePlayer player, String str) {
         if (player == null || player.getName() == null) {
             return null;
         }
 
         return str.replace("%playername%", player.getName())
                 .replace("%playeruuid%", player.getUniqueId().toString())
-                .replace("%servername%", config.getServerName())
-                .replace("%avatarapi%", parseAvatarUrl(player, config.getAvatarApi()));
+                .replace("%servername%", configuration.getServerName())
+                .replace("%avatarapi%", parseAvatarUrl(player, configuration.getAvatarApi()));
     }
 
     protected String parseAvatarUrl(Player player, String str) {
@@ -89,7 +86,7 @@ public abstract class WebhookListener implements Listener {
      */
     public static WebhookClient createClient() {
         WebhookClientBuilder clientBuilder =
-                new WebhookClientBuilder(configurationCache.getDiscordWebhookUrl());
+                new WebhookClientBuilder(configuration.getDiscordWebhookUrl());
 
         clientBuilder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);

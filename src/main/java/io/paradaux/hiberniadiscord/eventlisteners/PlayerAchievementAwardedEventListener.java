@@ -24,8 +24,9 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
-import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
+import io.paradaux.hiberniadiscord.api.PlaceholderWrapper;
 import org.bukkit.Achievement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,37 +45,38 @@ import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 @SuppressWarnings("deprecation")
 public class PlayerAchievementAwardedEventListener extends WebhookListener {
 
-    ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
-    PlaceholderAPIWrapper papi = new PlaceholderAPIWrapper();
+    PlaceholderWrapper papi = new PlaceholderWrapper();
     Achievement achievement;
     Player player;
 
     @EventHandler
     public void listener(PlayerAchievementAwardedEvent event) {
+
+
         achievement = event.getAchievement();
         player = event.getPlayer();
 
         // Stop if disabled
-        if (!config.isAdvancementCompletedEnabled()) {
+        if (!configuration.isAdvancementCompletedEnabled()) {
             return;
         }
 
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             // Parse Username Placeholders
-            String userName = this.parsePlaceholders(config, player,
-                    config.getAdvancementCompletedUsernameFormat());
+            String userName = this.parsePlaceholders(player,
+                    configuration.getAdvancementCompletedUsernameFormat());
 
             // Parse Message Placeholders
-            String messageContent = this.parsePlaceholders(config, player,
-                    config.getAdvancementCompletedMessageFormat());
+            String messageContent = this.parsePlaceholders(player,
+                    configuration.getAdvancementCompletedMessageFormat());
 
             // Inject achievement name
             messageContent = messageContent.replace("%achievementName%", achievement.name());
 
 
             // Parse Avatar Url Placeholders
-            String avatarUrl = this.parsePlaceholders(config, player,
-                    config.getAdvancementCompletedAvatarUrl());
+            String avatarUrl = this.parsePlaceholders(player,
+                    configuration.getAdvancementCompletedAvatarUrl());
 
             // If placeholder api is installed, parse papi placeholders.
             if (papi.isPresent()) {

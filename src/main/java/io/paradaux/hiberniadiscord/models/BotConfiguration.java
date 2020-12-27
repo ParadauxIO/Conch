@@ -23,5 +23,60 @@
 
 package io.paradaux.hiberniadiscord.models;
 
+import java.util.List;
+
 public class BotConfiguration {
+
+    boolean enabled;
+    String token;
+    String commandPrefix;
+    boolean sendBotMessages;
+    List<String> monitoredChannels;
+    String messageFormat;
+    double version;
+    boolean commandsEnabled;
+
+    public BotConfiguration(boolean enabled, String token, String commandPrefix, boolean sendBotMessages, List<String> monitoredChannels,
+                            String messageFormat, double version) {
+        this.enabled = enabled;
+        this.token = token;
+        this.commandPrefix = commandPrefix;
+        this.sendBotMessages = sendBotMessages;
+        this.monitoredChannels = monitoredChannels;
+        this.messageFormat = messageFormat;
+        this.version = version;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public String getCommandPrefix() {
+        return commandPrefix;
+    }
+
+    public boolean isSendBotMessages() {
+        return sendBotMessages;
+    }
+
+    public List<String> getMonitoredChannels() {
+        return monitoredChannels;
+    }
+
+    public String getMessageFormat() {
+        return messageFormat;
+    }
+
+    public double getVersion() {
+        return version;
+    }
+
+    public boolean isCommandsEnabled() {
+        return commandsEnabled;
+    }
+
 }

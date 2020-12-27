@@ -24,8 +24,9 @@
 package io.paradaux.hiberniadiscord.eventlisteners;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import io.paradaux.hiberniadiscord.webhookutils.ChatWebhook;
-import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
+import io.paradaux.hiberniadiscord.api.PlaceholderWrapper;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,32 +34,31 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitEventListener extends WebhookListener {
 
-    ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
-    PlaceholderAPIWrapper papi = new PlaceholderAPIWrapper();
+    PlaceholderWrapper papi = new PlaceholderWrapper();
     OfflinePlayer player;
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void listener(PlayerQuitEvent event) {
 
         // Stop if disabled
-        if (!config.isPlayerLeaveEnabled()) {
+        if (!configuration.isPlayerLeaveEnabled()) {
             return;
         }
 
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             player = event.getPlayer();
 
             // Parse Username Placeholders
-            String userName = this.parsePlaceholders(config, player,
-                    config.getPlayerLeaveUsernameFormat());
+            String userName = this.parsePlaceholders(player,
+                    configuration.getPlayerLeaveUsernameFormat());
 
             // Parse Message Placeholders
-            String messageContent = this.parsePlaceholders(config, player,
-                    config.getPlayerLeaveMessageFormat());
+            String messageContent = this.parsePlaceholders(player,
+                    configuration.getPlayerLeaveMessageFormat());
 
             // Parse Avatar Url Placeholders
-            String avatarUrl = this.parsePlaceholders(config, player,
-                    config.getPlayerLeaveAvatarUrl());
+            String avatarUrl = this.parsePlaceholders(player,
+                    configuration.getPlayerLeaveAvatarUrl());
 
             // If placeholder api is installed, parse papi placeholders.
             if (papi.isPresent()) {

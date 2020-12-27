@@ -23,8 +23,7 @@
 
 package io.paradaux.hiberniadiscord.eventlisteners;
 
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.api.PlaceholderAPIWrapper;
+import io.paradaux.hiberniadiscord.api.PlaceholderWrapper;
 import io.paradaux.hiberniadiscord.controllers.TaskController;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,9 +32,9 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class AsyncPlayerChatEventListener extends WebhookListener {
 
-    ConfigurationCache config = HiberniaDiscord.getConfigurationCache();
-    PlaceholderAPIWrapper papi = new PlaceholderAPIWrapper();
     Player player;
+
+
 
     /**
      * Event called when messages are sent in chat, this is usually the only one people want.
@@ -44,7 +43,7 @@ public class AsyncPlayerChatEventListener extends WebhookListener {
     public void listener(AsyncPlayerChatEvent event) {
 
         // Stop if disabled
-        if (!config.isChatMessageEnabled()) {
+        if (!configuration.isChatMessageEnabled()) {
             return;
         }
 
@@ -53,11 +52,11 @@ public class AsyncPlayerChatEventListener extends WebhookListener {
             player = event.getPlayer();
 
             // Parse Username Placeholders
-            this.webhookUserName = parsePlaceholders(config, player, config
+            this.webhookUserName = parsePlaceholders(player, configuration
                     .getChatMessageUsernameFormat());
 
             // Parse Message Placeholders
-            this.webhookMessageContent = parsePlaceholders(config, player, config
+            this.webhookMessageContent = parsePlaceholders(player, configuration
                     .getChatMessageMessageFormat());
 
             // Inject chat message
@@ -65,9 +64,9 @@ public class AsyncPlayerChatEventListener extends WebhookListener {
                     event.getMessage());
 
             // If placeholder api is installed, parse papi placeholders.
-            if (papi.isPresent()) {
-                this.webhookUserName = papi.withPlaceholders(player, this.webhookUserName);
-                webhookMessageContent = papi.withPlaceholders(player, webhookMessageContent);
+            if (PlaceholderWrapper.isPresent()) {
+                this.webhookUserName = PlaceholderWrapper.withPlaceholders(player, this.webhookUserName);
+                webhookMessageContent = PlaceholderWrapper.withPlaceholders(player, webhookMessageContent);
             }
 
             // Sanitise Message, remove @everyone, @here and replace empty messages with a
@@ -75,20 +74,20 @@ public class AsyncPlayerChatEventListener extends WebhookListener {
             webhookMessageContent = sanistiseMessage(webhookMessageContent);
 
             // Parse Avatar Url Placeholders
-            this.webhookAvatarUrl = parsePlaceholders(config, player,
-                    config.getChatMessageAvatarUrl());
+            this.webhookAvatarUrl = parsePlaceholders(player,
+                    configuration.getChatMessageAvatarUrl());
 
 
 
 
             // Global Message-only support in 3.0.1
-            if (!config.isMessagePrefixDisabled()) {
-                if (!webhookMessageContent.startsWith(config.getMessagePrefix())) {
+            if (!configuration.isMessagePrefixDisabled()) {
+                if (!webhookMessageContent.startsWith(configuration.getMessagePrefix())) {
                     return;
                 }
 
                 // Thanks Jake! Such a silly mistake to make (RE 5/12/20)
-                webhookMessageContent = webhookMessageContent.replace(config.getMessagePrefix(), "");
+                webhookMessageContent = webhookMessageContent.replace(configuration.getMessagePrefix(), "");
             }
 
             sendWebhook();

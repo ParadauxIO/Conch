@@ -27,6 +27,7 @@ import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import org.bukkit.plugin.Plugin;
 
 public class TaskController {
 
@@ -36,8 +37,8 @@ public class TaskController {
     /**
      * Initialise the TaskController.
      * */
-    public TaskController() {
-        BukkitTaskChainFactory.create(HiberniaDiscord.getPlugin());
+    public TaskController(Plugin plugin) {
+        BukkitTaskChainFactory.create(plugin);
         INSTANCE = this;
     }
 

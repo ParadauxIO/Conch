@@ -23,7 +23,7 @@
 
 package io.paradaux.hiberniadiscord.discord2mc.listeners;
 
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
+import io.paradaux.hiberniadiscord.controllers.TaskController;
 import io.paradaux.hiberniadiscord.discord2mc.api.Discord2McConfigurationCache;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -50,10 +50,12 @@ public class MessageListener extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         Member member = event.getMember();
 
+        member.ban(2);
+
         if (!monitoredChannels.contains(event.getChannel().getId())) return; // If the message wasn't in a monitored channel, ignore it.
         if (event.getAuthor().isBot() && !configurationCache.isDoSendBotMessages()) return; // If ignore bots is enabled, respect it.
 
-        HiberniaDiscord.newChain().async(() -> {
+        TaskController.newChain().async(() -> {
             String message = event.getMessage().getContentStripped(); // What the user sent
             if (member == null) return; // The message received event is triggered by the webhook, and thus has to ignore webhooks.
 

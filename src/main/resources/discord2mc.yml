@@ -16,6 +16,7 @@ token: ''
 # For discord commands. ; by default.
 # Set it to 'disabled' to disable discord commands.
 # Commands are coming in 3.1.0, please suggest commands you'd like to see!
+commands-enabled: false
 command-prefix: ';'
 
 # Whether or not messages from bots are sent in-game.

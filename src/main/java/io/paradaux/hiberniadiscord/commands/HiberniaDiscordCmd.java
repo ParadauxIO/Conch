@@ -24,7 +24,6 @@
 package io.paradaux.hiberniadiscord.commands;
 
 import io.paradaux.hiberniadiscord.HiberniaDiscord;
-import io.paradaux.hiberniadiscord.models.Locale;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -32,7 +31,6 @@ import org.bukkit.command.CommandSender;
 
 public class HiberniaDiscordCmd implements CommandExecutor {
 
-    Locale locale = HiberniaDiscord.getLocaleCache();
 
     public String colorise(String str) {
         return ChatColor.translateAlternateColorCodes('&', str);
@@ -42,20 +40,20 @@ public class HiberniaDiscordCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (!sender.hasPermission("hiberniadiscord.admin")) {
-            sender.sendMessage(Locale.colorise(locale.getSevereNoPermission()));
+//            sender.sendMessage(Locale.colorise(locale.getSevereNoPermission()));
             return true;
         }
 
         if (args.length <= 0) {
-            sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordDefault())));
+//            sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordDefault())));
             return true;
         }
 
         switch (args[0].toLowerCase()) {
             case "reload": {
-                HiberniaDiscord.updateConfigurationCache();
-                HiberniaDiscord.updateLocaleCache();
-                sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordReloadSuccess())));
+//                HiberniaDiscord.updateConfigurationCache();
+//                HiberniaDiscord.updateLocaleCache();
+//                sender.sendMessage(colorise(EventUtils.parsePlaceholders(locale, locale.getHiberniaDiscordReloadSuccess())));
                 return true;
             }
 
@@ -70,7 +68,7 @@ public class HiberniaDiscordCmd implements CommandExecutor {
                 return true;
             }
         }
-
+        return true;
 
     }
 

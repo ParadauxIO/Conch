@@ -21,26 +21,16 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.api;
+package io.paradaux.hiberniadiscord.controllers;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+import net.dv8tion.jda.api.JDA;
 
-import static org.bukkit.Bukkit.getServer;
+public class BotController {
 
-public class PlaceholderAPIWrapper {
+    private static JDA client;
 
-    public boolean isPresent() {
-        return getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
-    }
+    public BotController() {
 
-    public String withPlaceholders(Player player, String input) {
-        return PlaceholderAPI.setPlaceholders(player, input);
-    }
-
-    public String withPlaceholders(OfflinePlayer player, String input) {
-        return PlaceholderAPI.setPlaceholders(player, input);
     }
 
 }

@@ -70,6 +70,7 @@ public class PluginConfiguration {
     String discordCommandPermission;
     String reloadCommandPermission;
 
+    boolean bstatsEnabled;
     boolean updateCheck;
     boolean updateNotify;
     double configVersion;
@@ -124,6 +125,7 @@ public class PluginConfiguration {
                 .getString("events.server-shutdown.message-format");
         this.serverShutdownAvatarUrl = config.getString("events.server-shutdown.avatar-url");
 
+        this.bstatsEnabled = config.getBoolean("settings.bstats");
         this.discordCommandPermission = config.getString("settings.discord-command-permission");
         this.reloadCommandPermission = config.getString("settings.reload-command-permission");
 
@@ -248,4 +250,6 @@ public class PluginConfiguration {
     public String getMessagePrefix() {
         return messagePrefix;
     }
+
+    public boolean isBstatsEnabled() { return bstatsEnabled; }
 }

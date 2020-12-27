@@ -1,0 +1,4 @@
+name: Bungeecord
+version: ${project.version}
+main: io.paradaux.hiberniadiscord.bungeecord.Bungeecord
+description: HiberniaDiscord's Bungee Functionality 

@@ -21,12 +21,26 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.webhookutils;
+package io.paradaux.hiberniadiscord.api;
 
-public class ChatWebhook extends GenericWebhook {
+import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
-    public ChatWebhook(String webhookUserName, String webhookAvatarUrl, String webhookMessageContent) {
-        // This differentiation is unnecessary in this version, but it won't be in the next.
-        super(webhookUserName, webhookAvatarUrl, webhookMessageContent);
+import static org.bukkit.Bukkit.getServer;
+
+public class PlaceholderWrapper {
+
+    public static boolean isPresent() {
+        return getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
     }
+
+    public static String withPlaceholders(Player player, String input) {
+        return PlaceholderAPI.setPlaceholders(player, input);
+    }
+
+    public static String withPlaceholders(OfflinePlayer player, String input) {
+        return PlaceholderAPI.setPlaceholders(player, input);
+    }
+
 }
