@@ -21,13 +21,10 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.controllers;
+package io.paradaux.hiberniadiscord.bukkit.controllers;
 
-import io.paradaux.hiberniadiscord.models.BotConfiguration;
-import io.paradaux.hiberniadiscord.models.PluginConfiguration;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.Plugin;
-import org.slf4j.Logger;
 
 
 public class MetricsController {
@@ -36,23 +33,24 @@ public class MetricsController {
 
     public static MetricsController INSTANCE;
 
-    PluginConfiguration configuration = ConfigurationController.getPluginConfiguration();
-    BotConfiguration botConfiguration = ConfigurationController.getBotConfiguration();
-    Logger logger = LogController.getLogger();
+    boolean bstatsEnabled;
+    boolean botEnabled;
+    boolean discordCommandsEnabled;
+
     Metrics metrics;
 
     /**
      * Creates the Metrics Instance which relays to BStats various things about the host server.
      * */
     public MetricsController(Plugin plugin) {
-        if (!configuration.isBstatsEnabled()) {
+        if (bstatsEnabled) {
             return;
         }
 
         metrics = new Metrics(plugin, PLUGIN_ID);
 
-        metrics.addCustomChart(new Metrics.SimplePie("using_discord2mc", () -> parseBoolean(botConfiguration.isEnabled())));
-        metrics.addCustomChart(new Metrics.SimplePie("using_discord_commands", () -> parseBoolean(botConfiguration.isCommandsEnabled())));
+        metrics.addCustomChart(new Metrics.SimplePie("using_discord2mc", () -> parseBoolean(botEnabled)));
+        metrics.addCustomChart(new Metrics.SimplePie("using_discord_commands", () -> parseBoolean(discordCommandsEnabled)));
 
         INSTANCE = this;
     }

@@ -29,11 +29,11 @@
 
     <parent>
         <artifactId>hiberniadiscord</artifactId>
-        <groupId>io.paradaux</groupId>
+        <groupId>io.paradaux.hiberniadiscord</groupId>
         <version>4.0.0</version>
     </parent>
 
-    <artifactId>bungeecord</artifactId>
+    <artifactId>hiberniadiscord-bungeecord</artifactId>
     <version>4.0.0</version>
     <packaging>jar</packaging>
 

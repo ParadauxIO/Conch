@@ -29,11 +29,11 @@
 
     <parent>
         <artifactId>hiberniadiscord</artifactId>
-        <groupId>io.paradaux</groupId>
+        <groupId>io.paradaux.hiberniadiscord</groupId>
         <version>4.0.0</version>
     </parent>
 
-    <artifactId>bukkit</artifactId>
+    <artifactId>hiberniadiscord-bukkit</artifactId>
     <version>4.0.0</version>
     <packaging>jar</packaging>
 
@@ -64,6 +64,16 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
@@ -107,5 +117,13 @@
             <version>1.8</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>io.paradaux.hiberniadiscord</groupId>
+            <artifactId>hiberniadiscord-common</artifactId>
+            <version>4.0.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 </project>

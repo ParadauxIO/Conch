@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.paradaux</groupId>
+    <groupId>io.paradaux.hiberniadiscord</groupId>
     <artifactId>hiberniadiscord</artifactId>
     <version>4.0.0</version>
 
@@ -24,6 +24,23 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <profiles>
+
+        <profile>
+            <id>DEVELOPMENT</id>
+        </profile>
+
+        <profile>
+            <id>SNAPSHOT</id>
+        </profile>
+
+        <profile>
+            <id>RELEASE</id>
+        </profile>
+
+    </profiles>
+
 
     <build>
         <pluginManagement>
@@ -153,6 +170,12 @@
             <version>1.7.5</version>
             <type>jar</type>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.spongepowered</groupId>
+            <artifactId>configurate-hocon</artifactId>
+            <version>4.0.0</version>
         </dependency>
     </dependencies>
 

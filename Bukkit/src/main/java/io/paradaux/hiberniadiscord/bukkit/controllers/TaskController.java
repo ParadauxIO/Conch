@@ -21,12 +21,11 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.controllers;
+package io.paradaux.hiberniadiscord.bukkit.controllers;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
-import io.paradaux.hiberniadiscord.HiberniaDiscord;
 import org.bukkit.plugin.Plugin;
 
 public class TaskController {

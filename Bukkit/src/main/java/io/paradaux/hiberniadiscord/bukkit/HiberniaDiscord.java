@@ -23,96 +23,43 @@
 
 package io.paradaux.hiberniadiscord.bukkit;
 
-import io.paradaux.hiberniadiscord.bukkit.api.VersionChecker;
-import io.paradaux.hiberniadiscord.bukkit.commands.DiscordCmd;
-import io.paradaux.hiberniadiscord.bukkit.commands.HiberniaDiscordCmd;
-import io.paradaux.hiberniadiscord.bukkit.controllers.*;
-import io.paradaux.hiberniadiscord.bukkit.eventlisteners.*;
-import io.paradaux.hiberniadiscord.bukkit.events.ServerStopEvent;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
+import co.aikar.taskchain.BukkitTaskChainFactory;
+import co.aikar.taskchain.TaskChainFactory;
+import io.paradaux.hiberniadiscord.common.api.BotManager;
+import io.paradaux.hiberniadiscord.common.api.DiscordManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.Locale;
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HiberniaDiscord extends JavaPlugin {
 
-    private static Plugin plugin;
+    private static Logger logger;
+    private static TaskChainFactory taskChainFactory;
+    List<String> monitoredChannels = new ArrayList<>();
+
+    String webhookUrl = "";
+    
+    String iconUrl = "https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png";
+    String webhookUrl = "https://discord.com/api/webhooks/763065395833602048/xUUX016wrPYPGWRJyfsGaDtwtxHJFrbWHrEfj4XMa5PvFT0jSc-kgcA9qF3ZP9cpH5Mv";
+    String token = "";
+    String messageFormat = "";
 
     @Override
     public void onEnable() {
-        plugin = this;
+        logger = LoggerFactory.getLogger("io.paradaux.hiberniadiscord");
 
-        LogController.createLogger(getConfig().getBoolean("settings.debug"));
-
-        Logger logger = LogController.getLogger();
-        logger.error("AHHHHH");
-
-
-        new ConfigurationController();
-        new MetricsController(this);
-        new TaskController(this);
-        new VersionNotificationController();
-
-        System.out.println(I18nController.INSTANCE.getMessage(Locale.ENGLISH, "test.property"));
-
-        registerCommands();
-        registerEvents(getServer().getPluginManager());
-
-        System.out.println("WEBHOOK: " + ConfigurationController.getPluginConfiguration().getDiscordWebhookUrl());
-        // Test validity of webhook, if invalid; disable the plugin.
-
-
-        // Prepare event listeners, so they can talk to discord.
-        WebhookListener.createClient();
-
-
-
-        new VersionChecker(67795).getVersion(version -> {
-            if (!this.getDescription().getVersion().equalsIgnoreCase(version)) {
-                logger.info("There is a new update available. \n Please update: "
-                        + "https://www.spigotmc.org/resources/hiberniadiscord-%C2%BB-chat-to-disco"
-                        + "rd-integration.67795/");
-                return;
-            }
-            logger.info("There are no new updates available");
-        });
-
+        taskChainFactory = BukkitTaskChainFactory.create(this);
+        BotManager.initialise(token, logger, monitoredChannels, taskChainFactory, messageFormat, true);
+        DiscordManager.initialise(webhookUrl, true, logger);
+        DiscordManager.sendDiscordMessage("Test", iconUrl, "hello world");
     }
 
     @Override
     public void onDisable() {
-        Bukkit.getPluginManager().callEvent(new ServerStopEvent());
+
     }
 
-    public void registerCommands() {
-        Objects.requireNonNull(getCommand("hiberniadiscord")).setExecutor(new HiberniaDiscordCmd());
-        Objects.requireNonNull(getCommand("discord")).setExecutor(new DiscordCmd());
-    }
-    public void registerEvents(PluginManager pm) {
-        pm.registerEvents(new AsyncPlayerChatEventListener(), this);
-
-
-        try {
-            pm.registerEvents(new PlayerAchievementAwardedEventListener(), this);
-        } catch (Exception ok) {
-            // OK
-        }
-
-        pm.registerEvents(new PlayerJoinEventListener(), this);
-        pm.registerEvents(new PlayerQuitEventListener(), this);
-        pm.registerEvents(new ServerLoadEventListener(), this);
-        pm.registerEvents(new ServerStopEventListener(), this);
-    }
-
-    public static void log(String error) {
-        Bukkit.getLogger().warning(error);
-    }
-
-    public static Plugin getPlugin() {
-        return plugin;
-    }
 }

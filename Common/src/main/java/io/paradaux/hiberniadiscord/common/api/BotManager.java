@@ -21,7 +21,63 @@
  * See LICENSE.md for more details.
  */
 
-package api;
+package io.paradaux.hiberniadiscord.common.api;
+
+import co.aikar.taskchain.TaskChainFactory;
+import io.paradaux.hiberniadiscord.common.api.events.DiscordMessageReceivedEvent;
+import io.paradaux.hiberniadiscord.common.bot.DiscordMessageListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.utils.Compression;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import org.slf4j.Logger;
+
+import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BotManager {
+
+    private static JDA client;
+    private static Logger logger;
+    private static TaskChainFactory taskChainFactory;
+
+
+    /**
+     * Instances of DiscordMessageReceivedListener which will respond when a disocrd message
+     * is received from the discord bot.
+     * */
+    private static final List<DiscordMessageReceivedEvent> eventListeners = new ArrayList<>();
+
+    /**
+     * Sets up the manager.
+     * */
+    public static void initialise(String token, Logger logger, List<String> monitoredChannels,
+                                  TaskChainFactory taskChainFactory, String messageFormat, boolean ignoreBots) {
+        BotManager.logger = logger;
+
+        JDABuilder builder = JDABuilder.createDefault(token);
+
+        builder.disableCache(CacheFlag.MEMBER_OVERRIDES, CacheFlag.VOICE_STATE);
+
+        builder.setBulkDeleteSplittingEnabled(false);
+        builder.setCompression(Compression.ZLIB);
+
+        builder.addEventListeners(new DiscordMessageListener(monitoredChannels, taskChainFactory, messageFormat, ignoreBots));
+
+        if (token == null) {
+            logger.warn("You have not set the token for your discord bot for discord2mc"
+                    + " functionality. This has been disabled.");
+            return;
+        }
+
+        try {
+            client = builder.build();
+        } catch(LoginException exception) {
+            client = null;
+            logger.warn("FAILED TO LOGIN TO DISCORD USING TOKEN"
+                    + " PROVIDED");
+        }
+    }
+
 }

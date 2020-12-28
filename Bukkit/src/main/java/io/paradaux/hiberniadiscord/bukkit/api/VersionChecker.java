@@ -21,11 +21,11 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.api;
+package io.paradaux.hiberniadiscord.bukkit.api;
 
-import io.paradaux.hiberniadiscord.controllers.LogController;
-import io.paradaux.hiberniadiscord.controllers.TaskController;
+import io.paradaux.hiberniadiscord.bukkit.controllers.TaskController;
 import org.bukkit.util.Consumer;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +35,7 @@ import java.util.Scanner;
 public class VersionChecker {
 
     int resourceId;
+    Logger logger;
 
     public VersionChecker(int resourceId) {
         this.resourceId = resourceId;
@@ -55,7 +56,7 @@ public class VersionChecker {
                 }
 
             } catch (IOException exception) {
-                LogController.getLogger().info("Cannot look for updates: " + exception.getMessage());
+                // TODO: log
 
             }
         }).execute();

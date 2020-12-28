@@ -1,4 +1,4 @@
-name: Bukkit
+name: HiberniaDiscord
 version: ${project.version}
 main: io.paradaux.hiberniadiscord.bukkit.HiberniaDiscord
 api-version: 1.16

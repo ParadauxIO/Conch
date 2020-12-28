@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common.api;
+package io.paradaux.hiberniadiscord.common.api.events;
 
 /**
  * Represents a message which was sent into a monitored discord channel so it can then be
@@ -37,6 +37,7 @@ public class DiscordMessageReceivedEvent {
     String guildName;
     String channel;
 
+    String messageContent;
     String role;
 
     /**
@@ -46,21 +47,25 @@ public class DiscordMessageReceivedEvent {
 
     }
 
-
     /**
      * Default constructor.
      * */
     public DiscordMessageReceivedEvent(String username, String nickname, String discriminator, String guildName, String channel,
-                                       String role) {
+                                       String messageContent, String role) {
         this.username = username;
         this.nickname = nickname;
         this.discriminator = discriminator;
         this.guildName = guildName;
         this.channel = channel;
+        this.messageContent = messageContent;
         this.role = role;
-
-        this.tag = String.format(this.tag, username, discriminator);
     }
+
+    public String getMessageContent() {
+        return messageContent;
+    }
+
+
 
     public String getUsername() {
         return username;
@@ -117,6 +122,11 @@ public class DiscordMessageReceivedEvent {
 
     public DiscordMessageReceivedEvent setChannel(String channel) {
         this.channel = channel;
+        return this;
+    }
+
+    public DiscordMessageReceivedEvent setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
         return this;
     }
 

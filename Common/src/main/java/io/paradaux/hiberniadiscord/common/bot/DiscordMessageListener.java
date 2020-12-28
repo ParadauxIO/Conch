@@ -21,12 +21,93 @@
  * See LICENSE.md for more details.
  */
 
-package bot;
+package io.paradaux.hiberniadiscord.common.bot;
 
+import co.aikar.taskchain.TaskChainFactory;
+import io.paradaux.hiberniadiscord.common.api.events.DiscordMessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DiscordMessageListener extends ListenerAdapter {
 
+    TaskChainFactory taskChainFactory;
+    String messageFormat;
+    List<String> monitoredChannels;
+    boolean ignoreBots;
+
+    /**
+     * Handles discord messages coming in.
+     * */
+    public DiscordMessageListener(List<String> monitoredChannels, TaskChainFactory taskChainFactory,
+                                  String messageFormat, boolean ignoreBots) {
+        this.monitoredChannels = monitoredChannels;
+        this.taskChainFactory = taskChainFactory;
+        this.ignoreBots = ignoreBots;
+    }
+
+    @Override
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
+        Member member = event.getMember();
+
+        // If the message wasn't in a monitored channel, ignore it.
+        if (!monitoredChannels.contains(event.getChannel().getId())) {
+            return;
+        }
+
+        // If ignore bots is enabled, respect it.
+        if (event.getAuthor().isBot() && ignoreBots) {
+            return;
+        }
+
+        taskChainFactory.newChain().async(() -> {
+            String message = event.getMessage().getContentStripped();
+
+            // Member is null when the event is triggered by a webhook rather than a bot/user
+            if (member == null) {
+                return;
+            }
+
+            Role mainRole = getHighestFrom(member);
+
+            DiscordMessageReceivedEvent messageEvent = new DiscordMessageReceivedEvent()
+                    .setUsername(event.getAuthor().getName())
+                    .setNickname(member.getNickname() == null ? "" : member.getNickname())
+                    .setGuildName(event.getMessage().getGuild().getName())
+                    .setRole(mainRole == null ? "" : mainRole.getName());
+
+
+        }).execute();
+    }
+
+    /**
+     * Determines the highest role (i.e the role displayed when the user speaks) of the member provided.
+     * */
+    @Nullable
+    public Role getHighestFrom(Member member) {
+        if (member == null) {
+            return null;
+        }
+
+        List<Role> roles = member.getRoles();
+
+        if (roles.isEmpty()) {
+            return null;
+        }
+
+        return roles.stream().min((first, second) -> {
+            if (first.getPosition() == second.getPosition()) {
+                return 0;
+            }
+
+            return first.getPosition() > second.getPosition() ? -1 : 1;
+        }).get();
+    }
 
 
 }

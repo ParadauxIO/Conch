@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.controllers;
+package io.paradaux.hiberniadiscord.bukkit.controllers;
 
 public class VersionNotificationController {
 }

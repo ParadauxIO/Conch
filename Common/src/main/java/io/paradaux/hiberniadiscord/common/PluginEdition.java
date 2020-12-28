@@ -25,6 +25,6 @@ package io.paradaux.hiberniadiscord.common;
 
 public enum PluginEdition {
 
-    BUKKIT, BUNGEECORD, SPONGE;
+    BUKKIT, BUNGEECORD, SPONGE, FABRIC, VELOCITY;
 
 }
