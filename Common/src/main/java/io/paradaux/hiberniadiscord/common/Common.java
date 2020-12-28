@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-public class Common {
+package io.paradaux.hiberniadiscord.common;public class Common {
 
     public static void main(String[] args) {
         System.out.println("You cannot execute this jar.");
