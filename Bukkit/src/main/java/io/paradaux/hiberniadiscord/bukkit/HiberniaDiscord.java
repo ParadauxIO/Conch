@@ -41,9 +41,8 @@ public class HiberniaDiscord extends JavaPlugin {
     List<String> monitoredChannels = new ArrayList<>();
 
     String webhookUrl = "";
-    
+
     String iconUrl = "https://cdn.paradaux.io/static/plugin-branding/hiberniadiscord/hibernia-discord.png";
-    String webhookUrl = "https://discord.com/api/webhooks/763065395833602048/xUUX016wrPYPGWRJyfsGaDtwtxHJFrbWHrEfj4XMa5PvFT0jSc-kgcA9qF3ZP9cpH5Mv";
     String token = "";
     String messageFormat = "";
 
