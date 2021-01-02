@@ -24,6 +24,7 @@
 package io.paradaux.hiberniadiscord.common.api.config;
 
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
+import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchEventListenerException;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
@@ -69,17 +70,18 @@ public class ConfigurationLoader {
         ConfigurationNode root = eventSettingsLoader.load();
 
         for (String eventListenerStr : EVENT_LISTENERS) {
+            EventConfiguration.Builder eventBuilder = EventConfiguration.builder();
             ConfigurationNode eventListenerNode = root.node(eventListenerStr);
 
-            EventConfiguration.Builder eventBuilder = EventConfiguration.builder();
             eventBuilder.setEventName(eventListenerStr)
                         .setEnabled(eventListenerNode.getBoolean())
                         .setWebhookUsernameFormat(eventListenerNode.getString())
                         .setWebhookAvatarFormat(eventListenerNode.getString())
                         .setWebhookMessageFormat(eventListenerNode.getString());
+
             try {
                 builder.set(eventBuilder.build());
-            } catch (CachedEventSettings.NoSuchEventListenerException ok) {
+            } catch (NoSuchEventListenerException ok) {
                 I18NLogger.error("configuration.invalid-event", eventListenerStr);
             }
         }
