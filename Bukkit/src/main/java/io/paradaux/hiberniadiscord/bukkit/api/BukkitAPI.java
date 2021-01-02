@@ -23,9 +23,31 @@
 
 package io.paradaux.hiberniadiscord.bukkit.api;
 
-public class BukkitAPI {
+import io.paradaux.hiberniadiscord.common.API;
+import io.paradaux.hiberniadiscord.common.api.BotManager;
+import io.paradaux.hiberniadiscord.common.api.ConfigurationManager;
+import io.paradaux.hiberniadiscord.common.api.DiscordManager;
+import io.paradaux.hiberniadiscord.common.api.I18NManager;
 
+public class BukkitAPI implements API {
 
+    @Override
+    public DiscordManager getDiscordManager() {
+        return null;
+    }
 
+    @Override
+    public BotManager getBotManager() {
+        return null;
+    }
 
+    @Override
+    public I18NManager getI18nManager() {
+        return null;
+    }
+
+    @Override
+    public ConfigurationManager getConfigurationManager() {
+        return null;
+    }
 }

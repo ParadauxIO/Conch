@@ -54,6 +54,7 @@ public class HiberniaDiscord extends JavaPlugin {
 
         TaskChainFactory taskChainFactory = BukkitTaskChainFactory.create(this);
         BotManager.initialise(token, logger, monitoredChannels, taskChainFactory, messageFormat, true);
+        API = new BukkitAPI();
 //        DiscordManager.initialise(webhookUrl, true, logger);
 //        DiscordManager.sendDiscordMessage("Test", iconUrl, "hello world");
 
