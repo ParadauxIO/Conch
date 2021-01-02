@@ -25,10 +25,13 @@ package io.paradaux.hiberniadiscord.common.api.config;
 
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
 import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchEventListenerException;
+import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
 
+import javax.annotation.CheckReturnValue;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -38,9 +41,9 @@ public class ConfigurationLoader {
                                                       "onPlayerAchievementCompleted", "onPlayerKick", "onPlayerRespawn",
                                                       "onServerStartup", "onGracefulShutdown" };
 
-    private static final String SETTINGS_FILE_NAME = "general-settings.conf";
-    private static final String EVENT_SETTINGS_FILE_NAME = "event-settings.conf";
-    private static final String BOT_SETTINGS_FILE_NAME = "bot-settings.conf";
+    public static final String SETTINGS_FILE_NAME = "general-settings.conf";
+    public static final String EVENT_SETTINGS_FILE_NAME = "event-settings.conf";
+    public static final String BOT_SETTINGS_FILE_NAME = "bot-settings.conf";
 
     private Path generalSettingsPath;
     private Path eventSettingsPath;
@@ -60,10 +63,14 @@ public class ConfigurationLoader {
         botSettingsPath = Paths.get(configurationDirectory, BOT_SETTINGS_FILE_NAME);
     }
 
+    @CheckReturnValue
+    @NotNull
     public CachedSettings loadGeneralSettings() {
         return CachedSettings.builder().build();
     }
 
+    @CheckReturnValue
+    @NotNull
     public CachedEventSettings loadEventSettings() throws ConfigurateException {
 
         CachedEventSettings.Builder builder = CachedEventSettings.builder();
@@ -89,12 +96,25 @@ public class ConfigurationLoader {
         return builder.build();
     }
 
+    @CheckReturnValue
+    @NotNull
     public CachedBotSettings loadBotSettings() {
         return CachedBotSettings.builder().build();
     }
 
+    @CheckReturnValue
+    public boolean doesEventSettingsExist() {
+        return Files.exists(eventSettingsPath);
+    }
 
+    @CheckReturnValue
+    public boolean doesBotSettingsExist() {
+        return Files.exists(eventSettingsPath);
+    }
 
-
+    @CheckReturnValue
+    public boolean doesGeneralSettingsExist() {
+        return Files.exists(eventSettingsPath);
+    }
 
 }
