@@ -45,13 +45,13 @@ public class ConfigurationLoader {
     public static final String EVENT_SETTINGS_FILE_NAME = "event-settings.conf";
     public static final String BOT_SETTINGS_FILE_NAME = "bot-settings.conf";
 
-    private Path generalSettingsPath;
-    private Path eventSettingsPath;
-    private Path botSettingsPath;
+    private final Path generalSettingsPath;
+    private final Path eventSettingsPath;
+    private final Path botSettingsPath;
 
-    private HoconConfigurationLoader generalSettingsLoader;
-    private HoconConfigurationLoader eventSettingsLoader;
-    private HoconConfigurationLoader botSettingsLoader;
+    private final HoconConfigurationLoader generalSettingsLoader;
+    private final HoconConfigurationLoader eventSettingsLoader;
+    private final HoconConfigurationLoader botSettingsLoader;
 
     public ConfigurationLoader(Path configurationDirectory) {
         this(configurationDirectory.toString());
@@ -61,6 +61,18 @@ public class ConfigurationLoader {
         generalSettingsPath = Paths.get(configurationDirectory, SETTINGS_FILE_NAME);
         eventSettingsPath = Paths.get(configurationDirectory, EVENT_SETTINGS_FILE_NAME);
         botSettingsPath = Paths.get(configurationDirectory, BOT_SETTINGS_FILE_NAME);
+
+        generalSettingsLoader = HoconConfigurationLoader.builder()
+                .path(generalSettingsPath)
+                .build();
+
+        eventSettingsLoader = HoconConfigurationLoader.builder()
+                .path(eventSettingsPath)
+                .build();
+
+        botSettingsLoader = HoconConfigurationLoader.builder()
+                .path(botSettingsPath)
+                .build();
     }
 
     @CheckReturnValue
@@ -117,4 +129,18 @@ public class ConfigurationLoader {
         return Files.exists(eventSettingsPath);
     }
 
+    @CheckReturnValue
+    public Path getGeneralSettingsPath() {
+        return generalSettingsPath;
+    }
+
+    @CheckReturnValue
+    public Path getEventSettingsPath() {
+        return eventSettingsPath;
+    }
+
+    @CheckReturnValue
+    public Path getBotSettingsPath() {
+        return botSettingsPath;
+    }
 }
