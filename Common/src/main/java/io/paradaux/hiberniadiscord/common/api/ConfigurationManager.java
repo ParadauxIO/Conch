@@ -23,34 +23,93 @@
 
 package io.paradaux.hiberniadiscord.common.api;
 
+import io.paradaux.hiberniadiscord.common.api.config.ConfigurationLoader;
+import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
+
+import java.io.*;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public abstract class ConfigurationManager {
 
-    private Path configurationDirectory;
-    private Path settingsPath;
-    private Path eventsPath;
-    private Path botSettingsPath;
+    private ConfigurationLoader configurationLoader;
 
     /**
      * Constructor which allows the use of String paths rather than the direct Paths themselves. Internally calls the correct constructor.
      * @see ConfigurationManager(Path, Path, Path, Path)
      * */
-    public ConfigurationManager(String configurationDirectoryStr, String settingsFileName, String eventsFileName, String botSettingsFileName) {
-        this(Paths.get(configurationDirectoryStr), Paths.get(configurationDirectoryStr, settingsFileName),
-                Paths.get(configurationDirectoryStr, eventsFileName), Paths.get(configurationDirectoryStr, botSettingsFileName));
+    public ConfigurationManager(Path configurationDirectory) {
+        configurationLoader = new ConfigurationLoader(configurationDirectory);
     }
 
-    private ConfigurationManager(Path configurationDirectory, Path settingsPath, Path eventsPath, Path botSettingsPath) {
-        this.configurationDirectory = configurationDirectory;
-        this.settingsPath = settingsPath;
-        this.eventsPath = eventsPath;
-        this.botSettingsPath = botSettingsPath;
+    /**
+     * Take the configuration files and place them into the plugin configuration directory if they do not exist.
+     *
+     * @implSpec How we have to get a JAR Resource varies by platform, getResourceAsStream should be
+     *           a last resort.
+     * */
+    public abstract void deployResource();
+
+    /**
+     * Load the configuration file's values into the Singleton Holders in {@link io.paradaux.hiberniadiscord.common.api.config.ConfigurationUtil}
+     * @implSpec Not every platform will implement every configuration field, making it platform-specific.
+     *
+     * */
+    @SuppressWarnings("checkstyle:LineLength")
+    public abstract void loadConfigurationFiles();
+
+    /**
+     * Ensure each configuration file is up to date, should the user have just updated the plugin.
+     * */
+    public abstract void checkConfigurationVersions();
+
+    public ConfigurationLoader getConfigurationLoader() {
+        return configurationLoader;
     }
 
-    public void deployResource() {
-        // Must be implemented per-platform
-    }
+    /**
+     * Export a resource embedded into a Jar file to the local file path.
+     *
+     * @param resourceName ie.: "/configuration.yml" N.B / is a directory down in the "jar tree" been the jar the root of the tree
+     * @throws NoSuchResourceException a generic exception to signal something went wrong
+     */
+    public static void exportResource(String resourceName, String outputPath) throws NoSuchResourceException {
 
+        OutputStream resourceOutputStream = null;
+
+        String jarPathStr;
+
+        try (InputStream resourceStream = ConfigurationManager.class.getResourceAsStream(resourceName)) {
+            jarPathStr = new File(ConfigurationManager.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
+                    .getParentFile().getPath().replace("\\", File.separator);
+
+            resourceOutputStream = new FileOutputStream(jarPathStr + resourceName);
+
+            if (resourceStream == null) {
+                throw new FileNotFoundException("Cannot get resource \"" + resourceName + "\" from Jar file.");
+            }
+
+            int readBytes;
+            byte[] buffer = new byte[4096];
+
+            while ((readBytes = resourceStream.read(buffer)) > 0) {
+                resourceOutputStream.write(buffer, 0, readBytes);
+            }
+
+        } catch (URISyntaxException | IOException exception) {
+            throw new NoSuchResourceException("Failed to deploy resource : " + exception.getMessage());
+        } finally {
+            try {
+                if (resourceOutputStream == null) {
+                    return;
+                }
+
+                resourceOutputStream.close();
+            } catch (IOException exception) {
+                throw new NoSuchResourceException("Failed to deploy resource : " + exception.getMessage());
+            }
+
+
+        }
+    }
 }
