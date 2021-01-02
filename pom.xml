@@ -17,6 +17,7 @@
         <module>Bukkit</module>
         <module>Sponge</module>
         <module>Bungeecord</module>
+        <module>Velocity</module>
     </modules>
 
     <properties>
