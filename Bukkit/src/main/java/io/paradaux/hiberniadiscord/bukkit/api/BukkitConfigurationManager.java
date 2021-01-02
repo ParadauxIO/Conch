@@ -26,7 +26,7 @@ package io.paradaux.hiberniadiscord.bukkit.api;
 import io.paradaux.hiberniadiscord.common.api.ConfigurationManager;
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
 import io.paradaux.hiberniadiscord.common.api.config.ConfigurationLoader;
-import io.paradaux.hiberniadiscord.common.api.config.ConfigurationUtil;
+import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
@@ -60,18 +60,21 @@ public class BukkitConfigurationManager extends ConfigurationManager {
 
         ConfigurationLoader loader = getConfigurationLoader();
 
-        if (!loader.doesBotSettingsExist()) {
-            exportResource(ConfigurationUtil.);
+        try {
+            if (!loader.doesBotSettingsExist()) {
+                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME);
+            }
+
+            if (!loader.doesGeneralSettingsExist()) {
+                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, "");
+            }
+
+            if (!loader.doesEventSettingsExist()) {
+                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, "");
+            }
+        } catch (NoSuchResourceException exception) {
+            I18NLogger.error("configuration.deploy-failure", exception.getMessage());
         }
-
-        if (!loader.doesGeneralSettingsExist()) {
-
-        }
-
-        if (!loader.doesEventSettingsExist()) {
-
-        }
-
 
     }
 
