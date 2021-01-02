@@ -23,6 +23,7 @@
 
 package io.paradaux.hiberniadiscord.common.api.config;
 
+import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchEventListenerException;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -58,6 +59,13 @@ public class CachedEventSettings {
             eventSettings = new CachedEventSettings();
         }
 
+        /**
+         * Set the correct EventConfiguration Field by {@link EventConfiguration#eventName}.
+         *
+         * @implNote This was done as a generic set with switch-case to allow me to use a foreach loop to load the configuration.
+         * @see ConfigurationLoader#loadEventSettings()
+         * */
+        @NotNull
         public CachedEventSettings.Builder set(EventConfiguration eventConfiguration) throws NoSuchEventListenerException {
             switch (eventConfiguration.getEventName()) {
                 case "onChatMessage": {
@@ -122,48 +130,58 @@ public class CachedEventSettings {
 
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnChatMessage() {
         return onChatMessage;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerJoin() {
         return onPlayerJoin;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerLeave() {
         return onPlayerLeave;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerDeath() {
         return onPlayerDeath;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerAchievementCompleted() {
         return onPlayerAchievementCompleted;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerKick() {
         return onPlayerKick;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnPlayerRespawn() {
         return onPlayerRespawn;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnServerStartup() {
         return onServerStartup;
     }
 
+    @CheckReturnValue
+    @NotNull
     public EventConfiguration getOnGracefulShutdown() {
         return onGracefulShutdown;
-    }
-
-    public static class NoSuchEventListenerException extends Exception {
-
-        public NoSuchEventListenerException(String str) {
-            super(str);
-        }
-
     }
 
 }
