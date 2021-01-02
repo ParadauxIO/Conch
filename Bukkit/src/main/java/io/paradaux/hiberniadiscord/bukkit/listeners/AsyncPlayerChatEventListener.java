@@ -61,6 +61,7 @@ public class AsyncPlayerChatEventListener extends GenericListener {
         }
 
         if (userName == null || messageContent == null) {
+            logger.error("Something went wrong. AsyncPlayerChatEvent null.");
             return;
         }
 
@@ -78,8 +79,7 @@ public class AsyncPlayerChatEventListener extends GenericListener {
             logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getName());
         }
 
-        System.out.println(parseAvatarAPI(player));
-        DiscordManager.sendDiscordMessage(userName, parseAvatarAPI(player), messageContent);
+//        DiscordManager.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
 
     }
 

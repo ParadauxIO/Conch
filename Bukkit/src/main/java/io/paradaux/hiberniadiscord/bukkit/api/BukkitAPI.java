@@ -23,25 +23,9 @@
 
 package io.paradaux.hiberniadiscord.bukkit.api;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
-
-import static org.bukkit.Bukkit.getServer;
-
-public class PlaceholderWrapper {
-
-    public static boolean isPresent() {
-        return getServer().getPluginManager().getPlugin("PlaceholderAPI") != null;
-    }
+public class BukkitAPI {
 
 
-    public static String withPlaceholders(Player player, String input) {
-        return PlaceholderAPI.setPlaceholders(player, input);
-    }
 
-    public static String withPlaceholders(OfflinePlayer player, String input) {
-        return PlaceholderAPI.setPlaceholders(player, input);
-    }
 
 }

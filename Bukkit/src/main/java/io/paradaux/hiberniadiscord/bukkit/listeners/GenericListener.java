@@ -65,21 +65,31 @@ public class GenericListener implements Listener {
             return null;
         }
 
+        String avatarUrl = parseAvatarApi(player);
+
+        if (avatarUrl == null) {
+            avatarUrl = "";
+        }
+
         return str.replace("%playername%", player.getName())
                 .replace("%playeruuid%", player.getUniqueId().toString())
                 .replace("%servername%", serverName)
-                .replace("%avatarapi%", parseAvatarAPI(player));
+                .replace("%avatarapi%", avatarUrl);
     }
 
     @Nullable
     @CheckReturnValue
-    protected String parseAvatarAPI(Player player) {
-        return parseAvatarAPI((OfflinePlayer) player);
+    protected String parseAvatarApi(Player player) {
+        return parseAvatarApi((OfflinePlayer) player);
     }
 
     @Nullable
     @CheckReturnValue
-    protected String parseAvatarAPI(OfflinePlayer player) {
+    protected String parseAvatarApi(OfflinePlayer player) {
+        if (player == null) {
+            return null;
+        }
+
         return avatarApiUrl.replace("%playeruuid%", player.getUniqueId().toString());
     }
 
