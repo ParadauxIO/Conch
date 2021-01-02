@@ -117,6 +117,34 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>templating-maven-plugin</artifactId>
@@ -186,6 +214,13 @@
             <artifactId>spongeapi</artifactId>
             <version>7.3.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.paradaux.hiberniadiscord</groupId>
+            <artifactId>hiberniadiscord-common</artifactId>
+            <version>4.0.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
