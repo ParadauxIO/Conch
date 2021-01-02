@@ -38,24 +38,34 @@ public class DiscordManager {
     private static final Pattern WEBHOOK_PATTERN = Pattern
             .compile("(?:https?://)?(?:\\w+\\.)?discord(?:app)?\\.com/api(?:/v\\d+)?/webhooks/(\\d+)/([\\w-]+)(?:/(?:\\w+)?)?");
     private static final String ZERO_WIDTH_SPACE = "\u200B";
-    private static boolean sanitiseMentions = true;
 
-    private static WebhookClient client;
-    private static Logger logger;
+    private static volatile DiscordManager instance;
+
+    public static DiscordManager getInstance() {
+        if (instance == null) {
+            throw new NullPointerException("getInstance() being called before being instantiated.");
+        }
+
+        return instance;
+    }
+
+    private String webhookUrl;
+    private boolean sanitiseMentions = true;
+    private WebhookClient client;
+    private Logger logger;
 
     /**
-     * Setup the manager.
-     * @return Did the process complete successfully?
+     * Constructor to set fields and construct an instance of {@link WebhookClient}.
      * */
-    public static boolean initialise(String webhookUrl, boolean sanitiseMentions, Logger logger) {
-        DiscordManager.sanitiseMentions = sanitiseMentions;
-        DiscordManager.logger = logger;
+    public DiscordManager(String webhookUrl, boolean sanitiseMentions, Logger logger) {
+        this.webhookUrl = webhookUrl;
+        this.sanitiseMentions = sanitiseMentions;
+        this.logger = logger;
 
         if (!isValidWebhook(webhookUrl)) {
             logger.error("Your webhook URL is invalid or not set.");
-            return false;
+            return;
         }
-
 
         WebhookClientBuilder builder = new WebhookClientBuilder(webhookUrl);
         builder.setThreadFactory((job) -> {
@@ -64,16 +74,17 @@ public class DiscordManager {
             thread.setDaemon(true);
             return thread;
         });
+
         builder.setWait(true);
         client = builder.build();
 
-        return true;
+        instance = this;
     }
 
     /**
      * Sends a discord message to the channel specified by the webhook provided in the intialising method.
      * */
-    public static void sendDiscordMessage(WebhookMessage message) {
+    public void sendDiscordMessage(WebhookMessage message) {
         try {
             client.send(message).get();
         } catch (ExecutionException | InterruptedException exception) {
@@ -84,7 +95,7 @@ public class DiscordManager {
     /**
      * Parses the username, avatarUrl and message content to construct a WebhookMessage Object which is then sent to discord.
      * */
-    public static void sendDiscordMessage(String username, String avatarUrl, String message) {
+    public void sendDiscordMessage(String username, String avatarUrl, String message) {
         if (message.isEmpty()) {
             message = String.valueOf(ZERO_WIDTH_SPACE);
         }
