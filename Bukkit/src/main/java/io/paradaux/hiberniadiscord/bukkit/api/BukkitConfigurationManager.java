@@ -25,7 +25,7 @@ package io.paradaux.hiberniadiscord.bukkit.api;
 
 import io.paradaux.hiberniadiscord.common.api.ConfigurationManager;
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
-import io.paradaux.hiberniadiscord.common.api.config.ConfigurationLoader;
+import io.paradaux.hiberniadiscord.common.api.config.*;
 import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
 import org.bukkit.plugin.Plugin;
 import org.spongepowered.configurate.ConfigurateException;
@@ -34,6 +34,10 @@ import java.io.File;
 import java.nio.file.Path;
 
 public class BukkitConfigurationManager extends ConfigurationManager {
+
+    CachedSettings generalSettings;
+    CachedEventSettings eventSettings;
+    CachedBotSettings botSettings;
 
     ConfigurationLoader loader = getConfigurationLoader();
     Plugin plugin;
@@ -80,12 +84,16 @@ public class BukkitConfigurationManager extends ConfigurationManager {
     @Override
     public void loadConfigurationFiles() {
         try {
-            loader.loadBotSettings();
-            loader.loadEventSettings();
-            loader.loadGeneralSettings();
+            generalSettings = loader.loadGeneralSettings();
+            eventSettings = loader.loadEventSettings();
+            botSettings = loader.loadBotSettings();
         } catch (ConfigurateException exception) {
             I18NLogger.error("");
+            return;
         }
+        ConfigurationUtil.loadConfigurationValues(generalSettings, eventSettings, botSettings);
+
+        System.out.println("Test: " + eventSettings.getOnChatMessage().getEventName());
     }
 
     @Override
