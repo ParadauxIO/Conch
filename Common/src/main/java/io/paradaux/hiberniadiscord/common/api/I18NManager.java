@@ -23,13 +23,12 @@
 
 package io.paradaux.hiberniadiscord.common.api;
 
-import java.io.File;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class I18NManager {
 
-    public static final String RESOURCES_PATH = "io.paradaux.hiberniadiscord.common.hiberniadiscord".replace(" ", File.separator);
+    public static final String RESOURCES_PATH = "HiberniaDiscord";
 
     private static final Locale[] locales = {
             Locale.getDefault(),

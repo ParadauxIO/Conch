@@ -61,6 +61,8 @@ public class HiberniaDiscord extends JavaPlugin {
 
         configurationManager.deployResource();
 
+        configurationManager.loadConfigurationFiles();
+
         API = new BukkitAPI();
 
         registerEvents();

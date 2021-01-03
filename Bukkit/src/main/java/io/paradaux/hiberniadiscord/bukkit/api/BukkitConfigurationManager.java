@@ -28,14 +28,15 @@ import io.paradaux.hiberniadiscord.common.api.I18NLogger;
 import io.paradaux.hiberniadiscord.common.api.config.ConfigurationLoader;
 import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
 import org.bukkit.plugin.Plugin;
+import org.spongepowered.configurate.ConfigurateException;
 
 import java.io.File;
 import java.nio.file.Path;
 
 public class BukkitConfigurationManager extends ConfigurationManager {
 
+    ConfigurationLoader loader = getConfigurationLoader();
     Plugin plugin;
-
 
     /**
      * BukkitConfigurationLoader uses Sponge's Configurate to load the HOCON values in the three settings files.
@@ -58,8 +59,6 @@ public class BukkitConfigurationManager extends ConfigurationManager {
             }
         }
 
-        ConfigurationLoader loader = getConfigurationLoader();
-
         try {
             if (!loader.doesBotSettingsExist()) {
                 exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, loader.getBotSettingsPath().toString());
@@ -80,7 +79,13 @@ public class BukkitConfigurationManager extends ConfigurationManager {
 
     @Override
     public void loadConfigurationFiles() {
-
+        try {
+            loader.loadBotSettings();
+            loader.loadEventSettings();
+            loader.loadGeneralSettings();
+        } catch (ConfigurateException exception) {
+            I18NLogger.error("");
+        }
     }
 
     @Override

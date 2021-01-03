@@ -77,7 +77,7 @@ public class ConfigurationLoader {
 
     @CheckReturnValue
     @NotNull
-    public CachedSettings loadGeneralSettings() {
+    public CachedSettings loadGeneralSettings() throws ConfigurateException{
         return CachedSettings.builder().build();
     }
 
@@ -110,7 +110,7 @@ public class ConfigurationLoader {
 
     @CheckReturnValue
     @NotNull
-    public CachedBotSettings loadBotSettings() {
+    public CachedBotSettings loadBotSettings() throws ConfigurateException {
         return CachedBotSettings.builder().build();
     }
 

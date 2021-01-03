@@ -27,7 +27,6 @@ import io.paradaux.hiberniadiscord.common.api.config.ConfigurationLoader;
 import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
 
 import java.io.*;
-import java.net.URISyntaxException;
 import java.nio.file.Path;
 
 public abstract class ConfigurationManager {
@@ -75,15 +74,12 @@ public abstract class ConfigurationManager {
      */
     public static void exportResource(String resourceName, String outputPath) throws NoSuchResourceException {
 
+        String inputPath = "/" + resourceName;
+
         OutputStream resourceOutputStream = null;
 
-        String jarPathStr;
-
-        try (InputStream resourceStream = ConfigurationManager.class.getResourceAsStream(resourceName)) {
-            jarPathStr = new File(ConfigurationManager.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath())
-                    .getParentFile().getPath().replace("\\", File.separator);
-
-            resourceOutputStream = new FileOutputStream(jarPathStr + resourceName);
+        try (InputStream resourceStream = ConfigurationManager.class.getResourceAsStream(inputPath)) {
+            resourceOutputStream = new FileOutputStream(outputPath);
 
             if (resourceStream == null) {
                 throw new FileNotFoundException("Cannot get resource \"" + resourceName + "\" from Jar file.");
@@ -96,20 +92,9 @@ public abstract class ConfigurationManager {
                 resourceOutputStream.write(buffer, 0, readBytes);
             }
 
-        } catch (URISyntaxException | IOException exception) {
+            resourceOutputStream.close();
+        } catch (IOException exception) {
             throw new NoSuchResourceException("Failed to deploy resource : " + exception.getMessage());
-        } finally {
-            try {
-                if (resourceOutputStream == null) {
-                    return;
-                }
-
-                resourceOutputStream.close();
-            } catch (IOException exception) {
-                throw new NoSuchResourceException("Failed to deploy resource : " + exception.getMessage());
-            }
-
-
         }
     }
 }
