@@ -46,35 +46,44 @@ public class HiberniaDiscord extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        logger = LoggerFactory.getLogger("io.paradaux.hiberniadiscord");
+        getLogger().info("HiberniaDiscord: INIT Locale.");
+        loadLocale();
 
+        I18NLogger.rawInfo("INIT: Taskchain.");
         TaskChainFactory taskChainFactory = BukkitTaskChainFactory.create(this);
 
-        Path configDir = this.getDataFolder().toPath();
-        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(configDir, this);
+        I18NLogger.rawInfo("INIT: Configuration.");
+        loadConfiguration();
 
+        I18NLogger.rawInfo("INIT: Events.");
+        registerEvents();
+
+        I18NLogger.rawInfo("INIT: API.");
+        registerAPI();
+    }
+
+    @Override
+    public void onDisable() {
+        I18NLogger.info("shutdown.shutdown-message");
+    }
+
+    public void loadLocale() {
         Locale locale = new Locale("en_US");
         I18NManager i18NManager = new I18NManager(ResourceBundle.getBundle(I18NManager.RESOURCES_PATH, locale));
 
         I18NLogger.setLogger(LoggerFactory.getLogger("io.paradaux.hiberniadiscord"));
         I18NLogger.setI18nManager(i18NManager);
 
-        configurationManager.deployResource();
-
-        configurationManager.loadConfigurationFiles();
-
-        API = new BukkitAPI();
-
-        registerEvents();
+        I18NLogger.info("startup.loading-message");
     }
 
-    @Override
-    public void onDisable() {
-
-    }
 
     public void loadConfiguration() {
-        // TODO
+        Path configDir = this.getDataFolder().toPath();
+        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(configDir, this);
+
+        configurationManager.deployResource();
+        configurationManager.loadConfigurationFiles();
     }
 
 
@@ -90,6 +99,9 @@ public class HiberniaDiscord extends JavaPlugin {
 //                                    logger, true), this);
     }
 
+    public void registerAPI() {
+        API = new BukkitAPI();
+    }
 
 
 }

@@ -75,8 +75,8 @@ public class ConfigurationUtil {
      * @param eventSettings event-settings.conf cached values.
      * */
     public static void loadConfigurationValues(CachedSettings generalSettings,
-                                               CachedBotSettings botSettings,
-                                               CachedEventSettings eventSettings) {
+                                               CachedEventSettings eventSettings,
+                                               CachedBotSettings botSettings) {
         ConfigurationUtil.generalSettings = generalSettings;
         ConfigurationUtil.botSettings = botSettings;
         ConfigurationUtil.eventSettings = eventSettings;
