@@ -56,6 +56,7 @@ public class HiberniaDiscord extends JavaPlugin {
         Locale locale = new Locale("en_US");
         I18NManager i18NManager = new I18NManager(ResourceBundle.getBundle(I18NManager.RESOURCES_PATH, locale));
 
+        I18NLogger.setLogger(LoggerFactory.getLogger("io.paradaux.hiberniadiscord"));
         I18NLogger.setI18nManager(i18NManager);
 
         configurationManager.deployResource();
