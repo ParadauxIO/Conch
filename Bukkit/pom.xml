@@ -74,6 +74,17 @@
                                     </excludes>
                                 </filter>
                             </filters>
+
+                            <relocations>
+                                <relocation>
+                                    <pattern>bstats-bukkit</pattern>
+                                    <shadedPattern>io.paradaux.hiberniadiscord.bstats</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>hiberniadiscord-common</pattern>
+                                    <shadedPattern>io.paradaux.hiberniadiscord.common</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>

@@ -62,15 +62,15 @@ public class BukkitConfigurationManager extends ConfigurationManager {
 
         try {
             if (!loader.doesBotSettingsExist()) {
-                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME);
+                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, loader.getBotSettingsPath().toString());
             }
 
             if (!loader.doesGeneralSettingsExist()) {
-                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, "");
+                exportResource(ConfigurationLoader.SETTINGS_FILE_NAME, loader.getGeneralSettingsPath().toString());
             }
 
             if (!loader.doesEventSettingsExist()) {
-                exportResource(ConfigurationLoader.BOT_SETTINGS_FILE_NAME, "");
+                exportResource(ConfigurationLoader.EVENT_SETTINGS_FILE_NAME, loader.getEventSettingsPath().toString());
             }
         } catch (NoSuchResourceException exception) {
             I18NLogger.error("configuration.deploy-failure", exception.getMessage());
