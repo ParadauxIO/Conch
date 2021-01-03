@@ -62,4 +62,12 @@ public class I18NLogger {
         return i18NManager.getLocalisedText(key);
     }
 
+    /**
+     * Logs the direct string rather than using a locale entry.
+     * Only to be used for debugging; All actual logging messages should have an entry in the locale.
+     * */
+    public static void rawInfo(String str, String... args) {
+        logger.info(str, (Object[]) args);
+    }
+
 }
