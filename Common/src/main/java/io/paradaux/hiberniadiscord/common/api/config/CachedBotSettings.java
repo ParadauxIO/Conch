@@ -60,6 +60,11 @@ public class CachedBotSettings {
             cachedBotSettings = new CachedBotSettings();
         }
 
+        public CachedBotSettings.Builder setEnabled(boolean enabled) {
+            cachedBotSettings.enabled = enabled;
+            return this;
+        }
+
         @CheckReturnValue
         @NotNull
         public CachedBotSettings.Builder setToken(String token) {
