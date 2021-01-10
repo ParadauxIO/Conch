@@ -23,6 +23,7 @@
 
 package io.paradaux.hiberniadiscord.common.api.config;
 
+import io.leangen.geantyref.TypeToken;
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
 import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchEventListenerException;
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +35,8 @@ import javax.annotation.CheckReturnValue;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigurationLoader {
 
@@ -77,7 +80,7 @@ public class ConfigurationLoader {
 
     @CheckReturnValue
     @NotNull
-    public CachedSettings loadGeneralSettings() throws ConfigurateException{
+    public CachedSettings loadGeneralSettings() throws ConfigurateException {
         return CachedSettings.builder().build();
     }
 
@@ -110,8 +113,28 @@ public class ConfigurationLoader {
 
     @CheckReturnValue
     @NotNull
-    public CachedBotSettings loadBotSettings() throws ConfigurateException {
-        return CachedBotSettings.builder().build();
+    public  CachedBotSettings loadBotSettings() throws ConfigurateException {
+        ConfigurationNode root = eventSettingsLoader.load();
+
+        TypeToken<Map<String, String>> type = new TypeToken<Map<String, String>>() {};
+        Map<String, String> mapResult = root.node("proxy-monitored-channels").get(type);
+
+        if (mapResult instanceof HashMap) {
+            HashMap proxyMonitoredChannels = (HashMap) mapResult;
+
+
+
+        }
+
+        return CachedBotSettings.builder()
+                .setEnabled(root.node("").getBoolean())
+                .setToken(root.node("").getString())
+                .setDiscordCommandsEnabled(root.node("").getBoolean())
+                .setCommandPrefix(root.node("").getString())
+                .setSendBotMessages(root.node("").getBoolean())
+                .setMonitoredChannels(root.node("").getList(String.class))
+                .setProxyBasedMonitoring(root.node("").getBoolean())
+                .build();
     }
 
     @CheckReturnValue
