@@ -29,12 +29,11 @@ import javax.annotation.CheckReturnValue;
 
 public class EventConfiguration {
 
-    String eventName;
-
-    boolean enabled;
-    String webhookUsernameFormat;
-    String webhookAvatarFormat;
-    String webhookMessageFormat;
+    private String eventName;
+    private boolean enabled;
+    private String webhookUsernameFormat;
+    private String webhookAvatarFormat;
+    private String webhookMessageFormat;
 
     private EventConfiguration() {
         // Use the builder!
