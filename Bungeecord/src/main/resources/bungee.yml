@@ -1,4 +1,4 @@
 name: HiberniaDiscord
 version: ${project.version}
-main: io.paradaux.hiberniadiscord.bungeecord.HiberniaDiscord
+main: HiberniaDiscord
 description: HiberniaDiscord's Bungee Functionality 
