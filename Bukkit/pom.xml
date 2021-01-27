@@ -28,17 +28,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>hiberniadiscord</artifactId>
-        <groupId>io.paradaux.hiberniadiscord</groupId>
+        <artifactId>conch</artifactId>
+        <groupId>io.paradaux.conch</groupId>
         <version>4.0.0</version>
     </parent>
 
-    <artifactId>hiberniadiscord-bukkit</artifactId>
+    <artifactId>conch-bukkit</artifactId>
     <version>4.0.0</version>
     <packaging>jar</packaging>
 
     <name>Bukkit</name>
-    <description>HiberniaDiscord's Bukkit Functionality</description>
+    <description>Conch's Bukkit Implementation</description>
 
     <build>
         <plugins>
@@ -78,11 +78,11 @@
                             <relocations>
                                 <relocation>
                                     <pattern>bstats-bukkit</pattern>
-                                    <shadedPattern>io.paradaux.hiberniadiscord.bstats</shadedPattern>
+                                    <shadedPattern>io.paradaux.conch.bstats</shadedPattern>
                                 </relocation>
                                 <relocation>
-                                    <pattern>hiberniadiscord-common</pattern>
-                                    <shadedPattern>io.paradaux.hiberniadiscord.common</shadedPattern>
+                                    <pattern>conch-common</pattern>
+                                    <shadedPattern>io.paradaux.conch.common</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -126,9 +126,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.paradaux.hiberniadiscord</groupId>
-            <artifactId>hiberniadiscord-common</artifactId>
-            <version>4.0.0</version>
+            <groupId>io.paradaux.conch</groupId>
+            <artifactId>conch-common</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 

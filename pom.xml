@@ -4,12 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.paradaux.hiberniadiscord</groupId>
-    <artifactId>hiberniadiscord</artifactId>
+    <groupId>io.paradaux.conch</groupId>
+    <artifactId>conch</artifactId>
     <version>4.0.0</version>
 
-    <name>HiberniaDiscord</name>
-    <url>https://hiberniadiscord.paradaux.io</url>
+    <name>Conch</name>
+    <url>https://conch.rocks</url>
     <packaging>pom</packaging>
 
     <modules>
@@ -90,6 +90,35 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-artifact</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>${project.artifactId}</artifactId>
+                                    <version>${project.version}</version>
+                                    <type>${project.packaging}</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>../Main/target/dependencies</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+
     </build>
 
     <repositories>
