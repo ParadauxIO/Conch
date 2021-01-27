@@ -1,8 +1,6 @@
 name: HiberniaDiscord
 version: ${project.version}
-main: HiberniaDiscord
+main: io.paradaux.conch.bukkit.BukkitConch
 api-version: 1.16
-description: HiberniaDiscord's Bukkit Functioanlity
+description: Conch's Bukkit Implementation
 commands:
-  disable:
-    usage: /disable
