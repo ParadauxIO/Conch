@@ -21,10 +21,9 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.listeners;
+package io.paradaux.conch.bukkit.listeners;
 
-import io.paradaux.hiberniadiscord.bukkit.api.PlaceholderWrapper;
-import io.paradaux.hiberniadiscord.common.api.DiscordManager;
+import io.paradaux.conch.bukkit.api.PlaceholderWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -33,7 +32,7 @@ import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
 
-import static io.paradaux.hiberniadiscord.bukkit.api.PlaceholderWrapper.withPlaceholders;
+import static io.paradaux.conch.bukkit.api.PlaceholderWrapper.withPlaceholders;
 
 public class AsyncPlayerChatEventListener extends GenericListener {
 

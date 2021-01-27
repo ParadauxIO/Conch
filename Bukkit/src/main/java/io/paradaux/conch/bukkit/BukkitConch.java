@@ -21,12 +21,12 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit;
+package io.paradaux.conch.bukkit;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
-import io.paradaux.hiberniadiscord.bukkit.api.BukkitAPI;
-import io.paradaux.hiberniadiscord.bukkit.api.BukkitConfigurationManager;
+import io.paradaux.conch.bukkit.api.BukkitAPI;
+import io.paradaux.conch.bukkit.api.BukkitConfigurationManager;
 import io.paradaux.hiberniadiscord.common.api.I18NLogger;
 import io.paradaux.hiberniadiscord.common.api.I18NManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,7 +37,7 @@ import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class HiberniaDiscord extends JavaPlugin {
+public class BukkitConch extends JavaPlugin {
 
     private static BukkitAPI API;
 

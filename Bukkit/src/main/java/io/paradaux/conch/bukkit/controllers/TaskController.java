@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.controllers;
+package io.paradaux.conch.bukkit.controllers;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;

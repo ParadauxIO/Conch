@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.listeners;
+package io.paradaux.conch.bukkit.listeners;
 
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

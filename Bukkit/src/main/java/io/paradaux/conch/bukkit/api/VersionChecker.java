@@ -21,9 +21,9 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.api;
+package io.paradaux.conch.bukkit.api;
 
-import io.paradaux.hiberniadiscord.bukkit.controllers.TaskController;
+import io.paradaux.conch.bukkit.controllers.TaskController;
 import org.bukkit.util.Consumer;
 import org.slf4j.Logger;
 

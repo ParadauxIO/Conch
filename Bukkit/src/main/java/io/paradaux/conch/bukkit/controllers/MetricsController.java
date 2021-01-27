@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.controllers;
+package io.paradaux.conch.bukkit.controllers;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.Plugin;

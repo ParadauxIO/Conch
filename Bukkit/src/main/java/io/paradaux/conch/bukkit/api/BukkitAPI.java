@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.bukkit.api;
+package io.paradaux.conch.bukkit.api;
 
 import io.paradaux.hiberniadiscord.common.API;
 import io.paradaux.hiberniadiscord.common.api.BotManager;
