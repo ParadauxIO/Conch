@@ -46,7 +46,7 @@ public class BukkitConch extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().info("HiberniaDiscord: INIT Locale.");
+        getLogger().info("Conch: INIT Locale.");
         loadLocale();
 
         I18NLogger.rawInfo("INIT: Taskchain.");
@@ -71,7 +71,7 @@ public class BukkitConch extends JavaPlugin {
         Locale locale = new Locale("en_US");
         I18NManager i18NManager = new I18NManager(ResourceBundle.getBundle(I18NManager.RESOURCES_PATH, locale));
 
-        I18NLogger.setLogger(LoggerFactory.getLogger("io.paradaux.hiberniadiscord"));
+        I18NLogger.setLogger(LoggerFactory.getLogger("io.paradaux.conch"));
         I18NLogger.setI18nManager(i18NManager);
 
         I18NLogger.info("startup.loading-message");
