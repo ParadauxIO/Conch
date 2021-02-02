@@ -23,11 +23,11 @@
 
 package io.paradaux.conch.bukkit.api;
 
-import io.paradaux.hiberniadiscord.common.API;
-import io.paradaux.hiberniadiscord.common.api.BotManager;
-import io.paradaux.hiberniadiscord.common.api.ConfigurationManager;
-import io.paradaux.hiberniadiscord.common.api.DiscordManager;
-import io.paradaux.hiberniadiscord.common.api.I18NManager;
+import io.paradaux.conch.common.API;
+import io.paradaux.conch.common.api.BotManager;
+import io.paradaux.conch.common.api.ConfigurationManager;
+import io.paradaux.conch.common.api.DiscordManager;
+import io.paradaux.conch.common.api.I18NManager;
 
 public class BukkitAPI implements API {
 

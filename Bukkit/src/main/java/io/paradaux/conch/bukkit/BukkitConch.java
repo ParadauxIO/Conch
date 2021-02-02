@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -27,8 +27,8 @@ import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChainFactory;
 import io.paradaux.conch.bukkit.api.BukkitAPI;
 import io.paradaux.conch.bukkit.api.BukkitConfigurationManager;
-import io.paradaux.hiberniadiscord.common.api.I18NLogger;
-import io.paradaux.hiberniadiscord.common.api.I18NManager;
+import io.paradaux.conch.common.api.I18NLogger;
+import io.paradaux.conch.common.api.I18NManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

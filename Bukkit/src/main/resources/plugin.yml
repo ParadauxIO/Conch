@@ -1,4 +1,4 @@
-name: HiberniaDiscord
+name: Conch
 version: ${project.version}
 main: io.paradaux.conch.bukkit.BukkitConch
 api-version: 1.16

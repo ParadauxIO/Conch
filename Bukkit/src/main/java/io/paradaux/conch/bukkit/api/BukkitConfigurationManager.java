@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -23,10 +23,10 @@
 
 package io.paradaux.conch.bukkit.api;
 
-import io.paradaux.hiberniadiscord.common.api.ConfigurationManager;
-import io.paradaux.hiberniadiscord.common.api.I18NLogger;
-import io.paradaux.hiberniadiscord.common.api.config.*;
-import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchResourceException;
+import io.paradaux.conch.common.api.ConfigurationManager;
+import io.paradaux.conch.common.api.I18NLogger;
+import io.paradaux.conch.common.api.config.*;
+import io.paradaux.conch.common.api.exceptions.NoSuchResourceException;
 import org.bukkit.plugin.Plugin;
 import org.spongepowered.configurate.ConfigurateException;
 
