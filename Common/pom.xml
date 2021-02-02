@@ -29,14 +29,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>hiberniadiscord</artifactId>
-        <groupId>io.paradaux.hiberniadiscord</groupId>
-        <version>4.0.0</version>
+        <artifactId>conch</artifactId>
+        <groupId>io.paradaux.conch</groupId>
+        <version>1.0.0</version>
     </parent>
 
-    <artifactId>hiberniadiscord-common</artifactId>
+    <artifactId>conch-common</artifactId>
     <name>Common</name>
-    <version>4.0.0</version>
+    <version>1.0.0</version>
 
     <build>
         <plugins>

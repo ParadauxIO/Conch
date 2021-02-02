@@ -220,10 +220,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.paradaux.hiberniadiscord</groupId>
-            <artifactId>hiberniadiscord-common</artifactId>
-            <version>4.0.0</version>
-            <scope>compile</scope>
+            <groupId>io.paradaux.conch</groupId>
+            <artifactId>conch-common</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>

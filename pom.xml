@@ -6,7 +6,7 @@
 
     <groupId>io.paradaux.conch</groupId>
     <artifactId>conch</artifactId>
-    <version>4.0.0</version>
+    <version>1.0.0</version>
 
     <name>Conch</name>
     <url>https://conch.rocks</url>
