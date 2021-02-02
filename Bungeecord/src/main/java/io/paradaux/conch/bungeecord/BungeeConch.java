@@ -47,7 +47,7 @@ public final class BungeeConch extends Plugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        logger = LoggerFactory.getLogger("io.paradaux.hiberniadiscord");
+        logger = LoggerFactory.getLogger("io.paradaux.conch");
 
 //        DiscordManager.initialise(webhookUrl, true, logger);
 //        DiscordManager.sendDiscordMessage("Test", iconUrl, "hello world");
