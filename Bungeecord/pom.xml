@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020, Rían Errity. All rights reserved.
+  ~ Copyright (c) 2021, Rían Errity. All rights reserved.
   ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
   ~
   ~ This code is free software; you can redistribute it and/or modify it
@@ -38,7 +38,7 @@
     <packaging>jar</packaging>
 
     <name>Bungeecord</name>
-    <description>HiberniaDiscord's Bungeecord Functionality</description>
+    <description>Conch's Bungeecord Functionality</description>
 
     <build>
         <defaultGoal>clean package</defaultGoal>

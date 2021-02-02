@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Copyright (c) 2020, Rían Errity. All rights reserved.
+  ~ Copyright (c) 2021, Rían Errity. All rights reserved.
   ~ DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
   ~
   ~ This code is free software; you can redistribute it and/or modify it
@@ -28,13 +28,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>hiberniadiscord</artifactId>
-        <groupId>io.paradaux.hiberniadiscord</groupId>
-        <version>4.0.0</version>
+        <artifactId>conch</artifactId>
+        <groupId>io.paradaux.conch</groupId>
+        <version>1.0.0</version>
     </parent>
 
-    <artifactId>hiberniadiscord-velocity</artifactId>
-    <version>4.0.0</version>
+    <artifactId>conch-velocity</artifactId>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>Velocity</name>
