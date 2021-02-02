@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -21,10 +21,10 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common.bot;
+package io.paradaux.conch.common.bot;
 
 import co.aikar.taskchain.TaskChainFactory;
-import io.paradaux.hiberniadiscord.common.api.events.DiscordMessageReceivedEvent;
+import io.paradaux.conch.common.api.events.DiscordMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;

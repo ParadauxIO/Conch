@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -21,14 +21,14 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common.api;
+package io.paradaux.conch.common.api;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class I18NManager {
 
-    public static final String RESOURCES_PATH = "HiberniaDiscord";
+    public static final String RESOURCES_PATH = "Conch";
 
     private static final Locale[] locales = {
             Locale.getDefault(),

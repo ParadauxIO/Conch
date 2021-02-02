@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common.api;
+package io.paradaux.conch.common.api;
 
 import club.minnced.discord.webhook.WebhookClient;
 import club.minnced.discord.webhook.WebhookClientBuilder;
@@ -70,7 +70,7 @@ public class DiscordManager {
         WebhookClientBuilder builder = new WebhookClientBuilder(webhookUrl);
         builder.setThreadFactory((job) -> {
             Thread thread = new Thread(job);
-            thread.setName("HiberniaDiscord");
+            thread.setName("Conch");
             thread.setDaemon(true);
             return thread;
         });

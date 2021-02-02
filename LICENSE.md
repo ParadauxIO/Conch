@@ -1,4 +1,4 @@
-HiberniaDiscord is Copyright © 2018-2020 of Rían Errity (Paradaux)
+Conch is Copyright © 2018-2021 of Rían Errity (Paradaux)
 
 # GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007

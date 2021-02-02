@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -21,11 +21,11 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common.api.config;
+package io.paradaux.conch.common.api.config;
 
 import io.leangen.geantyref.TypeToken;
-import io.paradaux.hiberniadiscord.common.api.I18NLogger;
-import io.paradaux.hiberniadiscord.common.api.exceptions.NoSuchEventListenerException;
+import io.paradaux.conch.common.api.I18NLogger;
+import io.paradaux.conch.common.api.exceptions.NoSuchEventListenerException;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.configurate.ConfigurateException;
 import org.spongepowered.configurate.ConfigurationNode;

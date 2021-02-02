@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, Rían Errity. All rights reserved.
+ * Copyright (c) 2021, Rían Errity. All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
  * This code is free software; you can redistribute it and/or modify it
@@ -21,7 +21,9 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.hiberniadiscord.common;public class Common {
+package io.paradaux.conch.common;
+
+public class Common {
 
     public static void main(String[] args) {
         System.out.println("You cannot execute this jar.");
