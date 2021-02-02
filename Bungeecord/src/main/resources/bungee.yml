@@ -1,4 +1,4 @@
-name: HiberniaDiscord
+name: Conch
 version: ${project.version}
-main: HiberniaDiscord
-description: HiberniaDiscord's Bungee Functionality 
+main: io.paradaux.conch.bungeecord.BungeeConch
+description: BungeeConch
