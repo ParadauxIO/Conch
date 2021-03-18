@@ -44,8 +44,4 @@ public class TaskController {
     public static <T> TaskChain<T> newChain() {
         return taskChainFactory.newChain();
     }
-
-    public static <T> TaskChain<T> newSharedChain(String name) {
-        return taskChainFactory.newSharedChain(name);
-    }
 }
