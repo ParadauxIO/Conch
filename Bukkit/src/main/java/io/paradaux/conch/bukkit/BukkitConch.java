@@ -43,10 +43,9 @@ public class BukkitConch extends JavaPlugin {
 
     private static Logger logger;
 
-
     @Override
     public void onEnable() {
-        getLogger().info("Conch: INIT Locale.");
+        getLogger().info("Conch: Initialising locale.");
         loadLocale();
 
         I18NLogger.rawInfo("INIT: Taskchain.");
@@ -68,7 +67,9 @@ public class BukkitConch extends JavaPlugin {
     }
 
     public void loadLocale() {
+        // TODO make additional locales available.
         Locale locale = new Locale("en_US");
+
         I18NManager i18NManager = new I18NManager(ResourceBundle.getBundle(I18NManager.RESOURCES_PATH, locale));
 
         I18NLogger.setLogger(LoggerFactory.getLogger("io.paradaux.conch"));

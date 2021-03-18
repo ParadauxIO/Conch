@@ -37,7 +37,7 @@ public class TaskController {
      * Initialise the TaskController.
      * */
     public TaskController(Plugin plugin) {
-        BukkitTaskChainFactory.create(plugin);
+        taskChainFactory = BukkitTaskChainFactory.create(plugin);
         INSTANCE = this;
     }
 
