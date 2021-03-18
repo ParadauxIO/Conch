@@ -16,7 +16,7 @@
         <module>Common</module>
         <module>Bukkit</module>
         <module>Sponge</module>
-        <module>Bungeecord</module>
+<!--        <module>Bungeecord</module>-->
         <module>Velocity</module>
     </modules>
 
@@ -82,17 +82,15 @@
             <id>aikar</id>
             <url>https://repo.aikar.co/content/groups/aikar/</url>
         </repository>
+
         <repository>
             <id>bintray-jcenter</id>
             <url>https://jcenter.bintray.com</url>
         </repository>
+
         <repository>
             <id>placeholderapi</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <repository>
-            <id>bungeecord-repo</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
         </repository>
     </repositories>
 
