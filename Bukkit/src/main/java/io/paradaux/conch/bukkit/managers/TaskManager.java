@@ -21,22 +21,22 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.conch.bukkit.controllers;
+package io.paradaux.conch.bukkit.managers;
 
 import co.aikar.taskchain.BukkitTaskChainFactory;
 import co.aikar.taskchain.TaskChain;
 import co.aikar.taskchain.TaskChainFactory;
 import org.bukkit.plugin.Plugin;
 
-public class TaskController {
+public class TaskManager {
 
-    public static TaskController INSTANCE;
+    public static TaskManager INSTANCE;
     private static TaskChainFactory taskChainFactory;
 
     /**
      * Initialise the TaskController.
      * */
-    public TaskController(Plugin plugin) {
+    public TaskManager(Plugin plugin) {
         taskChainFactory = BukkitTaskChainFactory.create(plugin);
         INSTANCE = this;
     }

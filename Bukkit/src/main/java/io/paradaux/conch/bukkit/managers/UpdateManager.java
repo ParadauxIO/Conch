@@ -21,7 +21,7 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.conch.bukkit.controllers;
+package io.paradaux.conch.bukkit.managers;
 
-public class VersionNotificationController {
+public class UpdateManager {
 }

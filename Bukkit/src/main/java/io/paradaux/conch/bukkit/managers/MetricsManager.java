@@ -21,17 +21,17 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.conch.bukkit.controllers;
+package io.paradaux.conch.bukkit.managers;
 
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.Plugin;
 
 
-public class MetricsController {
+public class MetricsManager {
 
     private static final int PLUGIN_ID = 8386;
 
-    public static MetricsController INSTANCE;
+    public static MetricsManager INSTANCE;
 
     boolean bstatsEnabled;
     boolean botEnabled;
@@ -42,7 +42,8 @@ public class MetricsController {
     /**
      * Creates the Metrics Instance which relays to BStats various things about the host server.
      * */
-    public MetricsController(Plugin plugin) {
+    public MetricsManager(Plugin plugin) {
+
         if (bstatsEnabled) {
             return;
         }
