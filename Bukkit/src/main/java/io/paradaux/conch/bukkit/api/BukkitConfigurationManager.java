@@ -88,12 +88,11 @@ public class BukkitConfigurationManager extends ConfigurationManager {
             eventSettings = loader.loadEventSettings();
             botSettings = loader.loadBotSettings();
         } catch (ConfigurateException exception) {
-            I18NLogger.error("");
+            I18NLogger.error(""); // TODO add error for failure to load configuration
             return;
         }
-        ConfigurationUtil.loadConfigurationValues(generalSettings, eventSettings, botSettings);
 
-        System.out.println("Test: " + eventSettings.getOnChatMessage().getEventName());
+        ConfigurationUtil.loadConfigurationValues(generalSettings, eventSettings, botSettings);
     }
 
     @Override

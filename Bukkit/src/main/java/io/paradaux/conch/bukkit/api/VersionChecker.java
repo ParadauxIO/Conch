@@ -23,7 +23,7 @@
 
 package io.paradaux.conch.bukkit.api;
 
-import io.paradaux.conch.bukkit.controllers.TaskController;
+import io.paradaux.conch.bukkit.managers.TaskManager;
 import org.bukkit.util.Consumer;
 import org.slf4j.Logger;
 
@@ -47,7 +47,7 @@ public class VersionChecker {
      * */
     public void getVersion(final Consumer<String> consumer) {
 
-        TaskController.newChain().async(() -> {
+        TaskManager.newChain().async(() -> {
             try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource="
                     + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
 
