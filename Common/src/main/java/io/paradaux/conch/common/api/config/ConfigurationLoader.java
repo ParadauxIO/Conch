@@ -81,7 +81,23 @@ public class ConfigurationLoader {
     @CheckReturnValue
     @NotNull
     public CachedSettings loadGeneralSettings() throws ConfigurateException {
-        return CachedSettings.builder().build();
+        CachedSettings.Builder builder = CachedSettings.builder();
+        ConfigurationNode root = generalSettingsLoader.load();
+
+        TypeToken<Map<String, String>> type = new TypeToken<Map<String, String>>() {};
+
+
+        builder.setConfigurationVersion(root.node("configuration-version").getString())
+                .setDebug(root.node("debug").getBoolean())
+                .setLocaleCode(root.node("locale").getString())
+                .setWebhookUrl(root.node("webhook-configuration").node("webhook-url").getString())
+                .setEventsEnabled(root.node("webhook-configuration").node("events").getBoolean())
+                .setServerName(root.node("placeholders").node("server-name").getString())
+                .setAvatarApi(root.node("placeholders").node("avatar-api").getString())
+                .setProxyBasedWebhookConfiguration(root.node("proxy-based-webhook-configuration").getBoolean())
+                .setProxyWebhookConfiguration(root.node("proxy-webhook-configuration").get(type));
+
+        return builder.build();
     }
 
     @CheckReturnValue
@@ -96,11 +112,11 @@ public class ConfigurationLoader {
             ConfigurationNode eventListenerNode = root.node(eventListenerStr);
 
             eventBuilder.setEventName(eventListenerStr)
-                        .setEnabled(eventListenerNode.getBoolean())
-                        .setWebhookUsernameFormat(eventListenerNode.getString())
-                        .setWebhookAvatarFormat(eventListenerNode.getString())
-                        .setWebhookMessageFormat(eventListenerNode.getString());
-
+                        .setEnabled(eventListenerNode.node("enabled").getBoolean())
+                        .setWebhookUsernameFormat(eventListenerNode.node("webhook-username-format").getString())
+                        .setWebhookAvatarFormat(eventListenerNode.node("webhook-avatar-format").getString())
+                        .setWebhookMessageFormat(eventListenerNode.node("webhook-message-format").getString());
+            
             try {
                 builder.set(eventBuilder.build());
             } catch (NoSuchEventListenerException ok) {
@@ -111,6 +127,7 @@ public class ConfigurationLoader {
         return builder.build();
     }
 
+    // TODO finish
     @CheckReturnValue
     @NotNull
     public  CachedBotSettings loadBotSettings() throws ConfigurateException {
@@ -121,9 +138,6 @@ public class ConfigurationLoader {
 
         if (mapResult instanceof HashMap) {
             HashMap proxyMonitoredChannels = (HashMap) mapResult;
-
-
-
         }
 
         return CachedBotSettings.builder()
