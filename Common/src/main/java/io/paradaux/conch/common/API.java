@@ -23,7 +23,6 @@
 
 package io.paradaux.conch.common;
 
-import io.paradaux.conch.common.api.BotManager;
 import io.paradaux.conch.common.api.ConfigurationManager;
 import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.I18NManager;

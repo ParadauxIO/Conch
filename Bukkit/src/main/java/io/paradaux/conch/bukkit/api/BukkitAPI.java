@@ -24,7 +24,6 @@
 package io.paradaux.conch.bukkit.api;
 
 import io.paradaux.conch.common.API;
-import io.paradaux.conch.common.api.BotManager;
 import io.paradaux.conch.common.api.ConfigurationManager;
 import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.I18NManager;

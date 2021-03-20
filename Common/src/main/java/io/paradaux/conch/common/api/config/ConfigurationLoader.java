@@ -133,16 +133,15 @@ public class ConfigurationLoader {
     public  CachedBotSettings loadBotSettings() throws ConfigurateException {
         ConfigurationNode root = eventSettingsLoader.load();
 
-        HashMap<String, String> monitoredChannelMappings = root.node("proxy-monitored-channels").get(stringMap);
-
         return CachedBotSettings.builder()
-                .setEnabled(root.node("").getBoolean())
-                .setToken(root.node("").getString())
-                .setDiscordCommandsEnabled(root.node("").getBoolean())
-                .setCommandPrefix(root.node("").getString())
-                .setSendBotMessages(root.node("").getBoolean())
-                .setMonitoredChannels(root.node("").getList(String.class))
-                .setProxyBasedMonitoring(root.node("").getBoolean())
+                .setEnabled(root.node("enabled").getBoolean())
+                .setToken(root.node("token").getString())
+                .setDiscordCommandsEnabled(root.node("discord-commands-enabled").getBoolean())
+                .setCommandPrefix(root.node("command-prefix").getString())
+                .setSendBotMessages(root.node("send-messages-from-bots").getBoolean())
+                .setMonitoredChannels(root.node("monitoredChannels").getList(String.class))
+                .setProxyBasedMonitoring(root.node("proxy-based-monitoring").getBoolean())
+                .setProxyMonitoredChannels(root.node("proxy-monitored-channels").get(stringMap))
                 .build();
     }
 
