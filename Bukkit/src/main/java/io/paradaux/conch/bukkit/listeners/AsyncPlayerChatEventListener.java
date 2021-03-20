@@ -84,8 +84,6 @@ public class AsyncPlayerChatEventListener extends GenericListener {
 //            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getName());
         }
 
-        I18NLogger.rawInfo(parseAvatarApi(player, avatarApiFormat));
-
         discord.sendDiscordMessage(discordUserName, discordAvatarUrl, messageContent);
     }
 

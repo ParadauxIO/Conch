@@ -99,7 +99,6 @@ public class BukkitConch extends JavaPlugin {
         I18NLogger.info("startup.loading-message");
     }
 
-
     public void loadConfiguration() {
         Path pluginData = this.getDataFolder().toPath();
         BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(pluginData, this);
@@ -112,7 +111,6 @@ public class BukkitConch extends JavaPlugin {
         CachedSettings config = ConfigurationUtil.getGeneralSettings();
         discord = new DiscordManager(config.getWebhookUrl(), true);
     }
-
 
     public void registerEvents() {
         PluginManager pm = this.getServer().getPluginManager();
@@ -128,11 +126,10 @@ public class BukkitConch extends JavaPlugin {
     public void startDiscordBot() {
         CachedBotSettings config = ConfigurationUtil.getBotSettings();
 
-
         try {
             discordBot = new DiscordBot();
-            discordBot.addNewListener(new DiscordMessageListener(discord, tasks, config));
             discordBot.connect();
+            discordBot.addNewListener(new DiscordMessageListener(discord, tasks, config));
         } catch (LoginException ok) {
             // TODO log
         }
