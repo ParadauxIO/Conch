@@ -34,7 +34,7 @@ public class DiscordBot {
     }
 
     private JDA login(String token) throws LoginException {
-
+        // TODO Envoirnment varialbe support
         JDABuilder builder = JDABuilder.createDefault(token)
                 .setBulkDeleteSplittingEnabled(false)
                 .addEventListeners(new ReadyListener());
@@ -54,8 +54,8 @@ public class DiscordBot {
                 userCount += guild.getMemberCount();
             }
 
-            I18NLogger.rawInfo("Bot Started: Serving {} user{s} in {} guild{}", String.valueOf(userCount), StringUtils.pluralise(userCount),
-                    String.valueOf(guildCount),StringUtils.pluralise(guildCount)); // TODO ADD TO LOCALE
+            I18NLogger.rawInfo("Bot Started: Serving {} user{} in {} guild{}", String.valueOf(userCount), StringUtils.pluralise(userCount),
+                    String.valueOf(guildCount), StringUtils.pluralise(guildCount)); // TODO ADD TO LOCALE
         }
 
     }
