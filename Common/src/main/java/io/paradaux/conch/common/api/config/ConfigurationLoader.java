@@ -139,7 +139,7 @@ public class ConfigurationLoader {
                 .setDiscordCommandsEnabled(root.node("discord-commands-enabled").getBoolean())
                 .setCommandPrefix(root.node("command-prefix").getString())
                 .setSendBotMessages(root.node("send-messages-from-bots").getBoolean())
-                .setMonitoredChannels(root.node("monitoredChannels").getList(String.class))
+                .setMonitoredChannels(root.node("monitored-channels").getList(String.class))
                 .setProxyBasedMonitoring(root.node("proxy-based-monitoring").getBoolean())
                 .setProxyMonitoredChannels(root.node("proxy-monitored-channels").get(stringMap))
                 .build();
