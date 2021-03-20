@@ -48,6 +48,8 @@ public class ConfigurationLoader {
     public static final String EVENT_SETTINGS_FILE_NAME = "event-settings.conf";
     public static final String BOT_SETTINGS_FILE_NAME = "bot-settings.conf";
 
+    private static final TypeToken<HashMap<String, String>> stringMap = new TypeToken<HashMap<String, String>>() {};
+
     private final Path generalSettingsPath;
     private final Path eventSettingsPath;
     private final Path botSettingsPath;
@@ -84,9 +86,6 @@ public class ConfigurationLoader {
         CachedSettings.Builder builder = CachedSettings.builder();
         ConfigurationNode root = generalSettingsLoader.load();
 
-        TypeToken<Map<String, String>> type = new TypeToken<Map<String, String>>() {};
-
-
         builder.setConfigurationVersion(root.node("configuration-version").getString())
                 .setDebug(root.node("debug").getBoolean())
                 .setLocaleCode(root.node("locale").getString())
@@ -95,7 +94,7 @@ public class ConfigurationLoader {
                 .setServerName(root.node("placeholders").node("server-name").getString())
                 .setAvatarApi(root.node("placeholders").node("avatar-api").getString())
                 .setProxyBasedWebhookConfiguration(root.node("proxy-based-webhook-configuration").getBoolean())
-                .setProxyWebhookConfiguration(root.node("proxy-webhook-configuration").get(type));
+                .setProxyWebhookConfiguration(root.node("proxy-webhook-configuration").get(stringMap));
 
         return builder.build();
     }
@@ -116,7 +115,7 @@ public class ConfigurationLoader {
                         .setWebhookUsernameFormat(eventListenerNode.node("webhook-username-format").getString())
                         .setWebhookAvatarFormat(eventListenerNode.node("webhook-avatar-format").getString())
                         .setWebhookMessageFormat(eventListenerNode.node("webhook-message-format").getString());
-            
+
             try {
                 builder.set(eventBuilder.build());
             } catch (NoSuchEventListenerException ok) {
@@ -133,12 +132,7 @@ public class ConfigurationLoader {
     public  CachedBotSettings loadBotSettings() throws ConfigurateException {
         ConfigurationNode root = eventSettingsLoader.load();
 
-        TypeToken<Map<String, String>> type = new TypeToken<Map<String, String>>() {};
-        Map<String, String> mapResult = root.node("proxy-monitored-channels").get(type);
-
-        if (mapResult instanceof HashMap) {
-            HashMap proxyMonitoredChannels = (HashMap) mapResult;
-        }
+        HashMap<String, String> monitoredChannelMappings = root.node("proxy-monitored-channels").get(stringMap);
 
         return CachedBotSettings.builder()
                 .setEnabled(root.node("").getBoolean())
