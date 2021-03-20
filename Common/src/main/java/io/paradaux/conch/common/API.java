@@ -51,15 +51,6 @@ public interface API {
     DiscordManager getDiscordManager();
 
     /**
-     * Gets the {@link BotManager}, which manages Conch's integrated discord bot.
-     * Using this manager will allow you to register additional JDA Event Listeners or listen
-     * to Conchs Integrated Event System, send messages as the bot and so on.
-     *
-     * @return The JDA 4.X Discord Bot Manager used by Conch.
-     * */
-    BotManager getBotManager();
-
-    /**
      * Gets the {@link I18NManager}, which allows the developer to access Conch's ResourceBundles and
      * translate keys from Conch's locale, as well as get the user's locale.
      *

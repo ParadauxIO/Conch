@@ -131,7 +131,7 @@ public class ConfigurationLoader {
     @CheckReturnValue
     @NotNull
     public  CachedBotSettings loadBotSettings() throws ConfigurateException {
-        ConfigurationNode root = eventSettingsLoader.load();
+        ConfigurationNode root = botSettingsLoader.load();
 
         return CachedBotSettings.builder()
                 .setEnabled(root.node("enabled").getBoolean())
