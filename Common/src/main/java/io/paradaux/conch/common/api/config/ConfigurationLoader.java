@@ -142,6 +142,7 @@ public class ConfigurationLoader {
                 .setMonitoredChannels(root.node("monitored-channels").getList(String.class))
                 .setProxyBasedMonitoring(root.node("proxy-based-monitoring").getBoolean())
                 .setProxyMonitoredChannels(root.node("proxy-monitored-channels").get(stringMap))
+                .setMessageFormat(root.node("message-format").getString())
                 .build();
     }
 
