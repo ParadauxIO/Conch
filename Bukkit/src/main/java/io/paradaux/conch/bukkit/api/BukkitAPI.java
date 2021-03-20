@@ -36,11 +36,6 @@ public class BukkitAPI implements API {
     }
 
     @Override
-    public BotManager getBotManager() {
-        return null;
-    }
-
-    @Override
     public I18NManager getI18nManager() {
         return null;
     }

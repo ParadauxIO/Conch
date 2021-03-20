@@ -25,6 +25,7 @@ package io.paradaux.conch.bukkit;
 
 import io.paradaux.conch.bukkit.api.BukkitAPI;
 import io.paradaux.conch.bukkit.api.BukkitConfigurationManager;
+import io.paradaux.conch.bukkit.bot.DiscordMessageListener;
 import io.paradaux.conch.bukkit.listeners.AsyncPlayerChatEventListener;
 import io.paradaux.conch.bukkit.managers.MetricsManager;
 import io.paradaux.conch.bukkit.managers.TaskManager;
@@ -32,6 +33,7 @@ import io.paradaux.conch.bukkit.managers.UpdateManager;
 import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.I18NLogger;
 import io.paradaux.conch.common.api.I18NManager;
+import io.paradaux.conch.common.api.config.CachedBotSettings;
 import io.paradaux.conch.common.api.config.CachedEventSettings;
 import io.paradaux.conch.common.api.config.CachedSettings;
 import io.paradaux.conch.common.api.config.ConfigurationUtil;
@@ -124,8 +126,13 @@ public class BukkitConch extends JavaPlugin {
     }
 
     public void startDiscordBot() {
+        CachedBotSettings config = ConfigurationUtil.getBotSettings();
+
+
         try {
             discordBot = new DiscordBot();
+            discordBot.addNewListener(new DiscordMessageListener(discord, tasks, config));
+            discordBot.connect();
         } catch (LoginException ok) {
             // TODO log
         }

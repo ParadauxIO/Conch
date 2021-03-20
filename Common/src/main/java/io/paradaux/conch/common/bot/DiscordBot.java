@@ -22,20 +22,14 @@ public class DiscordBot {
         CachedBotSettings config = ConfigurationUtil.getBotSettings();
         this.token = config.getToken();
         this.listeners = new ArrayList<>();
-        createDefaultListeners();
-        reconnect();
     }
 
     public void addNewListener(Object listener) {
         listeners.add(listener);
     }
 
-    public void reconnect() throws LoginException {
+    public void connect() throws LoginException {
         client = login(token, listeners);
-    }
-
-    public void createDefaultListeners() {
-        Collections.addAll(listeners, new MessageEventListener());
     }
 
     private JDA login(String token, List<Object> listeners) throws LoginException {
