@@ -23,6 +23,7 @@
 
 package io.paradaux.conch.bukkit.listeners;
 
+import io.paradaux.conch.bukkit.api.PlaceholderWrapper;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -33,17 +34,11 @@ import javax.annotation.Nullable;
 
 public class GenericListener implements Listener {
 
-    private final String avatarApiUrl;
-    private final String serverName;
-    private final String userNameFormat;
-
     /**
      * Represents a non-specific bukkit listener with the configuration values required to run.
      * */
-    public GenericListener(String avatarApiUrl, String userNameFormat, String serverName) {
-        this.avatarApiUrl = avatarApiUrl;
-        this.userNameFormat = userNameFormat;
-        this.serverName = serverName;
+    public GenericListener() {
+
     }
 
     /**
@@ -51,8 +46,12 @@ public class GenericListener implements Listener {
      * */
     @Nullable
     @CheckReturnValue
-    protected String parsePlaceholders(Player player, @NotNull String str) {
-        return parsePlaceholders((OfflinePlayer) player, str);
+    protected String parsePlaceholders(Player player, @NotNull String serverName, String avatarApi,String str) {
+        if (PlaceholderWrapper.isPresent()) {
+            str = PlaceholderWrapper.withPlaceholders(player, str);
+        }
+
+        return parseCustomPlaceholders(player, serverName, avatarApi, str);
     }
 
     /**
@@ -60,32 +59,37 @@ public class GenericListener implements Listener {
      * */
     @Nullable
     @CheckReturnValue
-    protected String parsePlaceholders(OfflinePlayer player, @NotNull String str) {
-        if (player == null || player.getName() == null) {
-            return null;
+    protected String parsePlaceholders(OfflinePlayer player, @NotNull String serverName, String avatarApi,String str) {
+        if (PlaceholderWrapper.isPresent()) {
+            str = PlaceholderWrapper.withPlaceholders(player, str);
         }
 
-        String avatarUrl = parseAvatarApi(player);
+        return parseCustomPlaceholders(player, serverName, avatarApi, str);
+    }
 
-        if (avatarUrl == null) {
-            avatarUrl = "";
+    /**
+     * Parses purely the custom placeholders.
+     * */
+    protected String parseCustomPlaceholders(OfflinePlayer player, String serverName, String avatarApi,String str) {
+        if (avatarApi == null) {
+            avatarApi = "";
         }
 
         return str.replace("%playername%", player.getName())
                 .replace("%playeruuid%", player.getUniqueId().toString())
                 .replace("%servername%", serverName)
-                .replace("%avatarapi%", avatarUrl);
+                .replace("%avatarapi%", parseAvatarApi(player, avatarApi));
     }
 
     @Nullable
     @CheckReturnValue
-    protected String parseAvatarApi(Player player) {
-        return parseAvatarApi((OfflinePlayer) player);
+    protected String parseAvatarApi(Player player, String avatarApiUrl) {
+        return parseAvatarApi((OfflinePlayer) player, avatarApiUrl);
     }
 
     @Nullable
     @CheckReturnValue
-    protected String parseAvatarApi(OfflinePlayer player) {
+    protected String parseAvatarApi(OfflinePlayer player, String avatarApiUrl) {
         System.out.println(avatarApiUrl);
         if (player == null) {
             throw new IllegalStateException("This player is not available.");
@@ -94,15 +98,4 @@ public class GenericListener implements Listener {
         return avatarApiUrl.replace("%playeruuid%", player.getUniqueId().toString());
     }
 
-    public String getAvatarApiUrl() {
-        return avatarApiUrl;
-    }
-
-    public String getServerName() {
-        return serverName;
-    }
-
-    public String getUserNameFormat() {
-        return userNameFormat;
-    }
 }

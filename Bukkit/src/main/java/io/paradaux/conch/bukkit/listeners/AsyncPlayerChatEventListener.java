@@ -26,10 +26,12 @@ package io.paradaux.conch.bukkit.listeners;
 import io.paradaux.conch.bukkit.api.PlaceholderWrapper;
 import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.I18NLogger;
+import io.paradaux.conch.common.api.config.EventConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
@@ -38,34 +40,34 @@ import static io.paradaux.conch.bukkit.api.PlaceholderWrapper.withPlaceholders;
 
 public class AsyncPlayerChatEventListener extends GenericListener {
 
-    String messagePrefix;
-    boolean debug;
-    DiscordManager discord;
+    private final DiscordManager discord;
 
-    public AsyncPlayerChatEventListener(String avatarApiUrl, String userNameFormat, String serverName,
-                                        @Nullable String messagePrefix, boolean debug, DiscordManager discord) {
-        super(avatarApiUrl, userNameFormat, serverName);
-        this.messagePrefix = messagePrefix;
-        this.debug = debug;
+    private final boolean debug;
+    private final String serverName;
+    private final String messagePrefix; // TODO implement
+
+    private final String avatarApiFormat;
+    private final String userNameFormat;
+    private final String messageFormat;
+
+    public AsyncPlayerChatEventListener(DiscordManager discord, boolean debug, String serverName, String messagePrefix, EventConfiguration config) {
         this.discord = discord;
+        this.debug = debug;
+        this.serverName = serverName;
+        this.messagePrefix = messagePrefix;
+        this.avatarApiFormat = config.getWebhookAvatarFormat();
+        this.userNameFormat = config.getWebhookUsernameFormat();
+        this.messageFormat = config.getWebhookMessageFormat();
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onAsyncPlayerChatEvent(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String userName = parsePlaceholders(player, getUserNameFormat());
-        String messageContent = parsePlaceholders(player, event.getMessage());
+        final Player player = event.getPlayer();
 
-        if (PlaceholderWrapper.isPresent()) {
-            userName = withPlaceholders(player, userName);
-            messageContent = withPlaceholders(player, messageContent);
-        }
+        String discordAvatarUrl = parsePlaceholders(player, serverName, avatarApiFormat, avatarApiFormat);
+        String discordUserName = parsePlaceholders(player, serverName, avatarApiFormat,userNameFormat);
 
-        if (userName == null || messageContent == null) {
-            I18NLogger.rawInfo("error with the evnet");
-            // TODO log
-            return;
-        }
+        String messageContent = parsePlaceholders(player, serverName, avatarApiFormat, event.getMessage());
 
         // Only send the message if it starts with the configured prefix (if applicable)
         if (messagePrefix != null) {
@@ -82,9 +84,9 @@ public class AsyncPlayerChatEventListener extends GenericListener {
 //            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getName());
         }
 
-        I18NLogger.rawInfo(parseAvatarApi(player));
+        I18NLogger.rawInfo(parseAvatarApi(player, avatarApiFormat));
 
-        discord.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
+        discord.sendDiscordMessage(discordUserName, discordAvatarUrl, messageContent);
     }
 
 }

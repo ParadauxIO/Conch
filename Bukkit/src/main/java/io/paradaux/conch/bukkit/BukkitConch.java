@@ -114,11 +114,7 @@ public class BukkitConch extends JavaPlugin {
         String messagePrefix = null;
 
         boolean debug = ConfigurationUtil.isDebug();
-
-        EventConfiguration config;
-        config = eventSettings.getOnChatMessage();
-
-        pm.registerEvents(new AsyncPlayerChatEventListener(ConfigurationUtil.getGeneralSettings().getAvatarApi(), config.getWebhookUsernameFormat(), serverName, messagePrefix, debug, discord), this);
+        pm.registerEvents(new AsyncPlayerChatEventListener(discord, debug, serverName, messagePrefix, eventSettings.getOnChatMessage()), this);
     }
 
     public void registerAPI() {
