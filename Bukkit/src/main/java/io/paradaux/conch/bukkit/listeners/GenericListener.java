@@ -24,6 +24,7 @@
 package io.paradaux.conch.bukkit.listeners;
 
 import io.paradaux.conch.bukkit.api.PlaceholderWrapper;
+import io.paradaux.conch.common.api.config.ConfigurationUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -70,15 +71,17 @@ public class GenericListener implements Listener {
     /**
      * Parses purely the custom placeholders.
      * */
-    protected String parseCustomPlaceholders(OfflinePlayer player, String serverName, String avatarApi,String str) {
+    protected String parseCustomPlaceholders(OfflinePlayer player, String serverName, String avatarApi, String str) {
         if (avatarApi == null) {
             avatarApi = "";
         }
 
-        return str.replace("%playername%", player.getName())
-                .replace("%playeruuid%", player.getUniqueId().toString())
-                .replace("%servername%", serverName)
-                .replace("%avatarapi%", parseAvatarApi(player, avatarApi));
+        return str.replace("%playerUserName%", player.getName())
+                .replace("%playerDisplayName%", player.getPlayer() == null ? "" : player.getPlayer().getDisplayName())
+                .replace("%playerUUID", player.getUniqueId().toString())
+                .replace("%avatarApi%", parseAvatarApi(player, avatarApi))
+                .replace("%serverName%", serverName);
+
     }
 
     @Nullable
@@ -95,7 +98,10 @@ public class GenericListener implements Listener {
             throw new IllegalStateException("This player is not available.");
         }
 
-        return avatarApiUrl.replace("%playeruuid%", player.getUniqueId().toString());
+        String uuid = player.getUniqueId().toString();
+
+        avatarApiUrl = avatarApiUrl.replace("%avatarApi%", ConfigurationUtil.getGeneralSettings().getAvatarApi());
+        return avatarApiUrl.replace("%playerUUID%", ConfigurationUtil.getGeneralSettings().isAvatarApiHyphen() ? uuid : uuid.replace("-", ""));
     }
 
 }
