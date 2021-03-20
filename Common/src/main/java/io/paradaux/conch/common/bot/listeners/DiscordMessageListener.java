@@ -21,9 +21,10 @@
  * See LICENSE.md for more details.
  */
 
-package io.paradaux.conch.common.bot;
+package io.paradaux.conch.common.bot.listeners;
 
 import co.aikar.taskchain.TaskChainFactory;
+import io.paradaux.conch.common.api.config.CachedBotSettings;
 import io.paradaux.conch.common.api.events.DiscordMessageReceivedEvent;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -36,6 +37,9 @@ import java.util.List;
 
 public class DiscordMessageListener extends ListenerAdapter {
 
+    
+
+
     TaskChainFactory taskChainFactory;
     String messageFormat;
     List<String> monitoredChannels;
@@ -44,11 +48,8 @@ public class DiscordMessageListener extends ListenerAdapter {
     /**
      * Handles discord messages coming in.
      * */
-    public DiscordMessageListener(List<String> monitoredChannels, TaskChainFactory taskChainFactory,
-                                  String messageFormat, boolean ignoreBots) {
-        this.monitoredChannels = monitoredChannels;
-        this.taskChainFactory = taskChainFactory;
-        this.ignoreBots = ignoreBots;
+    public DiscordMessageListener(CachedBotSettings config) {
+
     }
 
     @Override

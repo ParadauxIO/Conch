@@ -36,10 +36,12 @@ import io.paradaux.conch.common.api.config.CachedEventSettings;
 import io.paradaux.conch.common.api.config.CachedSettings;
 import io.paradaux.conch.common.api.config.ConfigurationUtil;
 import io.paradaux.conch.common.api.config.EventConfiguration;
+import io.paradaux.conch.common.bot.DiscordBot;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.slf4j.LoggerFactory;
 
+import javax.security.auth.login.LoginException;
 import java.nio.file.Path;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -52,6 +54,7 @@ public class BukkitConch extends JavaPlugin {
     private TaskManager tasks;
     private UpdateManager updates;
     private DiscordManager discord;
+    private DiscordBot discordBot;
 
     @Override
     public void onEnable() {
@@ -72,6 +75,9 @@ public class BukkitConch extends JavaPlugin {
 
         I18NLogger.rawInfo("Registering the API");
         registerAPI();
+
+        I18NLogger.rawInfo("Starting the discord bot");
+        startDiscordBot();
     }
 
     @Override
@@ -115,6 +121,15 @@ public class BukkitConch extends JavaPlugin {
 
         boolean debug = ConfigurationUtil.isDebug();
         pm.registerEvents(new AsyncPlayerChatEventListener(discord, debug, serverName, messagePrefix, eventSettings.getOnChatMessage()), this);
+    }
+
+    public void startDiscordBot() {
+        try {
+            discordBot = new DiscordBot();
+        } catch (LoginException ok) {
+            // TODO log
+        }
+
     }
 
     public void registerAPI() {
