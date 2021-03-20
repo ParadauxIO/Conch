@@ -36,6 +36,7 @@ public class CachedSettings {
     String webhookUrl;
     boolean eventsEnabled;
     String serverName;
+    boolean avatarApiHyphen;
     String avatarApi;
     boolean proxyBasedWebhookConfiguration;
     Map<String, String> proxyWebhookConfiguration;
@@ -87,6 +88,11 @@ public class CachedSettings {
             return this;
         }
 
+        public CachedSettings.Builder setAvatarApiHyphen(boolean avatarApiHyphen) {
+            settings.avatarApiHyphen = avatarApiHyphen;
+            return this;
+        }
+
         public CachedSettings.Builder setAvatarApi(String avatarApi) {
             settings.avatarApi = avatarApi;
             return this;
@@ -132,6 +138,10 @@ public class CachedSettings {
 
     public String getServerName() {
         return serverName;
+    }
+
+    public boolean isAvatarApiHyphen() {
+        return avatarApiHyphen;
     }
 
     public String getAvatarApi() {

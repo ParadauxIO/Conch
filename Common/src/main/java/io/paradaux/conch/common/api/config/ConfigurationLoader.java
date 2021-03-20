@@ -92,6 +92,7 @@ public class ConfigurationLoader {
                 .setWebhookUrl(root.node("webhook-configuration").node("webhook-url").getString())
                 .setEventsEnabled(root.node("webhook-configuration").node("events").getBoolean())
                 .setServerName(root.node("placeholders").node("server-name").getString())
+                .setAvatarApiHyphen(root.node("placeholders").node("include-hyphens-in-uuid").getBoolean())
                 .setAvatarApi(root.node("placeholders").node("avatar-api").getString())
                 .setProxyBasedWebhookConfiguration(root.node("proxy-based-webhook-configuration").getBoolean())
                 .setProxyWebhookConfiguration(root.node("proxy-webhook-configuration").get(stringMap));
