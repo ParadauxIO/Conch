@@ -24,6 +24,8 @@
 package io.paradaux.conch.bukkit.listeners;
 
 import io.paradaux.conch.bukkit.api.PlaceholderWrapper;
+import io.paradaux.conch.common.api.DiscordManager;
+import io.paradaux.conch.common.api.I18NLogger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -36,16 +38,16 @@ import static io.paradaux.conch.bukkit.api.PlaceholderWrapper.withPlaceholders;
 
 public class AsyncPlayerChatEventListener extends GenericListener {
 
-    Logger logger;
     String messagePrefix;
     boolean debug;
+    DiscordManager discord;
 
     public AsyncPlayerChatEventListener(String avatarApiUrl, String userNameFormat, String serverName,
-                                        @Nullable String messagePrefix, Logger logger, boolean debug) {
+                                        @Nullable String messagePrefix, boolean debug, DiscordManager discord) {
         super(avatarApiUrl, userNameFormat, serverName);
         this.messagePrefix = messagePrefix;
-        this.logger = logger;
         this.debug = debug;
+        this.discord = discord;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -60,7 +62,8 @@ public class AsyncPlayerChatEventListener extends GenericListener {
         }
 
         if (userName == null || messageContent == null) {
-            logger.error("Something went wrong. AsyncPlayerChatEvent null.");
+            I18NLogger.rawInfo("error with the evnet");
+            // TODO log
             return;
         }
 
@@ -75,11 +78,13 @@ public class AsyncPlayerChatEventListener extends GenericListener {
         }
 
         if (debug) {
-            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getName());
+            // TODO log
+//            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getName());
         }
 
-//        DiscordManager.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
+        I18NLogger.rawInfo(parseAvatarApi(player));
 
+        discord.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
     }
 
 }
