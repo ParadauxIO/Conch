@@ -93,7 +93,6 @@ public class GenericListener implements Listener {
     @Nullable
     @CheckReturnValue
     protected String parseAvatarApi(OfflinePlayer player, String avatarApiUrl) {
-        System.out.println(avatarApiUrl);
         if (player == null) {
             throw new IllegalStateException("This player is not available.");
         }
