@@ -30,18 +30,16 @@ import org.bukkit.plugin.Plugin;
 
 public class TaskManager {
 
-    public static TaskManager INSTANCE;
-    private static TaskChainFactory taskChainFactory;
+    private final TaskChainFactory taskChainFactory;
 
     /**
      * Initialise the TaskController.
      * */
     public TaskManager(Plugin plugin) {
         taskChainFactory = BukkitTaskChainFactory.create(plugin);
-        INSTANCE = this;
     }
 
-    public static <T> TaskChain<T> newChain() {
+    public <T> TaskChain<T> newChain() {
         return taskChainFactory.newChain();
     }
 }
