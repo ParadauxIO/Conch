@@ -23,14 +23,21 @@
 
 package io.paradaux.conch.bukkit;
 
-import co.aikar.taskchain.BukkitTaskChainFactory;
-import co.aikar.taskchain.TaskChainFactory;
 import io.paradaux.conch.bukkit.api.BukkitAPI;
 import io.paradaux.conch.bukkit.api.BukkitConfigurationManager;
+import io.paradaux.conch.bukkit.listeners.AsyncPlayerChatEventListener;
+import io.paradaux.conch.bukkit.managers.MetricsManager;
+import io.paradaux.conch.bukkit.managers.TaskManager;
+import io.paradaux.conch.bukkit.managers.UpdateManager;
+import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.I18NLogger;
 import io.paradaux.conch.common.api.I18NManager;
+import io.paradaux.conch.common.api.config.CachedEventSettings;
+import io.paradaux.conch.common.api.config.CachedSettings;
+import io.paradaux.conch.common.api.config.ConfigurationUtil;
+import io.paradaux.conch.common.api.config.EventConfiguration;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
@@ -41,23 +48,29 @@ public class BukkitConch extends JavaPlugin {
 
     private static BukkitAPI API;
 
-    private static Logger logger;
+    private MetricsManager metrics;
+    private TaskManager tasks;
+    private UpdateManager updates;
+    private DiscordManager discord;
 
     @Override
     public void onEnable() {
         getLogger().info("Conch: Initialising locale.");
         loadLocale();
 
-        I18NLogger.rawInfo("INIT: Taskchain.");
-        TaskChainFactory taskChainFactory = BukkitTaskChainFactory.create(this);
+        I18NLogger.rawInfo("Initialising Taskchain");
+        tasks = new TaskManager(this);
 
-        I18NLogger.rawInfo("INIT: Configuration.");
+        I18NLogger.rawInfo("Loading Configuration");
         loadConfiguration();
 
-        I18NLogger.rawInfo("INIT: Events.");
+        I18NLogger.rawInfo("Connecting to discord");
+        connect();
+
+        I18NLogger.rawInfo("Registering events");
         registerEvents();
 
-        I18NLogger.rawInfo("INIT: API.");
+        I18NLogger.rawInfo("Registering the API");
         registerAPI();
     }
 
@@ -80,29 +93,35 @@ public class BukkitConch extends JavaPlugin {
 
 
     public void loadConfiguration() {
-        Path configDir = this.getDataFolder().toPath();
-        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(configDir, this);
+        Path pluginData = this.getDataFolder().toPath();
+        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(pluginData, this);
 
         configurationManager.deployResource();
         configurationManager.loadConfigurationFiles();
     }
 
+    public void connect() {
+        CachedSettings config = ConfigurationUtil.getGeneralSettings();
+        discord = new DiscordManager(config.getWebhookUrl(), true);
+    }
+
 
     public void registerEvents() {
-        String avatarApiUrl = "https://mc-heads.net/combo/%playeruuid%";
-        String userNameFormat = "%playername%";
-        String serverName = "Test Server";
+        PluginManager pm = this.getServer().getPluginManager();
+        CachedEventSettings eventSettings = ConfigurationUtil.getEventSettings();
+
+        String serverName = ConfigurationUtil.getGeneralSettings().getServerName();
         String messagePrefix = null;
 
-//        PluginManager pluginManager = getServer().getPluginManager();
-//
-//        pluginManager.registerEvents(new AsyncPlayerChatEventListener(avatarApiUrl, userNameFormat, serverName, messagePrefix,
-//                                    logger, true), this);
+        boolean debug = ConfigurationUtil.isDebug();
+
+        EventConfiguration config;
+        config = eventSettings.getOnChatMessage();
+
+        pm.registerEvents(new AsyncPlayerChatEventListener(ConfigurationUtil.getGeneralSettings().getAvatarApi(), config.getWebhookUsernameFormat(), serverName, messagePrefix, debug, discord), this);
     }
 
     public void registerAPI() {
         API = new BukkitAPI();
     }
-
-
 }
