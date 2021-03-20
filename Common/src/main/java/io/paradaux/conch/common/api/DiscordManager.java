@@ -39,33 +39,19 @@ public class DiscordManager {
             .compile("(?:https?://)?(?:\\w+\\.)?discord(?:app)?\\.com/api(?:/v\\d+)?/webhooks/(\\d+)/([\\w-]+)(?:/(?:\\w+)?)?");
     private static final String ZERO_WIDTH_SPACE = "\u200B";
 
-    private static volatile DiscordManager instance;
-
-    public static DiscordManager getInstance() {
-        if (instance == null) {
-            throw new NullPointerException("getInstance() being called before being instantiated.");
-        }
-
-        return instance;
-    }
-
-    private String webhookUrl;
-    private boolean sanitiseMentions = true;
+    private final boolean sanitiseMentions;
     private WebhookClient client;
-    private Logger logger;
 
     /**
      * Constructor to set fields and construct an instance of {@link WebhookClient}.
      * */
-    public DiscordManager(String webhookUrl, boolean sanitiseMentions, Logger logger) {
-        this.webhookUrl = webhookUrl;
+    public DiscordManager(String webhookUrl, boolean sanitiseMentions) {
         this.sanitiseMentions = sanitiseMentions;
-        this.logger = logger;
 
-        if (!isValidWebhook(webhookUrl)) {
-            logger.error("Your webhook URL is invalid or not set.");
-            return;
-        }
+//        if (!isValidWebhook(webhookUrl)) {
+////            logger.error("Your webhook URL is invalid or not set."); TODO Log
+//            return;
+//        }
 
         WebhookClientBuilder builder = new WebhookClientBuilder(webhookUrl);
         builder.setThreadFactory((job) -> {
@@ -77,8 +63,6 @@ public class DiscordManager {
 
         builder.setWait(true);
         client = builder.build();
-
-        instance = this;
     }
 
     /**
@@ -88,7 +72,7 @@ public class DiscordManager {
         try {
             client.send(message).get();
         } catch (ExecutionException | InterruptedException exception) {
-            logger.error("An error occurred", exception);
+//            logger.error("An error occurred", exception); TODO log
         }
     }
 
@@ -97,7 +81,7 @@ public class DiscordManager {
      * */
     public void sendDiscordMessage(String username, String avatarUrl, String message) {
         if (message.isEmpty()) {
-            message = String.valueOf(ZERO_WIDTH_SPACE);
+            message = ZERO_WIDTH_SPACE;
         }
 
         if (sanitiseMentions) {
