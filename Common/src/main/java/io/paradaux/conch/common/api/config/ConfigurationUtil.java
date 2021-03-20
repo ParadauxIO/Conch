@@ -34,7 +34,6 @@ public class ConfigurationUtil {
 
     private static boolean debug;
 
-    /* General Settings which */
     private static CachedSettings generalSettings = null;
     private static CachedBotSettings botSettings = null;
     private static CachedEventSettings eventSettings = null;
