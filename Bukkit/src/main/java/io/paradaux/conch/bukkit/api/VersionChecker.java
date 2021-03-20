@@ -47,19 +47,19 @@ public class VersionChecker {
      * */
     public void getVersion(final Consumer<String> consumer) {
 
-        TaskManager.newChain().async(() -> {
-            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource="
-                    + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
-
-                if (scanner.hasNext()) {
-                    consumer.accept(scanner.next());
-                }
-
-            } catch (IOException exception) {
-                // TODO: log
-
-            }
-        }).execute();
+//        TaskManager.newChain().async(() -> {
+//            try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource="
+//                    + this.resourceId).openStream(); Scanner scanner = new Scanner(inputStream)) {
+//
+//                if (scanner.hasNext()) {
+//                    consumer.accept(scanner.next());
+//                }
+//
+//            } catch (IOException exception) {
+//                // TODO: log
+//
+//            }
+//        }).execute();
 
     }
 
