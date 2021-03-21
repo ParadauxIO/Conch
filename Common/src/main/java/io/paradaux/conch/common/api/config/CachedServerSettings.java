@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.CheckReturnValue;
 import java.util.Map;
 
-public class CachedSettings {
+public class CachedServerSettings {
 
     String configurationVersion;
     boolean debug;
@@ -41,76 +41,76 @@ public class CachedSettings {
     boolean proxyBasedWebhookConfiguration;
     Map<String, String> proxyWebhookConfiguration;
 
-    private CachedSettings() {
+    private CachedServerSettings() {
         // Using The Builder is the requested method as various fields will differ between platforms.
     }
 
-    public static CachedSettings.Builder builder() {
-        return new CachedSettings.Builder();
+    public static CachedServerSettings.Builder builder() {
+        return new CachedServerSettings.Builder();
     }
 
     public static class Builder {
 
-        private final CachedSettings settings;
+        private final CachedServerSettings settings;
 
         private Builder() {
-            settings = new CachedSettings();
+            settings = new CachedServerSettings();
             // Please use the static method CachedSettings#builder to get an instance of this class.
         }
 
-        public CachedSettings.Builder setConfigurationVersion(String configurationVersion) {
+        public CachedServerSettings.Builder setConfigurationVersion(String configurationVersion) {
             settings.configurationVersion = configurationVersion;
             return this;
         }
 
-        public CachedSettings.Builder setDebug(boolean debug) {
+        public CachedServerSettings.Builder setDebug(boolean debug) {
             settings.debug = debug;
             return this;
         }
 
-        public CachedSettings.Builder setLocaleCode(String localeCode) {
+        public CachedServerSettings.Builder setLocaleCode(String localeCode) {
             settings.localeCode = localeCode;
             return this;
         }
 
-        public CachedSettings.Builder setWebhookUrl(String webhookUrl) {
+        public CachedServerSettings.Builder setWebhookUrl(String webhookUrl) {
             settings.webhookUrl = webhookUrl;
             return this;
         }
 
-        public CachedSettings.Builder setEventsEnabled(boolean eventsEnabled) {
+        public CachedServerSettings.Builder setEventsEnabled(boolean eventsEnabled) {
             settings.eventsEnabled = eventsEnabled;
             return this;
         }
 
-        public CachedSettings.Builder setServerName(String serverName) {
+        public CachedServerSettings.Builder setServerName(String serverName) {
             settings.serverName = serverName;
             return this;
         }
 
-        public CachedSettings.Builder setAvatarApiHyphen(boolean avatarApiHyphen) {
+        public CachedServerSettings.Builder setAvatarApiHyphen(boolean avatarApiHyphen) {
             settings.avatarApiHyphen = avatarApiHyphen;
             return this;
         }
 
-        public CachedSettings.Builder setAvatarApi(String avatarApi) {
+        public CachedServerSettings.Builder setAvatarApi(String avatarApi) {
             settings.avatarApi = avatarApi;
             return this;
         }
 
-        public CachedSettings.Builder setProxyBasedWebhookConfiguration(boolean proxyBasedWebhookConfiguration) {
+        public CachedServerSettings.Builder setProxyBasedWebhookConfiguration(boolean proxyBasedWebhookConfiguration) {
             settings.proxyBasedWebhookConfiguration = proxyBasedWebhookConfiguration;
             return this;
         }
 
-        public CachedSettings.Builder setProxyWebhookConfiguration(Map<String, String> proxyWebhookConfiguration) {
+        public CachedServerSettings.Builder setProxyWebhookConfiguration(Map<String, String> proxyWebhookConfiguration) {
             settings.proxyWebhookConfiguration = proxyWebhookConfiguration;
             return this;
         }
 
         @CheckReturnValue
         @NotNull
-        public CachedSettings build() {
+        public CachedServerSettings build() {
             return settings;
         }
 

@@ -36,7 +36,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ConfigurationLoader {
 
@@ -82,8 +81,8 @@ public class ConfigurationLoader {
 
     @CheckReturnValue
     @NotNull
-    public CachedSettings loadGeneralSettings() throws ConfigurateException {
-        CachedSettings.Builder builder = CachedSettings.builder();
+    public CachedServerSettings loadGeneralSettings() throws ConfigurateException {
+        CachedServerSettings.Builder builder = CachedServerSettings.builder();
         ConfigurationNode root = generalSettingsLoader.load();
 
         builder.setConfigurationVersion(root.node("configuration-version").getString())

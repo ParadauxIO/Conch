@@ -34,7 +34,7 @@ public class ConfigurationUtil {
 
     private static boolean debug;
 
-    private static CachedSettings generalSettings = null;
+    private static CachedServerSettings generalSettings = null;
     private static CachedBotSettings botSettings = null;
     private static CachedEventSettings eventSettings = null;
 
@@ -44,7 +44,7 @@ public class ConfigurationUtil {
     
     @CheckReturnValue
     @Nullable
-    public static CachedSettings getGeneralSettings() {
+    public static CachedServerSettings getGeneralSettings() {
         return generalSettings;
     }
 
@@ -73,7 +73,7 @@ public class ConfigurationUtil {
      * @param botSettings bot-settings.conf cached values.
      * @param eventSettings event-settings.conf cached values.
      * */
-    public static void loadConfigurationValues(CachedSettings generalSettings,
+    public static void loadConfigurationValues(CachedServerSettings generalSettings,
                                                CachedEventSettings eventSettings,
                                                CachedBotSettings botSettings) {
         ConfigurationUtil.generalSettings = generalSettings;
