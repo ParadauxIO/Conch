@@ -24,7 +24,6 @@
 package io.paradaux.conch.bukkit.bot;
 
 import io.paradaux.conch.bukkit.managers.TaskManager;
-import io.paradaux.conch.common.api.DiscordManager;
 import io.paradaux.conch.common.api.config.CachedBotSettings;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
@@ -38,15 +37,14 @@ import java.util.List;
 
 public class DiscordMessageListener extends ListenerAdapter {
 
-    private final DiscordManager discord;
     private final CachedBotSettings config;
     private final TaskManager tasks;
 
     /**
      * Handles discord messages coming in.
      * */
-    public DiscordMessageListener(DiscordManager discord, TaskManager tasks, CachedBotSettings config) {
-        this.discord = discord;
+    public DiscordMessageListener(TaskManager tasks, CachedBotSettings config) {
+
         this.tasks = tasks;
         this.config = config;
     }
@@ -72,8 +70,7 @@ public class DiscordMessageListener extends ListenerAdapter {
             }
 
             Role highestRole = getHighestFrom(member);
-
-            String broadcast = config.getMessageFormat()
+            Bukkit.getServer().broadcastMessage(config.getMessageFormat()
                     .replace("%discord_nickname%", member.getEffectiveName())
                     .replace("%discord_tag%", event.getAuthor().getAsTag())
                     .replace("%discord_username%", event.getAuthor().getName())
@@ -81,9 +78,7 @@ public class DiscordMessageListener extends ListenerAdapter {
                     .replace("%discord_message%", event.getMessage().getContentStripped())
                     .replace("%discord_topRole%",  highestRole == null ? "" : highestRole.getName())
                     .replace("%discord_channel%", event.getChannel().getName())
-                    .replace("%discord_guild%", event.getGuild().getName());
-
-            Bukkit.getServer().broadcastMessage(broadcast);
+                    .replace("%discord_guild%", event.getGuild().getName()));
         }).execute();
     }
 
@@ -110,7 +105,6 @@ public class DiscordMessageListener extends ListenerAdapter {
             return first.getPosition() > second.getPosition() ? -1 : 1;
         }).get();
     }
-
 
 }
 

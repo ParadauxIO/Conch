@@ -129,7 +129,7 @@ public class BukkitConch extends JavaPlugin {
         try {
             discordBot = new DiscordBot();
             discordBot.connect();
-            discordBot.addNewListener(new DiscordMessageListener(discord, tasks, config));
+            discordBot.addNewListener(new DiscordMessageListener(tasks, config));
         } catch (LoginException ok) {
             // TODO log
         }
