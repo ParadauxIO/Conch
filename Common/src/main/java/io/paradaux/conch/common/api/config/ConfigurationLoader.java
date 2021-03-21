@@ -46,16 +46,19 @@ public class ConfigurationLoader {
     public static final String SETTINGS_FILE_NAME = "general-settings.conf";
     public static final String EVENT_SETTINGS_FILE_NAME = "event-settings.conf";
     public static final String BOT_SETTINGS_FILE_NAME = "bot-settings.conf";
+    public static final String PROXY_SETTINGS_FILE_NAME = "proxy-settings.conf";
 
     private static final TypeToken<HashMap<String, String>> stringMap = new TypeToken<HashMap<String, String>>() {};
 
     private final Path generalSettingsPath;
     private final Path eventSettingsPath;
     private final Path botSettingsPath;
+    private final Path proxySettingsPath;
 
     private final HoconConfigurationLoader generalSettingsLoader;
     private final HoconConfigurationLoader eventSettingsLoader;
     private final HoconConfigurationLoader botSettingsLoader;
+    private final HoconConfigurationLoader proxySettingsLoader;
 
     public ConfigurationLoader(Path configurationDirectory) {
         this(configurationDirectory.toString());
@@ -65,6 +68,7 @@ public class ConfigurationLoader {
         generalSettingsPath = Paths.get(configurationDirectory, SETTINGS_FILE_NAME);
         eventSettingsPath = Paths.get(configurationDirectory, EVENT_SETTINGS_FILE_NAME);
         botSettingsPath = Paths.get(configurationDirectory, BOT_SETTINGS_FILE_NAME);
+        proxySettingsPath = Paths.get(configurationDirectory, PROXY_SETTINGS_FILE_NAME);
 
         generalSettingsLoader = HoconConfigurationLoader.builder()
                 .path(generalSettingsPath)
@@ -76,6 +80,10 @@ public class ConfigurationLoader {
 
         botSettingsLoader = HoconConfigurationLoader.builder()
                 .path(botSettingsPath)
+                .build();
+
+        proxySettingsLoader = HoconConfigurationLoader.builder()
+                .path(proxySettingsPath)
                 .build();
     }
 
@@ -126,10 +134,9 @@ public class ConfigurationLoader {
         return builder.build();
     }
 
-    // TODO finish
     @CheckReturnValue
     @NotNull
-    public  CachedBotSettings loadBotSettings() throws ConfigurateException {
+    public CachedBotSettings loadBotSettings() throws ConfigurateException {
         ConfigurationNode root = botSettingsLoader.load();
 
         return CachedBotSettings.builder()
@@ -144,6 +151,24 @@ public class ConfigurationLoader {
                 .setMessageFormat(root.node("message-format").getString())
                 .build();
     }
+
+    public CachedProxySettings loadProxySettings() throws ConfigurateException {
+        ConfigurationNode root = proxySettingsLoader.load();
+
+        return CachedProxySettings.builder()
+                .setConfigurationVersion(root.node("configuration-version").getString())
+                .setDebug(root.node("debug").getBoolean())
+                .setLocaleCode(root.node("locale").getString())
+                .setWebhookUrl(root.node("webhook-configuration").node("webhook-url").getString())
+                .setEventsEnabled(root.node("webhook-configuration").node("events").getBoolean())
+                .setNetworkName(root.node("placeholders").node("network-name").getString())
+                .setAvatarApiHyphen(root.node("placeholders").node("include-hyphens-in-uuid").getBoolean())
+                .setAvatarApi(root.node("placeholders").node("avatar-api").getString())
+                .setProxyBasedWebhookConfiguration(root.node("per-server-webhook-configuration").getBoolean())
+                .setProxyWebhookConfiguration(root.node("proxy-webhook-configuration").get(stringMap))
+                .build();
+    }
+
 
     @CheckReturnValue
     public boolean doesEventSettingsExist() {
@@ -161,6 +186,11 @@ public class ConfigurationLoader {
     }
 
     @CheckReturnValue
+    public boolean doesProxySettingsExist() {
+        return Files.exists(proxySettingsPath);
+    }
+
+    @CheckReturnValue
     public Path getGeneralSettingsPath() {
         return generalSettingsPath;
     }
@@ -173,5 +203,10 @@ public class ConfigurationLoader {
     @CheckReturnValue
     public Path getBotSettingsPath() {
         return botSettingsPath;
+    }
+
+    @CheckReturnValue
+    public Path getProxySettingsPath() {
+        return proxySettingsPath;
     }
 }

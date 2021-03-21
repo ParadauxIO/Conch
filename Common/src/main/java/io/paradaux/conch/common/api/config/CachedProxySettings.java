@@ -12,7 +12,7 @@ public class CachedProxySettings {
     private String localeCode;
     private String webhookUrl;
     private boolean eventsEnabled;
-    private String serverName;
+    private String networkName;
     private boolean avatarApiHyphen;
     private String avatarApi;
     private boolean proxyBasedWebhookConfiguration;
@@ -60,8 +60,8 @@ public class CachedProxySettings {
             return this;
         }
 
-        public CachedProxySettings.Builder setServerName(String serverName) {
-            settings.serverName = serverName;
+        public CachedProxySettings.Builder setNetworkName(String networkName) {
+            settings.networkName = networkName;
             return this;
         }
 
@@ -113,8 +113,8 @@ public class CachedProxySettings {
         return eventsEnabled;
     }
 
-    public String getServerName() {
-        return serverName;
+    public String getNetworkName() {
+        return networkName;
     }
 
     public boolean isAvatarApiHyphen() {

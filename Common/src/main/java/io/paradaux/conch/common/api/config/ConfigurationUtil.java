@@ -37,6 +37,7 @@ public class ConfigurationUtil {
     private static CachedServerSettings generalSettings = null;
     private static CachedBotSettings botSettings = null;
     private static CachedEventSettings eventSettings = null;
+    private static CachedProxySettings proxySettings = null;
 
     private ConfigurationUtil() {
         // No instantiation of utility classes, dang it!
@@ -61,6 +62,12 @@ public class ConfigurationUtil {
     }
 
     @CheckReturnValue
+    @Nullable
+    public static CachedProxySettings getProxySettings() {
+        return proxySettings;
+    }
+
+    @CheckReturnValue
     public static boolean isDebug() {
         return debug;
     }
@@ -69,7 +76,7 @@ public class ConfigurationUtil {
      * <p>(Re)Sets the configuration file singletons.</p>
      *
      * <p>In the event of a reload we want to be able to re-set the instances.</p>>
-     * @param generalSettings settings.conf cached values.
+     * @param generalSettings server-settings.conf cached values.
      * @param botSettings bot-settings.conf cached values.
      * @param eventSettings event-settings.conf cached values.
      * */
@@ -80,6 +87,23 @@ public class ConfigurationUtil {
         ConfigurationUtil.botSettings = botSettings;
         ConfigurationUtil.eventSettings = eventSettings;
         ConfigurationUtil.debug = generalSettings.isDebug();
+    }
+
+    /**
+     * <p>(Re)Sets the configuration file singletons.</p>
+     *
+     * <p>In the event of a reload we want to be able to re-set the instances.</p>>
+     * @param proxySettings proxy-settings.conf cached values.
+     * @param botSettings bot-settings.conf cached values.
+     * @param eventSettings event-settings.conf cached values.
+     * */
+    public static void loadConfigurationValues(CachedProxySettings proxySettings,
+                                               CachedEventSettings eventSettings,
+                                               CachedBotSettings botSettings) {
+        ConfigurationUtil.proxySettings = proxySettings;
+        ConfigurationUtil.botSettings = botSettings;
+        ConfigurationUtil.eventSettings = eventSettings;
+        ConfigurationUtil.debug = proxySettings.isDebug();
     }
 
 }

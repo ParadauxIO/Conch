@@ -33,12 +33,14 @@ import java.nio.file.Path;
 public abstract class ConfigurationManager {
 
     private ConfigurationLoader configurationLoader;
+    private Path configurationDirectory;
 
     /**
      * Constructor which allows the use of String paths rather than the direct Paths themselves. Internally calls the correct constructor.
      * @see ConfigurationManager(Path, Path, Path, Path)
      * */
     public ConfigurationManager(Path configurationDirectory) {
+        this.configurationDirectory = configurationDirectory;
         configurationLoader = new ConfigurationLoader(configurationDirectory);
     }
 
@@ -48,7 +50,7 @@ public abstract class ConfigurationManager {
      * @implSpec How we have to get a JAR Resource varies by platform, getResourceAsStream should be
      *           a last resort.
      * */
-    public abstract void deployResource();
+    public abstract void deployResources();
 
     /**
      * Load the configuration file's values into the Singleton Holders in {@link ConfigurationUtil}
@@ -97,5 +99,9 @@ public abstract class ConfigurationManager {
         } catch (IOException exception) {
             throw new NoSuchResourceException("Failed to deploy resource : " + exception.getMessage());
         }
+    }
+
+    public Path getConfigurationDirectory() {
+        return configurationDirectory;
     }
 }
