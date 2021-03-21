@@ -39,9 +39,9 @@ public class CachedBotSettings {
     private String commandPrefix;
     private boolean sendBotMessages;
     private List<String> monitoredChannels;
-    boolean proxyBasedMonitoring;
-    Map<String, String> proxyMonitoredChannels;
-    String messageFormat;
+    private boolean proxyBasedMonitoring;
+    private Map<String, String> proxyMonitoredChannels;
+    private String messageFormat;
 
     private CachedBotSettings() {
         // Using The Builder is the requested method as various fields will differ between platforms.

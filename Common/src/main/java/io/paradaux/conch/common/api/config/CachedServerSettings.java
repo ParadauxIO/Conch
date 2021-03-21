@@ -30,16 +30,16 @@ import java.util.Map;
 
 public class CachedServerSettings {
 
-    String configurationVersion;
-    boolean debug;
-    String localeCode;
-    String webhookUrl;
-    boolean eventsEnabled;
-    String serverName;
-    boolean avatarApiHyphen;
-    String avatarApi;
-    boolean proxyBasedWebhookConfiguration;
-    Map<String, String> proxyWebhookConfiguration;
+    private String configurationVersion;
+    private boolean debug;
+    private String localeCode;
+    private String webhookUrl;
+    private boolean eventsEnabled;
+    private String serverName;
+    private boolean avatarApiHyphen;
+    private String avatarApi;
+    private boolean proxyBasedWebhookConfiguration;
+    private Map<String, String> proxyWebhookConfiguration;
 
     private CachedServerSettings() {
         // Using The Builder is the requested method as various fields will differ between platforms.

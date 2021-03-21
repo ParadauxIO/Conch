@@ -32,15 +32,15 @@ public class CachedEventSettings {
 
     // Fields in the order they're defined in event-settings.conf
 
-    EventConfiguration onChatMessage;
-    EventConfiguration onPlayerJoin;
-    EventConfiguration onPlayerLeave;
-    EventConfiguration onPlayerDeath;
-    EventConfiguration onPlayerAchievementCompleted;
-    EventConfiguration onPlayerKick;
-    EventConfiguration onPlayerRespawn;
-    EventConfiguration onServerStartup;
-    EventConfiguration onGracefulShutdown;
+    private EventConfiguration onChatMessage;
+    private EventConfiguration onPlayerJoin;
+    private EventConfiguration onPlayerLeave;
+    private EventConfiguration onPlayerDeath;
+    private EventConfiguration onPlayerAchievementCompleted;
+    private EventConfiguration onPlayerKick;
+    private EventConfiguration onPlayerRespawn;
+    private EventConfiguration onServerStartup;
+    private EventConfiguration onGracefulShutdown;
 
     private CachedEventSettings() {
         // Using The Builder is the requested method as various fields will differ between platforms.
