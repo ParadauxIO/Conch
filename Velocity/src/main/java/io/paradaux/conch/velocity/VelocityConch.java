@@ -34,19 +34,14 @@ import io.paradaux.conch.common.api.I18NLogger;
 import io.paradaux.conch.common.api.I18NManager;
 import io.paradaux.conch.common.api.config.CachedBotSettings;
 import io.paradaux.conch.common.api.config.CachedProxySettings;
-import io.paradaux.conch.common.api.config.CachedServerSettings;
 import io.paradaux.conch.common.api.config.ConfigurationUtil;
 import io.paradaux.conch.common.bot.DiscordBot;
 import io.paradaux.conch.velocity.api.VelocityConfigurationManager;
 import io.paradaux.conch.velocity.listeners.PlayerChatEventListener;
 import io.paradaux.conch.velocity.managers.TaskManager;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.security.auth.login.LoginException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -120,24 +115,22 @@ public class VelocityConch {
     }
 
     public void registerEvents() {
-        String avatarApiUrl = "https://mc-heads.net/combo/%playeruuid%";
-        String userNameFormat = "%playername%";
-        String serverName = "Test Server";
+        String networkName = ConfigurationUtil.getProxySettings().getNetworkName();
+        String avatarApi = ConfigurationUtil.getProxySettings().getAvatarApi();
         String messagePrefix = null;
 
-        server.getEventManager().register(this, new PlayerChatEventListener(logger));
+        server.getEventManager().register(this, new PlayerChatEventListener(discord, tasks, networkName, avatarApi, messagePrefix, ConfigurationUtil.getEventSettings().getOnChatMessage(), ConfigurationUtil.isDebug()));
     }
 
     public void startDiscordBot() {
         CachedBotSettings config = ConfigurationUtil.getBotSettings();
 
 //        try {
-////            discordBot = new DiscordBot();
-////            discordBot.connect();
-////            discordBot.addNewListener(new DiscordMessageListener(tasks, config));
+//            discordBot = new DiscordBot();
+//            discordBot.connect();
+//            discordBot.addNewListener(new DiscordMessageListener(tasks, config));
 //        } catch (LoginException ok) {
 //            // TODO log
 //        }
-
     }
 }

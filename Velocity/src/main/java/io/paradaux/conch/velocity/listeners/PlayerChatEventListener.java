@@ -28,6 +28,10 @@ import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.PlayerChatEvent;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ServerConnection;
+import io.paradaux.conch.common.api.DiscordManager;
+import io.paradaux.conch.common.api.I18NLogger;
+import io.paradaux.conch.common.api.config.EventConfiguration;
+import io.paradaux.conch.velocity.managers.TaskManager;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
@@ -35,47 +39,64 @@ import java.util.Optional;
 
 public class PlayerChatEventListener extends GenericListener {
 
-    Logger logger;
+    private final DiscordManager discord;
+    private final TaskManager tasks;
+    private final String networkName;
+    private final String avatarApi;
+    private final String messagePrefix;
+    private final EventConfiguration config;
 
-    public PlayerChatEventListener(Logger logger) {
-        this.logger = logger;
+    private final boolean debug;
+    public PlayerChatEventListener(DiscordManager discord, TaskManager tasks, String networkName, String avatarApi, String messagePrefix,
+                                   EventConfiguration config, boolean debug) {
+        this.discord = discord;
+        this.tasks = tasks;
+        this.networkName = networkName;
+        this.avatarApi = avatarApi;
+        this.messagePrefix = messagePrefix;
+        this.config = config;
+        this.debug = debug;
     }
 
     @Subscribe(order = PostOrder.NORMAL)
     public void onPlayerChat(PlayerChatEvent event) {
-//        Player player = event.getPlayer();
-//
-//        String userName = parsePlaceholders(player, getUserNameFormat());
-//        String messageContent = parsePlaceholders(player, event.getMessage());
-//        Optional<ServerConnection> server = event.getPlayer().getCurrentServer();
-//        String serverName = "";
-//
-//        if (server.isPresent()) {
-//            serverName = getServerName();
-//
-//        }
-//
-//        if (userName == null || messageContent == null) {
-//            logger.error("Something went wrong. AsyncPlayerChatEvent null.");
-//            return;
-//        }
-//
-//        // Only send the message if it starts with the configured prefix (if applicable)
-//        if (messagePrefix != null) {
-//            if (!messageContent.startsWith(messagePrefix)) {
-//                return;
-//            }
-//
-//            // Remove the prefix from the message.
-//            messageContent = messagePrefix.replace(messagePrefix, "");
-//        }
-//
-//        if (debug) {
-//            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getUsername());
-//        }
 
-//        DiscordManager.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
+        Player player = event.getPlayer();
 
+        Optional<ServerConnection> server = event.getPlayer().getCurrentServer();
+        String serverName = "";
+
+        if (server.isPresent()) {
+            serverName = server.get().getServer().getServerInfo().getName();
+        }
+
+        String userName = parseCustomPlaceholders(player, networkName, serverName, avatarApi, config.getWebhookUsernameFormat());
+        String messageContent = parseCustomPlaceholders(player, networkName, serverName, avatarApi, event.getMessage());
+
+
+        if (userName == null || messageContent == null) {
+            I18NLogger.error("Something went wrong. AsyncPlayerChatEvent null.");
+            return;
+        }
+
+        // Only send the message if it starts with the configured prefix (if applicable)
+        if (messagePrefix != null) {
+            if (!messageContent.startsWith(messagePrefix)) {
+                return;
+            }
+
+            // Remove the prefix from the message.
+            messageContent = messagePrefix.replace(messagePrefix, "");
+        }
+
+        if (debug) {
+            I18NLogger.rawInfo("{} has sent a message in chat which will be relayed to the discord webhook.", player.getUsername());
+        }
+
+        final String msg = messageContent;
+        tasks.newTask(() -> {
+            discord.sendDiscordMessage(userName, parseAvatarApi(player, avatarApi), msg);
+        }).schedule();
     }
 
 }

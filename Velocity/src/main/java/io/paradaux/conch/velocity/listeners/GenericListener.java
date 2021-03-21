@@ -42,7 +42,7 @@ public class GenericListener {
     /**
      * Parses purely the custom placeholders.
      * */
-    protected String parseCustomPlaceholders(Player player, String serverName, String avatarApi, String str) {
+    protected String parseCustomPlaceholders(Player player, String networkName, String serverName, String avatarApi, String str) {
         if (avatarApi == null) {
             avatarApi = "";
         }
@@ -51,6 +51,7 @@ public class GenericListener {
         return str.replace("%playerUserName%", player.getUsername())
                 .replace("%playerUUID", player.getUniqueId().toString())
                 .replace("%avatarApi%", parseAvatarApi(player, avatarApi))
+                .replace("%networkName", networkName)
                 .replace("%serverName%", serverName);
 
     }
@@ -64,8 +65,8 @@ public class GenericListener {
 
         String uuid = player.getUniqueId().toString();
 
-        avatarApiUrl = avatarApiUrl.replace("%avatarApi%", ConfigurationUtil.getGeneralSettings().getAvatarApi());
-        return avatarApiUrl.replace("%playerUUID%", ConfigurationUtil.getGeneralSettings().isAvatarApiHyphen() ? uuid : uuid.replace("-", ""));
+        avatarApiUrl = avatarApiUrl.replace("%avatarApi%", avatarApiUrl);
+        return avatarApiUrl.replace("%playerUUID%", ConfigurationUtil.getProxySettings().isAvatarApiHyphen() ? uuid : uuid.replace("-", ""));
     }
 
 
