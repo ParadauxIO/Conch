@@ -24,6 +24,7 @@
 package io.paradaux.conch.velocity.listeners;
 
 import com.velocitypowered.api.proxy.Player;
+import io.paradaux.conch.common.api.config.ConfigurationUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.CheckReturnValue;
@@ -31,61 +32,40 @@ import javax.annotation.Nullable;
 
 public class GenericListener {
 
-    private final String avatarApiUrl;
-    private final String serverName;
-    private final String userNameFormat;
-
     /**
      * Represents a non-specific bukkit listener with the configuration values required to run.
      * */
-    public GenericListener(String avatarApiUrl, String serverName, String userNameFormat) {
-        this.avatarApiUrl = avatarApiUrl;
-        this.serverName = serverName;
-        this.userNameFormat = userNameFormat;
+    public GenericListener() {
+
     }
 
     /**
-     * Formats the string provided accounting for the various placeholders, which are injected into from the provided OfflinePlayer Object.
+     * Parses purely the custom placeholders.
      * */
-    @Nullable
-    @CheckReturnValue
-    protected String parsePlaceholders(Player player, @NotNull String str) {
-        if (player == null || player.getUsername() == null) {
-            return null;
+    protected String parseCustomPlaceholders(Player player, String serverName, String avatarApi, String str) {
+        if (avatarApi == null) {
+            avatarApi = "";
         }
 
-        String avatarUrl = parseAvatarApi(player);
+        // The proxy has no idea of what the display name is.
+        return str.replace("%playerUserName%", player.getUsername())
+                .replace("%playerUUID", player.getUniqueId().toString())
+                .replace("%avatarApi%", parseAvatarApi(player, avatarApi))
+                .replace("%serverName%", serverName);
 
-        if (avatarUrl == null) {
-            avatarUrl = "";
-        }
-
-        return str.replace("%playername%", player.getUsername())
-                .replace("%playeruuid%", player.getUniqueId().toString())
-                .replace("%servername%", serverName)
-                .replace("%avatarapi%", avatarUrl);
     }
 
     @Nullable
     @CheckReturnValue
-    protected String parseAvatarApi(Player player) {
+    protected String parseAvatarApi(Player player, String avatarApiUrl) {
         if (player == null) {
-            return null;
+            throw new IllegalStateException("This player is not available.");
         }
 
-        return avatarApiUrl.replace("%playeruuid%", player.getUniqueId().toString());
-    }
+        String uuid = player.getUniqueId().toString();
 
-    public String getAvatarApiUrl() {
-        return avatarApiUrl;
-    }
-
-    public String getServerName() {
-        return serverName;
-    }
-
-    public String getUserNameFormat() {
-        return userNameFormat;
+        avatarApiUrl = avatarApiUrl.replace("%avatarApi%", ConfigurationUtil.getGeneralSettings().getAvatarApi());
+        return avatarApiUrl.replace("%playerUUID%", ConfigurationUtil.getGeneralSettings().isAvatarApiHyphen() ? uuid : uuid.replace("-", ""));
     }
 
 

@@ -35,9 +35,8 @@ import io.paradaux.conch.common.api.I18NLogger;
 import io.paradaux.conch.common.api.I18NManager;
 import io.paradaux.conch.common.api.config.CachedBotSettings;
 import io.paradaux.conch.common.api.config.CachedEventSettings;
-import io.paradaux.conch.common.api.config.CachedSettings;
+import io.paradaux.conch.common.api.config.CachedServerSettings;
 import io.paradaux.conch.common.api.config.ConfigurationUtil;
-import io.paradaux.conch.common.api.config.EventConfiguration;
 import io.paradaux.conch.common.bot.DiscordBot;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -101,14 +100,14 @@ public class BukkitConch extends JavaPlugin {
 
     public void loadConfiguration() {
         Path pluginData = this.getDataFolder().toPath();
-        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(pluginData, this);
+        BukkitConfigurationManager configurationManager = new BukkitConfigurationManager(pluginData);
 
-        configurationManager.deployResource();
+        configurationManager.deployResources();
         configurationManager.loadConfigurationFiles();
     }
 
     public void connect() {
-        CachedSettings config = ConfigurationUtil.getGeneralSettings();
+        CachedServerSettings config = ConfigurationUtil.getGeneralSettings();
         discord = new DiscordManager(config.getWebhookUrl(), true);
     }
 

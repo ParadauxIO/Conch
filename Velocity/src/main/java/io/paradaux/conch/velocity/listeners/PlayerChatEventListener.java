@@ -27,48 +27,52 @@ import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.player.PlayerChatEvent;
 import com.velocitypowered.api.proxy.Player;
+import com.velocitypowered.api.proxy.ServerConnection;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class PlayerChatEventListener extends GenericListener {
 
     Logger logger;
-    String messagePrefix;
-    boolean debug;
 
-    public PlayerChatEventListener(String avatarApiUrl, String userNameFormat, String serverName,
-                                   @Nullable String messagePrefix, Logger logger, boolean debug) {
-        super(avatarApiUrl, serverName, userNameFormat);
+    public PlayerChatEventListener(Logger logger) {
         this.logger = logger;
-        this.messagePrefix = messagePrefix;
-        this.debug = debug;
     }
 
     @Subscribe(order = PostOrder.NORMAL)
     public void onPlayerChat(PlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String userName = parsePlaceholders(player, getUserNameFormat());
-        String messageContent = parsePlaceholders(player, event.getMessage());
-
-        if (userName == null || messageContent == null) {
-            logger.error("Something went wrong. AsyncPlayerChatEvent null.");
-            return;
-        }
-
-        // Only send the message if it starts with the configured prefix (if applicable)
-        if (messagePrefix != null) {
-            if (!messageContent.startsWith(messagePrefix)) {
-                return;
-            }
-
-            // Remove the prefix from the message.
-            messageContent = messagePrefix.replace(messagePrefix, "");
-        }
-
-        if (debug) {
-            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getUsername());
-        }
+//        Player player = event.getPlayer();
+//
+//        String userName = parsePlaceholders(player, getUserNameFormat());
+//        String messageContent = parsePlaceholders(player, event.getMessage());
+//        Optional<ServerConnection> server = event.getPlayer().getCurrentServer();
+//        String serverName = "";
+//
+//        if (server.isPresent()) {
+//            serverName = getServerName();
+//
+//        }
+//
+//        if (userName == null || messageContent == null) {
+//            logger.error("Something went wrong. AsyncPlayerChatEvent null.");
+//            return;
+//        }
+//
+//        // Only send the message if it starts with the configured prefix (if applicable)
+//        if (messagePrefix != null) {
+//            if (!messageContent.startsWith(messagePrefix)) {
+//                return;
+//            }
+//
+//            // Remove the prefix from the message.
+//            messageContent = messagePrefix.replace(messagePrefix, "");
+//        }
+//
+//        if (debug) {
+//            logger.info("{} has sent a message in chat which will be relayed to the discord webhook.", player.getUsername());
+//        }
 
 //        DiscordManager.sendDiscordMessage(userName, parseAvatarApi(player), messageContent);
 
