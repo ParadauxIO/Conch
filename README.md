@@ -4,6 +4,10 @@ Conch is a lightweight and modular Discord bridge allowing you to syncronise in-
 
 Conch is designed to be modular. It is based around a "core" which provides all necessary functionality, then platform-specific implementations via modules. 
 
+Conch is still in **active development** At this time I do not recommend using any development builds on production servers. You can find a list of alternatives as follows:
+- EssentialsX Discord (Bukkit)
+- DiscordSrv (Bukkit)
+
 Conch supports all major Minecraft Server and Proxy Implementations 
 - Bukkit-based (Paper, Spigot etc) 
 - Sponge7-based (Spongeforge & Spongevanilla)
